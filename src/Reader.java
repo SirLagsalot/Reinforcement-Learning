@@ -24,11 +24,14 @@ public class Reader {
 
         char[][] track = new char[numRows][numCols];
 
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
-                track[i][j] = file.get(i).charAt(j);
-            }
+        for (int i = 0; i < file.size(); i++) {
+            track[i] = file.get(i).toCharArray();
         }
+//        for (int i = 0; i < numRows; i++) {
+//            for (int j = 0; j < numCols; j++) {
+//                track[i][j] = file.get(i).toCharArray()
+//            }
+//        }
         return track;
     }
 }
