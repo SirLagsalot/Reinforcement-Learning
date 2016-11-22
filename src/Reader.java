@@ -1,12 +1,34 @@
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.stream.Stream;
+
 public class Reader {
 
-    public static int[][] readFile(String name) {
+    public static char[][] readFile(String fileName) {
 
-        int[][] track = new int[0][0];
+        ArrayList<String> file = new ArrayList<>();
+        try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
+            stream.forEach(file::add);
+        } catch (IOException ex) {
+            System.out.println("IOException: " + ex);
+            System.exit(-1);
+        }
 
-        //read in track and such
-        
+        String header = file.remove(0);
+        String[] dimensions = header.split(",");
+        int numRows = Integer.parseInt(dimensions[0]);
+        int numCols = Integer.parseInt(dimensions[1]);
+
+        char[][] track = new char[numRows][numCols];
+
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                track[i][j] = file.get(i).charAt(j);
+            }
+        }
         return track;
     }
 }
