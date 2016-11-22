@@ -17,8 +17,7 @@ public class Reader {
             System.exit(-1);
         }
 
-        String header = file.remove(0);
-        String[] dimensions = header.split(",");
+        String[] dimensions = file.remove(0).split(",");
         int numRows = Integer.parseInt(dimensions[0]);
         int numCols = Integer.parseInt(dimensions[1]);
 
@@ -27,11 +26,7 @@ public class Reader {
         for (int i = 0; i < file.size(); i++) {
             track[i] = file.get(i).toCharArray();
         }
-//        for (int i = 0; i < numRows; i++) {
-//            for (int j = 0; j < numCols; j++) {
-//                track[i][j] = file.get(i).toCharArray()
-//            }
-//        }
+
         return track;
     }
 }
