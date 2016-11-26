@@ -4,8 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Kektus/Documents/Git%20Projects/Reinforcement-Learning/src/QLearner.java</file>
+            <file>file:/C:/Users/Kektus/Documents/Git%20Projects/Reinforcement-Learning/src/Policy.java</file>
             <file>file:/C:/Users/Kektus/Documents/Git%20Projects/Reinforcement-Learning/src/SARSA.java</file>
             <file>file:/C:/Users/Kektus/Documents/Git%20Projects/Reinforcement-Learning/src/Agent.java</file>
+            <file>file:/C:/Users/Kektus/Documents/Git%20Projects/Reinforcement-Learning/src/Softmax.java</file>
+            <file>file:/C:/Users/Kektus/Documents/Git%20Projects/Reinforcement-Learning/src/EpsilonGreedy.java</file>
             <file>file:/C:/Users/Kektus/Documents/Git%20Projects/Reinforcement-Learning/src/Main.java</file>
             <file>file:/C:/Users/Kektus/Documents/Git%20Projects/Reinforcement-Learning/src/Learner.java</file>
             <file>file:/C:/Users/Kektus/Documents/Git%20Projects/Reinforcement-Learning/src/Reader.java</file>
