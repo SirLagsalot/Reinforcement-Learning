@@ -1,13 +1,16 @@
 
 public class State {
 
-    int x = 0, y = 0, Vx = 0, Vy = 0;
+    int x = 0, y = 0;   //Agent's location
+    int Vx = 0, Vy = 0; //Agent's velocity
 
+    //
     public void accelerate(int Ax, int Ay) {
 
         assert (Ax >= -1 && Ax <= 1);
         assert (Ay >= -1 && Ay <= 1);
 
+        //update velocities
         if (Vx + Ax <= 5) {
             Vx += Ax;
         } else {
@@ -21,6 +24,10 @@ public class State {
             Vy = 5;
             System.out.println("X velocity capped at 5.");
         }
-    }
 
+        //update position
+        //there prob needs to be a boundry / colision check here.. or immediatly after accelerate is called by the agent or something
+        x += Vx;
+        y += Vy;
+    }
 }
