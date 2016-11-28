@@ -11,14 +11,21 @@ public class Simulator {
 
     public void run() {
 
-        boolean done = false;
 
+        char location;
         do {
+            int prevX = agent.state.x;
+            int prevY = agent.state.y;
             //make agent go?
+            
 
+            location = track[agent.state.x][agent.state.y];
+            if (location != '.')
+            
+            
             printTrack();
 
-        } while (!done);
+        } while (location != 'F');
     }
 
     private void printTrack() {

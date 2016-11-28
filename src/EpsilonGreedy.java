@@ -1,7 +1,7 @@
 
 public class EpsilonGreedy extends Policy {
 
-    private double epsilon;
+    private double epsilon = 0.1;
     private int counter;
 
     public EpsilonGreedy() {
