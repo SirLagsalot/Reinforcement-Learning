@@ -1,5 +1,5 @@
 
-public class QLearner implements Learner {
+public class QLearner implements ILearner {
 
     private double learningFactor;
     private double discountFactor;
@@ -19,4 +19,9 @@ public class QLearner implements Learner {
     //Q(s, a) = Q(s, a) + eta(r + gamma(max a' (Q(s', a') - Q(s, a)))
     //s = s'
     //until s is terminal state
+
+    @Override
+    public Policy learn() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

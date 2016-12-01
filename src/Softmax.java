@@ -6,9 +6,9 @@ public class Softmax extends Policy {
     }
 
     @Override
-    public int getNextAction(State state) {
+    public int[] getNextAction(State state) {
 
-        int action = 0;
+        int[] action = {0, 0};
 
         return action;
     }
