@@ -1,10 +1,11 @@
 
 public class State {
-
-    int x = 0, y = 0;   //Agent's location
+    Position position;
+    int x = position.x, y = position.y;   //Agent's location
     int Vx = 0, Vy = 0; //Agent's velocity
 
     //
+    //I don't think this should be here...
     public void accelerate(int Ax, int Ay) {
 
         assert (Ax >= -1 && Ax <= 1);
