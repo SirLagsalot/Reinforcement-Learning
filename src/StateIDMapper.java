@@ -8,8 +8,20 @@ public class StateIDMapper {
     public State GetStateFromID(int stateID) {
         State state = new State();
         StateInfo info = getStateInfoFromID(stateID);
-        int stateOffset = stateID - info.stateID;
+        state.position = info.position;
+        int currentId = info.stateID;
+        
         //TODO
+        for(int xVelocity = info.minVelocityX; xVelocity <= info.maxVelocityX; xVelocity++){
+            for (int yVelocity = info.minVelocityY; yVelocity < info.maxVelocityY; yVelocity++) {
+                if(currentId == stateID){
+                    state.Vx = xVelocity;
+                    state.Vy = yVelocity;
+                    return state;
+                }
+                currentId++;
+            }
+        }
 
         return state;
     }
