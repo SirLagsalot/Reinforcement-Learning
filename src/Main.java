@@ -3,9 +3,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        char[][] LTrack = Reader.readFile("./tracks/L-track.txt");
-        char[][] OTrack = Reader.readFile("./tracks/O-track.txt");
-        char[][] RTrack = Reader.readFile("./tracks/R-track.txt");
+        char[][] LTrack = TrackReader.readFile("./tracks/L-track.txt");
+        StateIDMapper lTrackStateMapper = new StateIDMapper(LTrack);
+        char[][] OTrack = TrackReader.readFile("./tracks/O-track.txt");
+        char[][] RTrack = TrackReader.readFile("./tracks/R-track.txt");
 
         printTrack(LTrack);
         printTrack(OTrack);

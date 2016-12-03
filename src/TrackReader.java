@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-public class Reader {
+public class TrackReader {
 
     public static char[][] readFile(String fileName) {
 

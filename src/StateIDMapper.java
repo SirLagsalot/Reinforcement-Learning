@@ -5,6 +5,37 @@ public class StateIDMapper {
 
     ArrayList<StateInfo> stateInfos = new ArrayList<>();
 
+    public StateIDMapper(char[][] track){
+        int startingStateID = 0;
+        for (int row = 0; row < track.length; row++) {
+            for (int col = 0; col < track[0].length; col++) {
+                char curPosIdentifier = track[row][col];
+                if(curPosIdentifier == '.' || curPosIdentifier == 'S' || curPosIdentifier == 'F'){
+                    StateInfo info = new StateInfo();
+                    if(curPosIdentifier == 'S'){
+                        info.isStart = true;
+                    }
+                    else if(curPosIdentifier == 'F'){
+                        info.isFinal = true;
+                    }
+                    info.position.y = row;
+                    info.position.x = col;
+                    info.stateID = startingStateID;
+                    info.maxVelocityX = findVelocityBound(true, true, track, row, col);
+                    info.maxVelocityY = findVelocityBound(false, true, track, row, col);
+                    info.minVelocityX = findVelocityBound(true, false, track, row, col);
+                    info.minVelocityY = findVelocityBound(false, false, track, row, col);
+                    startingStateID += (info.maxVelocityX - info.minVelocityX + 1)*(info.maxVelocityY - info.minVelocityY + 1);
+                }
+            }
+        }
+    }
+    
+    private int findVelocityBound(boolean isXDirection, boolean isMax, char[][] track, int posY, int posX){
+        //TODO
+        return 1;
+    }
+    
     public State GetStateFromID(int stateID) {
         State state = new State();
         StateInfo info = getStateInfoFromID(stateID);
@@ -66,14 +97,4 @@ public class StateIDMapper {
         return new StateInfo();
     }
 
-    //can we just add the stateID to the state class?  Seems kinda redundent to have a separate class here?
-    public class StateInfo {
-
-        int stateID;
-        int minVelocityX;
-        int maxVelocityX;
-        int minVelocityY;
-        int maxVelocityY;
-        Position position;
-    }
 }
