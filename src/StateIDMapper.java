@@ -32,8 +32,19 @@ public class StateIDMapper {
     }
     
     private int findVelocityBound(boolean isXDirection, boolean isMax, char[][] track, int posY, int posX){
-        //TODO
-        return 1;
+        
+        for (int a = 0; a < 6; a++) {
+            for (int prime = -5; prime < 5+1; prime++) {
+                if(!isMax){
+                    //TODO
+                }
+            }
+        }
+        
+        if (isMax) {
+            return 5;
+        }
+        return -5;
     }
     
     public State GetStateFromID(int stateID) {
