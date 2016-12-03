@@ -5,94 +5,98 @@ public class StateIDMapper {
 
     ArrayList<StateInfo> stateInfos = new ArrayList<>();
 
-    public StateIDMapper(char[][] track){
+    public StateIDMapper(char[][] track) {
         int startingStateID = 0;
         for (int row = 0; row < track.length; row++) {
             for (int col = 0; col < track[0].length; col++) {
                 char curPosIdentifier = track[row][col];
-                if(curPosIdentifier == '.' || curPosIdentifier == 'S' || curPosIdentifier == 'F'){
+                if (curPosIdentifier == '.' || curPosIdentifier == 'S' || curPosIdentifier == 'F') {
                     StateInfo info = new StateInfo();
-                    if(curPosIdentifier == 'S'){
+                    if (curPosIdentifier == 'S') {
                         info.isStart = true;
-                    }
-                    else if(curPosIdentifier == 'F'){
+                    } else if (curPosIdentifier == 'F') {
                         info.isFinal = true;
                     }
                     info.position = new Position();
                     info.position.y = row;
                     info.position.x = col;
                     info.stateID = startingStateID;
-                    info.maxVelocityX = findVelocityBound(true, true, track, row, col);
-                    info.maxVelocityY = findVelocityBound(false, true, track, row, col);
-                    info.minVelocityX = findVelocityBound(true, false, track, row, col);
-                    info.minVelocityY = findVelocityBound(false, false, track, row, col);
-                    startingStateID += (info.maxVelocityX - info.minVelocityX + 1)*(info.maxVelocityY - info.minVelocityY + 1);
+                    info.maxVelocityX = findVelocityBound(true, true, track, row, col) - 1;
+                    info.maxVelocityY = findVelocityBound(false, true, track, row, col) - 1;
+                    info.minVelocityX = findVelocityBound(true, false, track, row, col) + 1;
+                    info.minVelocityY = findVelocityBound(false, false, track, row, col) + 1;
+                    stateInfos.add(info);
+                    startingStateID += (info.maxVelocityX - info.minVelocityX + 1) * (info.maxVelocityY - info.minVelocityY + 1);
                 }
             }
         }
     }
-    
-    public int computeStateIDFromStateAndStateInfo(State state, StateInfo stateInfo){
-        return stateInfo.stateID + (state.Vx-stateInfo.minVelocityX)*(stateInfo.maxVelocityY-stateInfo.minVelocityY)+state.Vy-stateInfo.minVelocityY;
+
+    public int computeStateIDFromStateAndStateInfo(State state, StateInfo stateInfo) {
+        return stateInfo.stateID + (state.Vx - stateInfo.minVelocityX) * (stateInfo.maxVelocityY - stateInfo.minVelocityY) + state.Vy - stateInfo.minVelocityY;
     }
-    
-    private int findVelocityBound(boolean isXDirection, boolean isMax, char[][] track, int posY, int posX){
-        if(isXDirection){
-        for (int a = 1; a < 6; a++) {
-            if(!isMax){
-                a = -a;
-            }
-            for (int prime = - 5; prime < 5+1; prime++) {//TODO fix this stuff
-                if(posY + prime >= track.length || posY +prime < 0){
-                    continue;
+
+    private int findVelocityBound(boolean isXDirection, boolean isMax, char[][] track, int posY, int posX) {
+        if (isXDirection) {
+            for (int a = 1; a <= 6; a++) {
+                if (!isMax) {
+                    a = -a;
                 }
-                else if(prime == 5){
-                    return a;
+                for (int prime = - 5; prime < 5 + 1; prime++) {
+                    if (posY + prime >= track.length || posY + prime < 0) {
+                        if (prime == 5) {
+                            return a;
+                        }
+                        continue;
+                    } else if (track[posY + prime][posX - a] != '#') {
+                        break;
+                    } else if (prime == 5) {
+                        return a;
+                    }
                 }
-                else if(track[posX-a][posY+prime] != '#')
-                    break;
+                if (!isMax) {
+                    a = -a;
+                }
             }
-            if(!isMax){
-                a = -a;
+        } else if (!isXDirection) {
+            for (int a = 1; a <= 6; a++) {
+                if (!isMax) {
+                    a = -a;
+                }
+                for (int prime = - 5; prime < 5 + 1; prime++) {//TODO fix this stuff
+                    if (posX + prime >= track[0].length || posX + prime < 0) {
+                        if (prime == 5) {
+                            return a;
+                        }
+                        continue;
+                    } else if (track[posY - a][posX + prime] != '#') {
+                        break;
+                    } else if (prime == 5) {
+                        return a;
+                    }
+                }
+                if (!isMax) {
+                    a = -a;
+                }
             }
         }
-        }
-        
-        for (int a = 1; a < 6; a++) {
-            if(!isMax){
-                a = -a;
-            }
-            for (int prime = - 5; prime < 5+1; prime++) {
-                if(posY - a >= track.length || posY - a < 0){
-                    return a;
-                }
-                else if(track[posX+prime][posY-a] != '#')
-                    break;
-                else if(prime == 5){
-                    return a;
-                }
-            }
-            if(!isMax){
-                a = -a;
-            }
-        }
-        
+
         if (isMax) {
-            return 5;
+            return 6;
         }
-        return -5;
+        return -6;
     }
-    
+
     public State GetStateFromID(int stateID) {
         State state = new State();
         StateInfo info = getStateInfoFromID(stateID);
         state.position = info.position;
         int currentId = info.stateID;
-        
+
         //TODO
-        for(int xVelocity = info.minVelocityX; xVelocity <= info.maxVelocityX; xVelocity++){
+        for (int xVelocity = info.minVelocityX; xVelocity <= info.maxVelocityX; xVelocity++) {
             for (int yVelocity = info.minVelocityY; yVelocity < info.maxVelocityY; yVelocity++) {
-                if(currentId == stateID){
+                if (currentId == stateID) {
                     state.Vx = xVelocity;
                     state.Vy = yVelocity;
                     return state;
