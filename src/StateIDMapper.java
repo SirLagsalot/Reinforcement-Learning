@@ -18,6 +18,7 @@ public class StateIDMapper {
                     else if(curPosIdentifier == 'F'){
                         info.isFinal = true;
                     }
+                    info.position = new Position();
                     info.position.y = row;
                     info.position.x = col;
                     info.stateID = startingStateID;
@@ -41,15 +42,15 @@ public class StateIDMapper {
             if(!isMax){
                 a = -a;
             }
-            for (int prime = - 5; prime < 5+1; prime++) {
-                if(posX - a >= track[0].length || posX - a < 0){
+            for (int prime = - 5; prime < 5+1; prime++) {//TODO fix this stuff
+                if(posY + prime >= track.length || posY +prime < 0){
+                    continue;
+                }
+                else if(prime == 5){
                     return a;
                 }
                 else if(track[posX-a][posY+prime] != '#')
                     break;
-                else if(prime == 5){
-                    return a;
-                }
             }
             if(!isMax){
                 a = -a;

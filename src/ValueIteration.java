@@ -2,8 +2,8 @@
 public class ValueIteration extends PolicyMaker {
     
     
-    public ValueIteration() {
-        
+    public ValueIteration(StateIDMapper map, char[][] track, TrackSimulator sim) {
+        super(map, track, sim);
     }
 
     public int[] createPolicy(){
