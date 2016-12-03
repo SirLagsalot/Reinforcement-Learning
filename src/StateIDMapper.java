@@ -31,6 +31,10 @@ public class StateIDMapper {
         }
     }
     
+    public int computeStateIDFromStateAndStateInfo(State state, StateInfo stateInfo){
+        return stateInfo.stateID + (state.Vx-stateInfo.minVelocityX)*(stateInfo.maxVelocityY-stateInfo.minVelocityY)+state.Vy-stateInfo.minVelocityY;
+    }
+    
     private int findVelocityBound(boolean isXDirection, boolean isMax, char[][] track, int posY, int posX){
         if(isXDirection){
         for (int a = 1; a < 6; a++) {

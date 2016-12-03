@@ -9,6 +9,10 @@ public class Simulator {
         this.track = track;
     }
 
+    public int takeAction(int stateID, int action){
+        //TODO
+        return 1;
+    }
     public void run() {
 
 
