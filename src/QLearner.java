@@ -1,5 +1,5 @@
 
-public class QLearner implements ILearner {
+public class QLearner extends PolicyMaker {
 
     private double learningFactor;
     private double discountFactor;
@@ -20,8 +20,8 @@ public class QLearner implements ILearner {
     //s = s'
     //until s is terminal state
 
-    @Override
-    public Policy learn() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int[] createPolicy(){
+        //TODO
+        return new int[0];
     }
 }

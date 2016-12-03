@@ -1,13 +1,13 @@
 
-public class ValueIteration implements ILearner {
+public class ValueIteration extends PolicyMaker {
     
     
     public ValueIteration() {
         
     }
 
-    @Override
-    public Policy learn() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int[] createPolicy(){
+        //TODO -- this is an int[] of size maximumPossibleStateID, so each position is the state and has a value of it's best action.
+        return new int[0];
     }
 }
