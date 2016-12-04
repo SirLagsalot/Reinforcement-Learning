@@ -1,7 +1,7 @@
 
 public class Softmax extends Policy {
 
-    private double[] probabilityTable = new double[9];     //table containing probability that each of the 11 potential accelerations should be chosen.
+    private static int temperature = 99999;     //tunable temperature parameter.  Higher values force greater chance of choosing randomly.  Lower values force selection to become greedy.
 
     public Softmax() {
 
@@ -12,19 +12,18 @@ public class Softmax extends Policy {
 
         //assign probabilities to all potential actions
         int domain = (info.maxVelocityX - info.minVelocityX) * (info.maxVelocityY - info.minVelocityY);
-        double temperature = 99999;
-        double denominator = 0.0;
-        
+        double[] probabilityTable = new double[domain];     //table containing probability that each of the potential accelerations should be chosen.
+
         //probability of choosing action a from domain
         for (int a = 0; a < domain; a++) {
-            
+            double denominator = 0.0;
+
+            for (int i = 0; i < domain; i++) {
+                denominator += (Math.exp(qValues[info.stateID]) / temperature);     //this isnt quite right, need to sum Math.exp(value of Q(a) for all possible a values, dividing each by temp
+            }
+            probabilityTable[a] = (Math.exp(qValues[info.stateID]) / temperature) / denominator;
         }
-        
-        for (int i = 0; i < domain; i++) {
-            denominator += (Math.exp(qValues[info.stateID]) / temperature);
-        }
-        //
-        //
+
         //choose a random action based on weighted probabilites
         double random = Math.random();
         double total = 0;
@@ -32,7 +31,7 @@ public class Softmax extends Policy {
         for (int i = 0; i < 9; i++) {
             total += probabilityTable[0];
             if (total >= random) {
-                
+
                 //choose action i
                 switch (i) {
                     case 0:
@@ -59,6 +58,6 @@ public class Softmax extends Policy {
                 }
             }
         }
-        return new int[] {-2, -2};
+        return new int[]{-2, -2};
     }
 }
