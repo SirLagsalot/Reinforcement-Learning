@@ -1,11 +1,11 @@
 
 public class StateInfo {
 
-    State state;
-    int stateID;
-    int minVelocityX, maxVelocityX;
-    int minVelocityY, maxVelocityY;
+    public State state;
+    public int stateID;
+    public int minVelocityX, maxVelocityX;
+    public int minVelocityY, maxVelocityY;
 
-    boolean isStart = false;
-    boolean isFinal = false;
+    public boolean isStart = false;
+    public boolean isFinal = false;
 }
