@@ -12,6 +12,14 @@ public class Main {
         printTrack(LTrack);
         printTrack(OTrack);
         printTrack(RTrack);
+        
+        char[][] test = {{'.','#','.'}, {'.','.','.'}, {'.','.','.'}};
+        printTrack(test);
+        
+        Position p = Bresenham.checkCollision(1, 1, 1, 1, test);
+        
+        System.out.println(p.x);
+        System.out.println(p.y);
     }
 
     private static void printTrack(char[][] track) {
