@@ -10,6 +10,7 @@ public class Softmax extends Policy {
 
         int[] action = {0, 0};
 
+        //assign probabilities to all potential actions
         return action;
     }
 }

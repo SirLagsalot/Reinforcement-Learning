@@ -9,25 +9,23 @@ public class Simulator {
         this.track = track;
     }
 
-    public int takeAction(int stateID, int action){
+    public int takeAction(int stateID, int action) {
         //TODO
         return 1;
     }
-    public void run() {
 
+    public void run() {
 
         char location;
         do {
             int prevX = agent.state.x;
             int prevY = agent.state.y;
             //make agent go?
-            
 
             location = track[agent.state.x][agent.state.y];
-            if (location != '.')
-            
-            
-            printTrack();
+            if (location != '.') {
+                printTrack();
+            }
 
         } while (location != 'F');
     }
