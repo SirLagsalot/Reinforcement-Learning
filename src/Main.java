@@ -7,7 +7,7 @@ public class Main {
         StateIDMapper lTrackStateMapper = new StateIDMapper(LTrack);
         char[][] OTrack = TrackReader.readFile("./tracks/O-track.txt");
         char[][] RTrack = TrackReader.readFile("./tracks/R-track.txt");
-        PolicyMaker qLearner = new QLearner(lTrackStateMapper, LTrack, new TrackSimulator());
+        PolicyMaker qLearner = new QLearner(lTrackStateMapper, LTrack, new Simulator());
 
         printTrack(LTrack);
         printTrack(OTrack);

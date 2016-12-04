@@ -8,7 +8,7 @@ public class QLearner extends PolicyMaker {
     private Policy policy;
     private double[][] q;
 
-    public QLearner(StateIDMapper map, char[][] track, TrackSimulator sim) {
+    public QLearner(StateIDMapper map, char[][] track, Simulator sim) {
         super(map, track, sim);
     }
 

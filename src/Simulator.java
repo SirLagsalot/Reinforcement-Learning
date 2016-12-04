@@ -4,14 +4,18 @@ public class Simulator {
     private Agent agent;
     private char[][] track;
 
+    public Simulator() {
+        
+    }
+    
     public Simulator(Agent agent, char[][] track) {
         this.agent = agent;
         this.track = track;
     }
 
-    public int takeAction(int stateID, int action) {
+    public State takeAction(int stateID, int action) {
         //TODO
-        return 1;
+        return new State();
     }
 
     public void run() {
