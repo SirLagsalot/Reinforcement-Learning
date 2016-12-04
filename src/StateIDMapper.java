@@ -17,9 +17,9 @@ public class StateIDMapper {
                     } else if (curPosIdentifier == 'F') {
                         info.isFinal = true;
                     }
-                    info.state.position = new Position();
-                    info.state.position.y = row;
-                    info.state.position.x = col;
+                    info.position = new Position();
+                    info.position.y = row;
+                    info.position.x = col;
                     info.stateID = startingStateID;
                     info.maxVelocityX = findVelocityBound(true, true, track, row, col) - 1;
                     info.maxVelocityY = findVelocityBound(false, true, track, row, col) - 1;
@@ -90,7 +90,7 @@ public class StateIDMapper {
     public State GetStateFromID(int stateID) {
         State state = new State();
         StateInfo info = getStateInfoFromID(stateID);
-        state.position = info.state.position;
+        state.position = info.position;
         int currentId = info.stateID;
 
         //TODO
@@ -141,7 +141,7 @@ public class StateIDMapper {
 
     public StateInfo getStateInfoFromPosition(Position pos) {
         for (StateInfo info : stateInfos) {
-            if (info.state.position.x == pos.x && info.state.position.y == pos.y) {
+            if (info.position.x == pos.x && info.position.y == pos.y) {
                 return info;
             }
         }
