@@ -12,6 +12,22 @@ import java.util.ArrayList;
  * @author UNA
  */
 public class Bresenham {
+    
+    
+    /**
+     * Bresenham-based supercover algorithm.
+     * 
+     * Checks the board from the top left corner using y for rows and x for columns.
+     * If a # character is found as one of the intersecting spaces it is returned to indicate a collision.
+     * If all spaces are either . , s, or f, the intended destination position is returned based on initial position and the velocity vector.
+     * Up to the simulator to check intended destination vs actual destination returned by this method.
+     * @param x  pos x
+     * @param y  pos y
+     * @param vx  velocity x
+     * @param vy  velocity y
+     * @param board  char board
+     * @return  position of either the intended destination or the first collision
+     */
     public static Position checkCollision(int x, int y, int vx, int vy, char[][] board){
         int x1 = x;
         int y1 = y;
