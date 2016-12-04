@@ -1,7 +1,7 @@
 
 public class StateInfo {
 
-    Position position;
+    State state;
     int stateID;
     int minVelocityX, maxVelocityX;
     int minVelocityY, maxVelocityY;

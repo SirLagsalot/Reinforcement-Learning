@@ -8,12 +8,21 @@ public class Softmax extends Policy {
     }
 
     @Override
-    public int[] getNextAction(State state, StateInfo info) {
+    public int[] getNextAction(State state, StateInfo info, double[] qValues) {
 
         //assign probabilities to all potential actions
+        int domain = (info.maxVelocityX - info.minVelocityX) * (info.maxVelocityY - info.minVelocityY);
         double temperature = 99999;
-        //get Q(s') for all possible actions
+        double denominator = 0.0;
         
+        //probability of choosing action a from domain
+        for (int a = 0; a < domain; a++) {
+            
+        }
+        
+        for (int i = 0; i < domain; i++) {
+            denominator += (Math.exp(qValues[info.stateID]) / temperature);
+        }
         //
         //
         //choose a random action based on weighted probabilites
