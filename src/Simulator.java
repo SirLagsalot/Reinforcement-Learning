@@ -20,8 +20,7 @@ public class Simulator {
 
         char location;
         do {
-            int prevX = agent.state.x;
-            int prevY = agent.state.y;
+            Position prevPos = agent.state.position;
 
             location = track[agent.state.x][agent.state.y];
 
@@ -57,8 +56,11 @@ public class Simulator {
 
         //update velocities with 80% success rate
         if (Math.random() > 0.2) {
-            agent.state.Vx = (agent.state.Vx + Ax) % 6;
-            agent.state.Vy = (agent.state.Vy + Ay) % 6;
+            State state = new State();
+            state.Vx = (agent.state.Vx + Ax) % 6;
+            state.Vy = (agent.state.Vy + Ay) % 6;
+            state.position = agent.state.position;
+            agent.state = state;
         }
     }
 
