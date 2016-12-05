@@ -7,7 +7,7 @@ public class Softmax {
 
         //assign probabilities to all potential actions
         int domain = (info.maxVelocityX - info.minVelocityX) * (info.maxVelocityY - info.minVelocityY);
-        
+
         double[] probabilityTable = new double[domain];         //table containing probability that each of the potential accelerations should be chosen.
 
         //probability of choosing action a from domain

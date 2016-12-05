@@ -4,10 +4,10 @@ import java.util.Random;
 
 public class ValueIteration extends PolicyMaker {
 
-    private final double epsilon = 0.000001;      //stopping threshold
-    private final double gamma = 0.5;           //discount factor 
-    private int numIterations;                  //count of iterations required to build policy
-    private double[][] stateUtilities;                 //Array holding the utility of all state action pairs
+    private final double epsilon = 0.000001;        //stopping threshold
+    private final double gamma = 0.5;               //discount factor 
+    private int numIterations;                      //count of iterations required to build policy
+    private double[][] stateUtilities;              //Array holding the utility of all state action pairs
     private StateIDMapper mapper = new StateIDMapper(track);
 
     public ValueIteration(StateIDMapper map, char[][] track, Simulator sim) {
@@ -18,13 +18,13 @@ public class ValueIteration extends PolicyMaker {
     public int[] createPolicy() {
         //TODO -- this is an int[] of size maximumPossibleStateID, so each position is the state and has a value of it's best action.
         init();
-        
+
         double delta;
         double bellmanResidual = epsilon * (1 - gamma) / gamma;
         do {
             delta = iterate();
         } while (delta < bellmanResidual);
-        
+
         return new int[]{0, 0};
     }
 
@@ -48,7 +48,7 @@ public class ValueIteration extends PolicyMaker {
         //go through each state
         for (int s = 0; s < stateUtilities.length; s++) {
 
-            double currentUtility = mapper.GetStateFromID(s).getReward();
+            double currentUtility = mapper.GetStateFromID(s).getUtility();
             double bestAction = -9999;
             double[] nextStateUtility;
 
@@ -76,6 +76,6 @@ public class ValueIteration extends PolicyMaker {
             result += 0.8 * stateUtilities[mapper.getStateIDFromState(currentState)][action.toInt()];
         }
 
-        return currentState.getReward() + (gamma * result);
+        return currentState.getUtility() + (gamma * result);
     }
 }

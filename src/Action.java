@@ -33,7 +33,7 @@ public class Action {
         return new int[]{x, y};
     }
 
-    //this is the sloppiest thing ever and i resent the fact were using an index to store our accleration values when they are inherently a pair of values
+    //this is the sloppiest thing ever and i resent the fact were using an index to store our acclerations when they are inherently a pair of values
     public int toInt() {
 
         int val = 0;

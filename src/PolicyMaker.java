@@ -1,14 +1,14 @@
 
 public class PolicyMaker {
 
-    public StateIDMapper iDMap;
+    public StateIDMapper idMap;
     public Simulator simulator;
     public char[][] track;
 
-    public PolicyMaker(StateIDMapper map, char[][] track, Simulator sim) {
-        iDMap = map;
+    public PolicyMaker(StateIDMapper idMap, char[][] track, Simulator simulator) {
+        this.idMap = idMap;
         this.track = track;
-        simulator = sim;
+        this.simulator = simulator;
     }
 
     public int[] createPolicy() {

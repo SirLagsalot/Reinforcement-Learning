@@ -9,7 +9,7 @@ public class Main {
         char[][] RTrack = TrackReader.readFile("./tracks/R-track.txt");
         PolicyMaker qLearner = new QLearner(lTrackStateMapper, LTrack, new Simulator());
         qLearner.createPolicy();
-        
+
         printTrack(LTrack);
         printTrack(OTrack);
         printTrack(RTrack);
