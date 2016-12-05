@@ -5,7 +5,6 @@ public class QLearner extends PolicyMaker {
 
     private double learningFactor;
     private double discountFactor;
-    private Policy policy;
     private double[][] q;
 
     public QLearner(StateIDMapper map, char[][] track, Simulator sim) {
