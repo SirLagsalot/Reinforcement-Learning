@@ -1,4 +1,5 @@
 
+//Returns to agents previous position with velocity set to 0
 public class CollisionStop implements ICollisionHandler {
 
     @Override
