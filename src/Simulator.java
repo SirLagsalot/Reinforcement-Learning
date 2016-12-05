@@ -20,23 +20,51 @@ public class Simulator {
 
     public void run() {
 
-        char location;
-        do {
-            Position prevPos = agent.state.position;
+        int[] policy = agent.learner.createPolicy();
 
-            location = track[agent.state.x][agent.state.y];
+        while (true) {
 
-            if (location != '.') {
-                printTrack();
-            }
-
-        } while (location != 'F');
+            //take action according to policy
+            int stateID = agent.stateInfo.stateID;
+            takeAction(stateID, policy[stateID]);
+        }
     }
 
-    public State takeAction(int stateID, int[] action) {
-        //TODO
+    public State takeAction(int stateID, int action) {
+
         this.numMoves++;
-        accelerate(action[0], action[1]);
+        switch (action) {                               //convert action into accelerations
+            case 0:
+                accelerate(-1, -1);
+                break;
+            case 1:
+                accelerate(-1, 0);
+                break;
+            case 2:
+                accelerate(-1, 1);
+                break;
+            case 3:
+                accelerate(0, -1);
+                break;
+            case 4:
+                accelerate(0, 0);
+                break;
+            case 5:
+                accelerate(0, 1);
+                break;
+            case 6:
+                accelerate(1, -1);
+                break;
+            case 7:
+                accelerate(1, 0);
+                break;
+            case 8:
+                accelerate(1, 1);
+                break;
+            default:
+                System.out.println("Unreacable line: simulator.run()");
+                System.exit(action);
+        }
         traverse();
         printTrack();
         return agent.state;
@@ -109,7 +137,7 @@ public class Simulator {
 
         for (int i = 0; i < track.length; i++) {
             for (int j = 0; j < track[0].length; j++) {
-                if (x == i && y == i) {
+                if (x == i && y == j) {
                     System.out.print("A");
                 } else {
                     System.out.print(track[i][j]);
