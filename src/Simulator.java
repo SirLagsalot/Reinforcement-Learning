@@ -62,7 +62,7 @@ public class Simulator {
                 accelerate(1, 1);
                 break;
             default:
-                System.out.println("Unreacable line: simulator.run()");
+                System.out.println("Unreacable line: simulator.takeAction()");
                 System.exit(action);
         }
         traverse();
@@ -73,8 +73,8 @@ public class Simulator {
     //Updates the agent's current state by applying an acceleration
     private void accelerate(int Ax, int Ay) {
 
-        assert (Ax >= -1 && Ax <= 1);
-        assert (Ay >= -1 && Ay <= 1);
+        assert (Ax >= -1 && Ax <= 1) : "Invalid X acceleration.";
+        assert (Ay >= -1 && Ay <= 1) : "Invalid Y acceleration.";
 
         //update velocities with 80% success rate
         if (Math.random() > 0.2) {
@@ -121,6 +121,7 @@ public class Simulator {
         agent.state.position = new Position(x2, y2);
     }
 
+    //Terminate the simulation and print statistics
     private void endSimulation() {
 
         System.out.println("Agent reached the finish line!");
@@ -130,6 +131,7 @@ public class Simulator {
         System.exit(0);
     }
 
+    //Print the racetrack with agent's location to the console
     private void printTrack() {
 
         int x = agent.state.x;
