@@ -4,6 +4,7 @@ public class Simulator {
     private Agent agent;
     private ICollisionHandler collisionHandler;
     private char[][] track;
+    private int numMoves;
 
     public Simulator() {
 
@@ -14,6 +15,7 @@ public class Simulator {
         this.agent = agent;
         this.collisionHandler = collisionHandler;
         this.track = track;
+        this.numMoves = 0;
     }
 
     public void run() {
@@ -38,6 +40,8 @@ public class Simulator {
 
     public void moveAgent() {
 
+        this.numMoves++;
+
         //get action
         int[] action = new int[2];
         //TODO, link up getting an action
@@ -49,6 +53,7 @@ public class Simulator {
         printTrack();
     }
 
+    //Updates the agent's current state by applying an acceleration
     private void accelerate(int Ax, int Ay) {
 
         assert (Ax >= -1 && Ax <= 1);
@@ -56,31 +61,12 @@ public class Simulator {
 
         //update velocities with 80% success rate
         if (Math.random() > 0.2) {
-            State state = new State();
-            state.Vx = (agent.state.Vx + Ax) % 6;
-            state.Vy = (agent.state.Vy + Ay) % 6;
-            state.position = agent.state.position;
-            agent.state = state;
+            this.agent.state = new State(agent.state.position, (agent.state.Vx + Ax) % 6, (agent.state.Vy + Ay) % 6);
         }
     }
 
-    /**
-     * Bresenham-based super cover algorithm.
-     *
-     * Checks the board from the top left corner using y for rows and x for
-     * columns. If a # character is found as one of the intersecting spaces it
-     * is returned to indicate a collision. If all spaces are either . , s, or
-     * f, the intended destination position is returned based on initial
-     * position and the velocity vector. Up to the simulator to check intended
-     * destination vs actual destination returned by this method.
-     *
-     * @param x position x
-     * @param y position y
-     * @param vx velocity x
-     * @param vy velocity y
-     * @return position of either the intended destination or the first
-     * collision
-     */
+    //Moves the agent according to their current velocity and detects wall collisions using
+    //a super cover implementaion of Bresenham's line algorithm
     private void traverse() {
 
         int x = agent.state.x;
@@ -93,6 +79,7 @@ public class Simulator {
         int xInc = (x2 > x) ? 1 : -1;
         int yInc = (y2 > y) ? 1 : -1;
         int error = vx - vy;
+
         vx *= 2;
         vy *= 2;
 
@@ -100,6 +87,9 @@ public class Simulator {
 
             if (track[y][x] == '#') {
                 agent.state = collisionHandler.handleCollision(agent.state, new Position(x, y));
+            } else if (track[y][x] == 'F') {
+                endSimulation();
+                return;
             }
 
             if (error > 0) {
@@ -110,7 +100,17 @@ public class Simulator {
                 error += vx;
             }
         }
+
         agent.state.position = new Position(x2, y2);
+    }
+
+    private void endSimulation() {
+
+        System.out.println("Agent reached the finish line!");
+        printTrack();
+        //TODO add stats tracking and print out summary here
+
+        System.exit(0);
     }
 
     private void printTrack() {

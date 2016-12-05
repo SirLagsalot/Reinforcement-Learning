@@ -1,7 +1,7 @@
 
 public class Softmax extends Policy {
 
-    private static int temperature = 99999;     //tunable temperature parameter.  Higher values force greater chance of choosing randomly.  Lower values force selection to become greedy.
+    private static final int TEMPERATURE = 99999;     //tunable temperature parameter.  Higher values force greater chance of choosing randomly.  Lower values force selection to become greedy.
 
     public Softmax() {
 
@@ -16,12 +16,13 @@ public class Softmax extends Policy {
 
         //probability of choosing action a from domain
         for (int a = 0; a < domain; a++) {
+            
             double denominator = 0.0;
 
             for (int i = 0; i < domain; i++) {
-                denominator += (Math.exp(qValues[info.stateID]) / temperature);     //this isnt quite right, need to sum Math.exp(value of Q(a) for all possible a values, dividing each by temp
+                denominator += (Math.exp(qValues[info.stateID]) / TEMPERATURE);     //this isnt quite right, need to sum Math.exp(value of Q(a) for all possible a values, dividing each by temp
             }
-            probabilityTable[a] = (Math.exp(qValues[info.stateID]) / temperature) / denominator;
+            probabilityTable[a] = (Math.exp(qValues[info.stateID]) / TEMPERATURE) / denominator;
         }
 
         //choose a random action based on weighted probabilites
@@ -29,6 +30,7 @@ public class Softmax extends Policy {
         double total = 0;
 
         for (int i = 0; i < 9; i++) {
+            
             total += probabilityTable[0];
             if (total >= random) {
 
@@ -58,6 +60,7 @@ public class Softmax extends Policy {
                 }
             }
         }
+        System.out.println("Unreacable line: softmax.");
         return new int[]{-2, -2};
     }
 }
