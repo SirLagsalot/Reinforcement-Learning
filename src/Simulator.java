@@ -33,24 +33,13 @@ public class Simulator {
         } while (location != 'F');
     }
 
-    public State takeAction(int stateID, int action) {
+    public State takeAction(int stateID, int[] action) {
         //TODO
-        return new State();
-    }
-
-    public void moveAgent() {
-
         this.numMoves++;
-
-        //get action
-        int[] action = new int[2];
-        //TODO, link up getting an action
-
         accelerate(action[0], action[1]);
-
         traverse();
-
         printTrack();
+        return agent.state;
     }
 
     //Updates the agent's current state by applying an acceleration
