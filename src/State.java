@@ -16,6 +16,13 @@ public class State {
         Vy = vY;
     }
 
+    //Returns the state result from an action
+    public State nextState(Action action) {
+
+        int[] acceleration = action.getAction();
+        return new State(this.position, this.x + (acceleration[0] + this.Vx), this.y + (acceleration[1] + this.Vy));
+    }
+
     public void setReward(double reward) {
         this.reward = reward;
     }

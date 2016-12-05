@@ -3,10 +3,12 @@ import java.util.Random;
 
 public class ValueIteration extends PolicyMaker {
 
-    private Double epsilon = 0.0001;            //stopping threshold
+    private final double epsilon = 0.0001;      //stopping threshold
+    private final double gamma = 0.1;           //discount factor 
     private int numIterations;                  //count of iterations required to build policy
-    private Double[][] qValues;                 //Array holding the utility of all state action pairs
-    private State[] states = new State[100];    //TODO: link up states 
+    private double[][] qValues;                 //Array holding the utility of all state action pairs
+    private State[] states = new State[100];    //TODO: link up states
+    private StateIDMapper mapper = new StateIDMapper(track);
 
     public ValueIteration(StateIDMapper map, char[][] track, Simulator sim) {
         super(map, track, sim);
@@ -23,61 +25,47 @@ public class ValueIteration extends PolicyMaker {
     //Arbitrarily assign utility values to qValues
     private void init() {
 
-        this.qValues = new Double[100][9];       //TODO: need to get actual dimensions
+        this.qValues = new double[100][9];       //TODO: need to get actual dimensions
         Random random = new Random();
 
-        for (Double[] rows : qValues) {
-            for (Double stateUtil : rows) {
+        for (double[] rows : qValues) {
+            for (double stateUtil : rows) {
                 stateUtil = random.nextDouble();
-            }
-        }
-    }
-
-    private void setEpsilon(Double epsilon) {
-        this.epsilon = epsilon;
-    }
-
-    private void solve() {
-
-        double gamma = 0.0;
-        double threshold;
-
-        if (gamma == 1) {
-            threshold = epsilon;
-        } else {
-            threshold = epsilon * (1.0 - gamma) / gamma;
-        }
-
-        init();
-
-        boolean done = false;
-        this.numIterations = 0;
-
-        while (!done) {
-
-            double maxError = -1.0;
-
-            for (;;) {
-
             }
         }
     }
 
     private void iterate() {
 
+        double maxError = 0.0;
+        double[] newQValues = new double[100];  //needs to be the old qValues, this double array thing is stupid
         //go through each state
-        for (State state : states) {
+        for (int s = 0; s < states.length; s++) {
 
-            Double reward = state.getReward();
-            Double bestAction = Double.NEGATIVE_INFINITY;
+            double currentUtility = states[s].getReward();
+            double bestAction = -9999;
+            double[] nextStateUtility;
+
+            newQValues[s] = states[s].getReward() + bellman(states[s]);
 
             //iterate over possible actions for current state
-            StateIDMapper mapper = new StateIDMapper(track);
-            int stateID = mapper.getStateIDFromState(state);
-            StateInfo info = mapper.getStateInfoFromPosition(state.position);
-
-            //get set of possible actions
-            //Set actions = Action.validActions;
+            for (Action action : Action.VALID_ACTIONS) {
+                //compute the state after taking action
+                //compute the utility of said state
+                //bellman equation
+                //update qValues with that utility
+            }
         }
+    }
+
+    private double bellman(State currentState) {
+
+        double result = 0.0;
+
+        for (Action action : Action.VALID_ACTIONS) {
+            result += 0.8 * qValues[mapper.getStateIDFromState(currentState)][action.toInt()];
+        }
+
+        return result;
     }
 }
