@@ -19,8 +19,8 @@ public class Action {
         VALID_ACTIONS[8] = (new Action(1, 1));
     }
 
-    private final int x;
-    private final int y;
+    public final int x;
+    public final int y;
 
     public Action(int action) {
         x = ((int) (action / 3)) - 1;
