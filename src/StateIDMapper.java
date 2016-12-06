@@ -147,5 +147,4 @@ public class StateIDMapper {
         }
         return new StateInfo();
     }
-
 }

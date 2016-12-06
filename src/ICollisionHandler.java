@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author Wilson
- */
+//Interface to facilitate multiple means of handling collisions
 public interface ICollisionHandler {
-      public State handleCollision(State startState, Position collisionPosition);
+
+    public State handleCollision(State startState, Position collisionPosition);
 }

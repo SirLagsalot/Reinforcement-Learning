@@ -1,22 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author Wilson
- */
+import java.util.ArrayList;
 
 public class StateInfo {
 
-        int stateID;
-        int minVelocityX;
-        int maxVelocityX;
-        int minVelocityY;
-        int maxVelocityY;
-        Position position;
-        boolean isStart = false;
-        boolean isFinal = false;
-    }
+    public Position position;
+    public ArrayList<Velocity> validVelocities;     //A list of the valid velocites for a given state
+
+    public int stateID;                             //A refernce index for mapping states and their corresponding info
+    public int minVelocityX, maxVelocityX;          //Should condence into the validVelocites set
+    public int minVelocityY, maxVelocityY;
+
+    public boolean isStart = false;                 //Is on the starting line
+    public boolean isFinal = false;                 //Is on the finish line
+}

@@ -7,17 +7,18 @@ public class Main {
         StateIDMapper lTrackStateMapper = new StateIDMapper(LTrack);
         char[][] OTrack = TrackReader.readFile("./tracks/O-track.txt");
         char[][] RTrack = TrackReader.readFile("./tracks/R-track.txt");
-        PolicyMaker qLearner = new QLearner(lTrackStateMapper, LTrack, new TrackSimulator());
-        
+        PolicyMaker qLearner = new QLearner(lTrackStateMapper, LTrack, new Simulator());
+        qLearner.createPolicy();
+
         printTrack(LTrack);
         printTrack(OTrack);
         printTrack(RTrack);
-        
-        char[][] test = {{'.','#','.'}, {'.','.','.'}, {'.','.','.'}};
+
+        char[][] test = {{'.', '#', '.'}, {'.', '.', '.'}, {'.', '.', '.'}};
         printTrack(test);
-        
+
         Position p = Bresenham.checkCollision(1, 1, 1, 1, test);
-        
+
         System.out.println(p.x);
         System.out.println(p.y);
     }

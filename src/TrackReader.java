@@ -27,6 +27,7 @@ public class TrackReader {
             track[i] = file.get(i).toCharArray();
         }
 
+        //TODO: Create set of states and initialize mapper.. and all those things
         return track;
     }
 }

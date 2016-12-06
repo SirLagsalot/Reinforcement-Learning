@@ -5,10 +5,9 @@ public class QLearner extends PolicyMaker {
 
     private double learningFactor;
     private double discountFactor;
-    private Policy policy;
     private double[][] q;
 
-    public QLearner(StateIDMapper map, char[][] track, TrackSimulator sim) {
+    public QLearner(StateIDMapper map, char[][] track, Simulator sim) {
         super(map, track, sim);
     }
 
@@ -31,7 +30,7 @@ public class QLearner extends PolicyMaker {
     }
 
     public void initializeQ() {
-        q = new double[getMaxState(this.iDMap)][9];//array of every state and 9 actions.
+        q = new double[getMaxState(this.idMap)][9];//array of every state and 9 actions.
     }
 
     public int getMaxState(StateIDMapper mapper) {
@@ -66,11 +65,11 @@ public class QLearner extends PolicyMaker {
                 int action = maxA(currentStateID);//selectAction(currentStateID);
                 State result = this.simulator.takeAction(currentStateID, action);
                 int reward = -1;
-                StateInfo resultInfo = this.iDMap.getStateInfoFromPosition(result.position);
+                StateInfo resultInfo = this.idMap.getStateInfoFromPosition(result.position);
                 if (resultInfo.isFinal) {
                     reward = 0;
                 }
-                int newStateID = this.iDMap.computeStateIDFromStateAndStateInfo(result, resultInfo);
+                int newStateID = this.idMap.computeStateIDFromStateAndStateInfo(result, resultInfo);
                 int nextBestAction = maxA(newStateID);
                 q[currentStateID][action] = q[currentStateID][action] + eta * (reward + gamma * (q[newStateID][nextBestAction] - q[currentStateID][action]));
                 currentStateID = newStateID;
