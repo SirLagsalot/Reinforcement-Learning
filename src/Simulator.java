@@ -4,8 +4,9 @@ import java.util.Random;
 
 public class Simulator {
 
+    public char[][] track;
+
     private ICollisionHandler collisionHandler;
-    private char[][] track;
     private int numMoves;
     private State startState, currentState;
 
@@ -125,8 +126,9 @@ public class Simulator {
             moves.add(new Position(x, y));
         }
 
-        if (track[y2][x2] == '#') 
-                return collisionHandler.handleCollision(startState, moves.get(moves.size() - 1));
+        if (track[y2][x2] == '#') {
+            return collisionHandler.handleCollision(startState, moves.get(moves.size() - 1));
+        }
         state.position = new Position(x2, y2);
         return state;
     }
