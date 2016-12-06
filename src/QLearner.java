@@ -57,13 +57,16 @@ public class QLearner extends PolicyMaker {
         double gamma = .1;//I guess?
         int currentStateID = 0;
         Random rand = new Random();
-        //so each 'episode' is just like... a random round I guess? maybe have 100 episodes?
+        //so each 'episode' is just like... a random round I guess? maybe have 100 episodes? TODO
         for (int i = 0; i < 100; i++) {
 
             currentStateID = rand.nextInt(q.length);//TODO Bias this towards the end???
+            System.out.println("Initial stateID:"+currentStateID);
             while (true) {
                 int action = maxA(currentStateID);//selectAction(currentStateID);
+                System.out.println("Taking action: "+action);
                 State result = this.simulator.takeAction(this.idMap.GetStateFromID(currentStateID), new Action(action));
+                System.out.println("Resulting Position: X:"+result.position.x+" Y:"+result.position.y);
                 int reward = -1;
                 StateInfo resultInfo = this.idMap.getStateInfoFromPosition(result.position);
                 if (resultInfo.isFinal) {
@@ -79,10 +82,11 @@ public class QLearner extends PolicyMaker {
     }
 
     private int maxA(int stateID) {
+        Random rand = new Random();
         int bestIndex = 0;
         double bestResult = q[stateID][0];
         for (int i = 1; i < 9; i++) {
-            if (q[stateID][i] > bestResult) {
+            if (q[stateID][i] > bestResult || (q[stateID][i] == bestResult && rand.nextInt(2) == 0) ) {
                 bestResult = q[stateID][i];
                 bestIndex = i;
             }

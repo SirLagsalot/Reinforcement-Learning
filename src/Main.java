@@ -8,6 +8,7 @@ public class Main {
 
         //char[][] OTrack = TrackReader.readFile("./tracks/O-track.txt");
         //char[][] RTrack = TrackReader.readFile("./tracks/R-track.txt");
+        printTrack(LTrack);
         PolicyMaker qLearner = new QLearner(mapper, LTrack, new Simulator(LTrack, new CollisionReset()));
         qLearner.createPolicy();
 
