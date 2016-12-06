@@ -1,54 +1,47 @@
 
 import java.util.ArrayList;
 
-
 public class Simulator {
 
-    private Agent agent;
     private ICollisionHandler collisionHandler;
+    private StateIDMapper mapper;
     private char[][] track;
     private int numMoves;
+    private State startState, currentState;
 
     public Simulator() {
 
     }
 
-    public Simulator(Agent agent, ICollisionHandler collisionHandler, char[][] track) {
+    public Simulator(char[][] track, ICollisionHandler collisionHandler, StateIDMapper mapper) {
 
-        this.agent = agent;
         this.collisionHandler = collisionHandler;
         this.track = track;
+        this.mapper = mapper;
         this.numMoves = 0;
+        init();
+    }
+
+    private void init() {
+        //TODO: pick a start state
     }
 
     public void run() {
 
-        int[] policy = agent.learner.createPolicy();
-
+        //int[] policy = agent.learner.createPolicy();
         while (true) {
             //take action according to policy
-            int stateID = agent.stateInfo.stateID;
-            go(stateID, new Action(policy[stateID]));
+            //int stateID = agent.stateInfo.stateID;
+            //go(stateID, new Action(policy[stateID]));
         }
     }
 
     public State takeAction(int stateID, Action action) {
 
         int[] acceleration = action.getAction();
-        StateIDMapper mapper = new StateIDMapper(track);
         State state = mapper.GetStateFromID(stateID);
         accelerate(state, acceleration[0], acceleration[1]);
         return traverse(state);
-    }
-
-    private State go(int stateID, Action action) {
-
-        this.numMoves++;
-        int[] acceleration = action.getAction();
-        agent.state = accelerate(agent.state, acceleration[0], acceleration[1]);
-        traverse(agent.state);
-        printTrack();
-        return agent.state;
     }
 
     //Updates the agent's current state by applying an acceleration
@@ -59,22 +52,36 @@ public class Simulator {
 
         //update velocities with 80% success rate
         if (Math.random() > 0.2) {
-            return new State(state.position, (state.Vx + Ax) % 6, (state.Vy + Ay) % 6);
-        } else {
-            return state;
+            int Vx = (state.velocity.x + Ax);
+            if (Vx > 5) {
+                Vx = 5;
+            }
+            if (Vx < -5) {
+                Vx = -5;
+            }
+            int Vy = (state.velocity.y + Ay);
+            if (Vy > 5) {
+                Vy = 5;
+            }
+            if (Vy < -5) {
+                Vy = -5;
+            }
+            Velocity v = new Velocity(Vx, Vy);
+            return new State(state.position, v);
         }
+        return state;
     }
 
     //Moves the agent according to their current velocity and detects wall collisions using
     //a super cover implementaion of Bresenham's line algorithm
     private State traverse(State state) {
 
-        ArrayList<Position> moves  = new ArrayList();
-        
-        int x = state.x;
-        int y = state.y;
-        int vx = state.Vx;
-        int vy = state.Vy;
+        ArrayList<Position> moves = new ArrayList();
+
+        int x = state.position.x;
+        int y = state.position.y;
+        int vx = state.velocity.x;
+        int vy = state.velocity.y;
         int x2 = x + vx;
         int y2 = y + vy;
         int count = 1 + vx + vy;
@@ -84,13 +91,13 @@ public class Simulator {
 
         vx *= 2;
         vy *= 2;
-        
+
         moves.add(new Position(x, y));
 
         for (; count > 0; --count) {
 
             if (track[y][x] == '#') {
-                return collisionHandler.handleCollision(agent.state, moves.get(moves.size() - 1));
+                return collisionHandler.handleCollision(startState, moves.get(moves.size() - 1));
             } else if (track[y][x] == 'F') {
                 endSimulation();
                 return state;
@@ -103,8 +110,8 @@ public class Simulator {
                 y += yInc;
                 error += vx;
             }
-            
-            moves.add(new Position(x , y));
+
+            moves.add(new Position(x, y));
         }
 
         state.position = new Position(x2, y2);
@@ -124,8 +131,8 @@ public class Simulator {
     //Print the racetrack with agent's location to the console
     private void printTrack() {
 
-        int x = agent.state.x;
-        int y = agent.state.y;
+        int x = currentState.position.x;
+        int y = currentState.position.y;
 
         for (int i = 0; i < track.length; i++) {
             for (int j = 0; j < track[0].length; j++) {

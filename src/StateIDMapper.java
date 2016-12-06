@@ -17,9 +17,7 @@ public class StateIDMapper {
                     } else if (curPosIdentifier == 'F') {
                         info.isFinal = true;
                     }
-                    info.position = new Position();
-                    info.position.y = row;
-                    info.position.x = col;
+                    info.position = new Position(row, col);
                     info.stateID = startingStateID;
                     info.maxVelocityX = findVelocityBound(true, true, track, row, col) - 1;
                     info.maxVelocityY = findVelocityBound(false, true, track, row, col) - 1;
@@ -33,7 +31,7 @@ public class StateIDMapper {
     }
 
     public int computeStateIDFromStateAndStateInfo(State state, StateInfo stateInfo) {
-        return stateInfo.stateID + (state.Vx - stateInfo.minVelocityX) * (stateInfo.maxVelocityY - stateInfo.minVelocityY) + state.Vy - stateInfo.minVelocityY;
+        return stateInfo.stateID + (state.velocity.x - stateInfo.minVelocityX) * (stateInfo.maxVelocityY - stateInfo.minVelocityY) + state.velocity.y - stateInfo.minVelocityY;
     }
 
     private int findVelocityBound(boolean isXDirection, boolean isMax, char[][] track, int posY, int posX) {
@@ -97,8 +95,9 @@ public class StateIDMapper {
         for (int xVelocity = info.minVelocityX; xVelocity <= info.maxVelocityX; xVelocity++) {
             for (int yVelocity = info.minVelocityY; yVelocity < info.maxVelocityY; yVelocity++) {
                 if (currentId == stateID) {
-                    state.Vx = xVelocity;
-                    state.Vy = yVelocity;
+                    state.velocity = new Velocity(xVelocity, yVelocity);
+//                    state.Vx = xVelocity;
+//                    state.Vy = yVelocity;
                     return state;
                 }
                 currentId++;
@@ -136,7 +135,7 @@ public class StateIDMapper {
 
     public int getStateIDFromState(State state) {
         StateInfo info = getStateInfoFromPosition(state.position);
-        return info.stateID + (state.Vx - info.minVelocityX) * (info.maxVelocityY - info.minVelocityY) + state.Vy - info.minVelocityY;
+        return info.stateID + (state.velocity.x - info.minVelocityX) * (info.maxVelocityY - info.minVelocityY) + state.velocity.y - info.minVelocityY;
     }
 
     public StateInfo getStateInfoFromPosition(Position pos) {

@@ -2,8 +2,8 @@
 //Stores a pair of velocity components
 public class Velocity {
 
-    private final int x;
-    private final int y;
+    protected final int x;
+    protected final int y;
 
     public Velocity(int Vx, int Vy) {
 

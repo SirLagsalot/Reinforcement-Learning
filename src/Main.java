@@ -4,23 +4,25 @@ public class Main {
     public static void main(String[] args) {
 
         char[][] LTrack = TrackReader.readFile("./tracks/L-track.txt");
-        StateIDMapper lTrackStateMapper = new StateIDMapper(LTrack);
-        char[][] OTrack = TrackReader.readFile("./tracks/O-track.txt");
-        char[][] RTrack = TrackReader.readFile("./tracks/R-track.txt");
-        PolicyMaker qLearner = new QLearner(lTrackStateMapper, LTrack, new Simulator());
+        StateIDMapper mapper = new StateIDMapper(LTrack);
+
+        //char[][] OTrack = TrackReader.readFile("./tracks/O-track.txt");
+        //char[][] RTrack = TrackReader.readFile("./tracks/R-track.txt");
+        PolicyMaker qLearner = new QLearner(mapper, LTrack, new Simulator(LTrack, new CollisionReset(), mapper));
         qLearner.createPolicy();
 
+        PolicyMaker valueIteration = new ValueIteration(mapper, LTrack, new Simulator(LTrack, new CollisionReset(), mapper));
+        valueIteration.createPolicy();
+
         printTrack(LTrack);
-        printTrack(OTrack);
-        printTrack(RTrack);
+        //printTrack(OTrack);
+        //printTrack(RTrack);
 
-        char[][] test = {{'.', '#', '.'}, {'.', '.', '.'}, {'.', '.', '.'}};
-        printTrack(test);
-
-        Position p = Bresenham.checkCollision(1, 1, 1, 1, test);
-
-        System.out.println(p.x);
-        System.out.println(p.y);
+        //char[][] test = {{'.', '#', '.'}, {'.', '.', '.'}, {'.', '.', '.'}};
+        //printTrack(test);
+        //Position p = Bresenham.checkCollision(1, 1, 1, 1, test);
+        //System.out.println(p.x);
+        //System.out.println(p.y);
     }
 
     private static void printTrack(char[][] track) {
