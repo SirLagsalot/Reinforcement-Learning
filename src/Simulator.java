@@ -74,6 +74,7 @@ public class Simulator {
 
             if (track[y][x] == '#') {
                 agent.state = collisionHandler.handleCollision(agent.state, new Position(x, y));
+                return;
             } else if (track[y][x] == 'F') {
                 endSimulation();
                 return;
