@@ -146,4 +146,10 @@ public class StateIDMapper {
         }
         return new StateInfo();
     }
+
+    //TODO: This whole method =D
+    public State getStateFromComponents(Position position, Velocity velocity) {
+
+        return new State();
+    }
 }
