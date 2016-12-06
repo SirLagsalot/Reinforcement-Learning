@@ -10,11 +10,11 @@ public class Simulator {
     private State startState, currentState;
 
     public Simulator(char[][] track, ICollisionHandler collisionHandler) {
-        startState = getStartState(track);
+        startState = getStartState(track);//this just gets the first start state possible, whatever.
         this.collisionHandler = collisionHandler;
         this.track = track;
         this.numMoves = 0;
-        init();
+        //init(); avoid some errors atm
     }
 
     private State getStartState(char[][] track) {
@@ -125,6 +125,8 @@ public class Simulator {
             moves.add(new Position(x, y));
         }
 
+        if (track[y2][x2] == '#') 
+                return collisionHandler.handleCollision(startState, moves.get(moves.size() - 1));
         state.position = new Position(x2, y2);
         return state;
     }
