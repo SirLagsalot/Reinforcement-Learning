@@ -23,35 +23,12 @@ public class Softmax {
         double random = Math.random();
         double total = 0;
 
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < Action.VALID_ACTIONS.length; i++) {
 
-            total += probabilityTable[0];
+            total += probabilityTable[i];
             if (total >= random) {
-
                 //choose action i
-                switch (i) {
-                    case 0:
-                        return new int[]{-1, -1};
-                    case 1:
-                        return new int[]{-1, 0};
-                    case 2:
-                        return new int[]{-1, 1};
-                    case 3:
-                        return new int[]{0, -1};
-                    case 4:
-                        return new int[]{0, 0};
-                    case 5:
-                        return new int[]{0, 1};
-                    case 6:
-                        return new int[]{1, -1};
-                    case 7:
-                        return new int[]{1, 0};
-                    case 8:
-                        return new int[]{1, 1};
-                    default:
-                        System.out.println("Unreacable line: softmax.");
-                        System.exit(i);
-                }
+                return Action.VALID_ACTIONS[i].getAction();
             }
         }
         System.out.println("Unreacable line: softmax.");
