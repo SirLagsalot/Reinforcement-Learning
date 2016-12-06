@@ -10,7 +10,7 @@ public class Simulator {
     private State startState, currentState;
 
     public Simulator(char[][] track, ICollisionHandler collisionHandler) {
-        startState = getStartState(track);
+        startState = getStartState(track);//this just gets the first start state possible, whatever.
         this.collisionHandler = collisionHandler;
         this.track = track;
         this.numMoves = 0;
