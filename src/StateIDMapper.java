@@ -31,7 +31,7 @@ public class StateIDMapper {
     }
 
     public int computeStateIDFromStateAndStateInfo(State state, StateInfo stateInfo) {
-        int tempStateID = stateInfo.stateID + (state.velocity.x - stateInfo.minVelocityX) * (stateInfo.maxVelocityY - stateInfo.minVelocityY) + state.velocity.y - stateInfo.minVelocityY;
+        int tempStateID = stateInfo.stateID + (state.velocity.x - stateInfo.minVelocityX) * (stateInfo.maxVelocityY - stateInfo.minVelocityY + 1) + state.velocity.y - stateInfo.minVelocityY;
         if(tempStateID < 0){
             return 0;
         }
@@ -94,19 +94,25 @@ public class StateIDMapper {
         StateInfo info = getStateInfoFromID(stateID);
         state.position = info.position;
         int currentId = info.stateID;
-
+        
+        int idOffset = stateID - info.stateID;
+        int yRange = info.maxVelocityY - info.minVelocityY + 1;
+        int yVelocity = (idOffset % yRange) + info.minVelocityY;
+        
+        int xVelocity = ((int)((idOffset - (idOffset % yRange))/yRange)) + info.minVelocityX;
+        state.velocity = new Velocity(xVelocity, yVelocity);
         //TODO
-        for (int xVelocity = info.minVelocityX; xVelocity <= info.maxVelocityX; xVelocity++) {
-            for (int yVelocity = info.minVelocityY; yVelocity <= info.maxVelocityY; yVelocity++) {
-                if (currentId == stateID) {
-                    state.velocity = new Velocity(xVelocity, yVelocity);
-//                    state.Vx = xVelocity;
-//                    state.Vy = yVelocity;
-                    return state;
-                }
-                currentId++;
-            }
-        }
+//        for (int xVelocity = info.minVelocityX; xVelocity <= info.maxVelocityX; xVelocity++) {
+//            for (int yVelocity = info.minVelocityY; yVelocity <= info.maxVelocityY; yVelocity++) {
+//                if (currentId == stateID) {
+//                    state.velocity = new Velocity(xVelocity, yVelocity);
+////                    state.Vx = xVelocity;
+////                    state.Vy = yVelocity;
+//                    return state;
+//                }
+//                currentId++;
+//            }
+//        }
 
         return state;
     }
@@ -139,7 +145,7 @@ public class StateIDMapper {
 
     public int getStateIDFromState(State state) {
         StateInfo info = getStateInfoFromPosition(state.position);
-        return info.stateID + (state.velocity.x - info.minVelocityX) * (info.maxVelocityY - info.minVelocityY) + state.velocity.y - info.minVelocityY;
+        return info.stateID + (state.velocity.x - info.minVelocityX) * (info.maxVelocityY - info.minVelocityY + 1) + state.velocity.y - info.minVelocityY;
     }
 
     public StateInfo getStateInfoFromPosition(Position pos) {
