@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Simulator {
 
@@ -23,7 +24,20 @@ public class Simulator {
     }
 
     private void init() {
-        //TODO: pick a start state
+
+        //Find all spaces on the starting line
+        ArrayList<Position> startLine = new ArrayList<>();
+        for (int i = 0; i < track.length; i++) {
+            for (int j = 0; j < track[i].length; j++) {
+                if (track[i][j] == 'S') {
+                    startLine.add(new Position(i, j));
+                }
+            }
+        }
+
+        //Randomly select one as the starting position
+        Random random = new Random();
+        startState = new State(startLine.get(random.nextInt(startLine.size())), new Velocity(0, 0));        //Instantiating new state
     }
 
     public void run() {
@@ -122,6 +136,7 @@ public class Simulator {
     private void endSimulation() {
 
         System.out.println("Agent reached the finish line!");
+        System.out.println("Number of actions: " + numMoves);
         printTrack();
         //TODO add stats tracking and print out summary here
 
