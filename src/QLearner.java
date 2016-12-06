@@ -53,7 +53,7 @@ public class QLearner extends PolicyMaker {
 //                
 //            }
 //        }
-        double eta = 1;//this should vary with step size? //TODO
+        double eta = .1;//this should vary with step size? //TODO
         double gamma = .1;//I guess?
         int currentStateID = 0;
         Random rand = new Random();
@@ -63,7 +63,7 @@ public class QLearner extends PolicyMaker {
             currentStateID = rand.nextInt(q.length);//TODO Bias this towards the end???
             while (true) {
                 int action = maxA(currentStateID);//selectAction(currentStateID);
-                State result = this.simulator.takeAction(currentStateID, new Action(action));
+                State result = this.simulator.takeAction(this.idMap.GetStateFromID(currentStateID), new Action(action));
                 int reward = -1;
                 StateInfo resultInfo = this.idMap.getStateInfoFromPosition(result.position);
                 if (resultInfo.isFinal) {

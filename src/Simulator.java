@@ -5,7 +5,6 @@ import java.util.Random;
 public class Simulator {
 
     private ICollisionHandler collisionHandler;
-    private StateIDMapper mapper;
     private char[][] track;
     private int numMoves;
     private State startState, currentState;
@@ -14,11 +13,10 @@ public class Simulator {
 
     }
 
-    public Simulator(char[][] track, ICollisionHandler collisionHandler, StateIDMapper mapper) {
+    public Simulator(char[][] track, ICollisionHandler collisionHandler) {
 
         this.collisionHandler = collisionHandler;
         this.track = track;
-        this.mapper = mapper;
         this.numMoves = 0;
         init();
     }
@@ -50,10 +48,9 @@ public class Simulator {
         }
     }
 
-    public State takeAction(int stateID, Action action) {
+    public State takeAction(State state, Action action) {
 
         int[] acceleration = action.getAction();
-        State state = mapper.GetStateFromID(stateID);
         accelerate(state, acceleration[0], acceleration[1]);
         return traverse(state);
     }
