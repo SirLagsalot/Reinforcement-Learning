@@ -1,5 +1,5 @@
 
-public class PolicyMaker {
+public abstract class PolicyMaker {
 
     public StateIDMapper idMap;
     public Simulator simulator;

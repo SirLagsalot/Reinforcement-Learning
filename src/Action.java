@@ -1,7 +1,8 @@
 
+//The Action class stores a pair of values which constitute an acceleration
 public class Action {
 
-    public static final Action[] VALID_ACTIONS;
+    public static final Action[] VALID_ACTIONS;     //An array of all possible acceleration, can be used to iterate over potential values
 
     static {
         VALID_ACTIONS = new Action[9];

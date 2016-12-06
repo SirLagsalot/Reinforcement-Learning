@@ -4,6 +4,6 @@ public class CollisionReset implements ICollisionHandler {
 
     @Override
     public State handleCollision(State startState, Position prevPos) {
-        return startState;
+        return startState;      //All we should have to do here is just return the start state?
     }
 }

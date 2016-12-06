@@ -5,28 +5,31 @@ public final class State {
     public Position position;                  //Agent's (x,y) position
     public Velocity velocity;                  //Agent's velocity
 
-    private double utility;                     //Utility associated with being in this state
+    private double utility;                    //Utility associated with being in this state
 
+    //I would like to remove this constructor and make position and velocity final to enforce not creating new states.. should talk about that though
     public State() {
-        
+
     }
-    
-    public State(Position p, Velocity v) {
-        this.position = p;
-        this.velocity = v;
+
+    //Constructor for pre-constructed attributes
+    public State(Position position, Velocity velocity) {
+        this.position = position;
+        this.velocity = velocity;
         this.utility = Math.random();
     }
 
-    public State(int x, int y, int Vx, int Vy) {
+    //Constructor for individual state components
+    public State(int Px, int Py, int Vx, int Vy) {
 
-        this.position = new Position(x, y);
+        this.position = new Position(Px, Py);
         this.velocity = new Velocity(Vx, Vy);
         this.utility = Math.random();
     }
 
     //Set the utility of being in this state
-    public void setUtility(double reward) {
-        this.utility = reward;
+    public void setUtility(double utility) {
+        this.utility = utility;
     }
 
     //Return the utility of being in this state
