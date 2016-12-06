@@ -148,6 +148,8 @@ public class StateIDMapper {
                 return info;
             }
         }
+        System.out.println("Error: did not find stateinfo for position: "+pos.x + ", "+pos.y);
+        System.exit(0);
         return new StateInfo();
     }
 

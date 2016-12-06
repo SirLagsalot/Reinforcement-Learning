@@ -64,8 +64,10 @@ public class QLearner extends PolicyMaker {
             System.out.println("Initial stateID:"+currentStateID);
             while (true) {
                 int action = maxA(currentStateID);//selectAction(currentStateID);
-                System.out.println("Taking action: "+action);
-                State result = this.simulator.takeAction(this.idMap.GetStateFromID(currentStateID), new Action(action));
+                State currentState = this.idMap.GetStateFromID(currentStateID);
+                System.out.println("Current state is: Px:"+currentState.position.x + " Py:"+currentState.position.y+" Vx:"+currentState.velocity.x +" Vy:"+currentState.velocity.y);
+                //System.out.println("Taking action: "+action);
+                State result = this.simulator.takeAction(currentState, new Action(action));
                 System.out.println("Resulting Position: X:"+result.position.x+" Y:"+result.position.y);
                 int reward = -1;
                 StateInfo resultInfo = this.idMap.getStateInfoFromPosition(result.position);
