@@ -9,7 +9,6 @@ public class Simulator {
     private int numMoves;
     private State startState, currentState;
 
-
     public Simulator(char[][] track, ICollisionHandler collisionHandler) {
         startState = getStartState(track);
         this.collisionHandler = collisionHandler;
@@ -17,15 +16,16 @@ public class Simulator {
         this.numMoves = 0;
         init();
     }
-    
-    private State getStartState(char[][] track){
-         for (int row = 0; row < track.length; row++) {
-             for (int col = 0; col < track[row].length; col++) {
-                 if(track[row][col] == 'S')
-                     return new State(col, row, 0, 0);
-             }
+
+    private State getStartState(char[][] track) {
+        for (int row = 0; row < track.length; row++) {
+            for (int col = 0; col < track[row].length; col++) {
+                if (track[row][col] == 'S') {
+                    return new State(col, row, 0, 0);
+                }
+            }
         }
-        
+
         return new State();
     }
 
@@ -46,22 +46,13 @@ public class Simulator {
         startState = new State(startLine.get(random.nextInt(startLine.size())), new Velocity(0, 0));        //Instantiating new state
     }
 
-    public void run() {
-
-        //int[] policy = agent.learner.createPolicy();
-        while (true) {
-            //take action according to policy
-            //int stateID = agent.stateInfo.stateID;
-            //go(stateID, new Action(policy[stateID]));
-        }
-    }
-
     public State takeAction(State state, Action action) {
 
         int[] acceleration = action.getAction();
-        System.out.println("Take action: Ax:"+acceleration[0] + " Ay: "+acceleration[1]);
+        System.out.println("Take action: Ax:" + acceleration[0] + " Ay: " + acceleration[1]);
         State acceleratedState = accelerate(state, acceleration[0], acceleration[1]);
-        return traverse(acceleratedState);
+        currentState = traverse(acceleratedState);
+        return currentState;
     }
 
     //Updates the agent's current state by applying an acceleration
