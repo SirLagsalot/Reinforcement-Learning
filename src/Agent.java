@@ -10,4 +10,8 @@ public class Agent {
         state.x = startX;
         state.y = startY;
     }
+    
+    public int[] createPolicy() {
+        return learner.createPolicy();
+    }
 }
