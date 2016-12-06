@@ -63,7 +63,7 @@ public class QLearner extends PolicyMaker {
             currentStateID = rand.nextInt(q.length);//TODO Bias this towards the end???
             while (true) {
                 int action = maxA(currentStateID);//selectAction(currentStateID);
-                State result = this.simulator.takeAction(currentStateID, action);
+                State result = this.simulator.takeAction(currentStateID, new Action(action));
                 int reward = -1;
                 StateInfo resultInfo = this.idMap.getStateInfoFromPosition(result.position);
                 if (resultInfo.isFinal) {

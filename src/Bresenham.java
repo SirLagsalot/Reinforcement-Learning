@@ -35,12 +35,12 @@ public class Bresenham {
 
             if (board[y][x] == '#') {
                 return new Position(x, y);
-            }                       
-            if(board[y][x] == 'F'){
+            }
+            if (board[y][x] == 'F') {
                 return new Position(x, y);
             }
-            
-            if(error > 0){
+
+            if (error > 0) {
                 x += xInc;
                 error -= vy;
             } else {
