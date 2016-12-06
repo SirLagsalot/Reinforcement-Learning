@@ -46,6 +46,10 @@ public class Bresenham {
                 return new Position(x, y);
             }            
             
+            if(board[y][x] == 'F'){
+                return new Position(x, y);
+            }
+            
             if(error > 0){
                 x += xInc;
                 error -= vy;
