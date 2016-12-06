@@ -1,4 +1,7 @@
 
+import java.util.ArrayList;
+
+
 public class Simulator {
 
     private Agent agent;
@@ -66,6 +69,8 @@ public class Simulator {
     //a super cover implementaion of Bresenham's line algorithm
     private State traverse(State state) {
 
+        ArrayList<Position> moves  = new ArrayList();
+        
         int x = state.x;
         int y = state.y;
         int vx = state.Vx;
@@ -79,11 +84,13 @@ public class Simulator {
 
         vx *= 2;
         vy *= 2;
+        
+        moves.add(new Position(x, y));
 
         for (; count > 0; --count) {
 
             if (track[y][x] == '#') {
-                return collisionHandler.handleCollision(agent.state, new Position(x, y));
+                return collisionHandler.handleCollision(agent.state, moves.get(moves.size() - 1));
             } else if (track[y][x] == 'F') {
                 endSimulation();
                 return state;
@@ -96,6 +103,8 @@ public class Simulator {
                 y += yInc;
                 error += vx;
             }
+            
+            moves.add(new Position(x , y));
         }
 
         state.position = new Position(x2, y2);
