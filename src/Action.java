@@ -21,6 +21,53 @@ public class Action {
     private final int x;
     private final int y;
 
+    public Action(int filthyIntAction) {
+
+        switch (filthyIntAction) {                               //convert action into accelerations
+            case 0:
+                x = -1;
+                y = -1;
+                break;
+            case 1:
+                x = - 1;
+                y = 0;
+                break;
+            case 2:
+                x = -1;
+                y = 1;
+                break;
+            case 3:
+                x = 0;
+                y = -1;
+                break;
+            case 4:
+                x = 0;
+                y = 0;
+                break;
+            case 5:
+                x = 0;
+                y = 1;
+                break;
+            case 6:
+                x = 1;
+                y = -1;
+                break;
+            case 7:
+                x = 1;
+                y = 0;
+                break;
+            case 8:
+                x = 1;
+                y = 1;
+                break;
+            default:
+                System.out.println("Unreacable line: Action.constructor()");
+                System.exit(filthyIntAction);
+                x = -9;
+                y = -9;
+        }
+    }
+
     public Action(int Ax, int Ay) {
 
         assert (Ax >= -1 && Ax <= 1) : "Invalid X acceleration.";

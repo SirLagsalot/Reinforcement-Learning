@@ -26,45 +26,15 @@ public class Simulator {
 
             //take action according to policy
             int stateID = agent.stateInfo.stateID;
-            takeAction(stateID, policy[stateID]);
+            takeAction(stateID, new Action(policy[stateID]));
         }
     }
 
-    public State takeAction(int stateID, int action) {
+    public State takeAction(int stateID, Action action) {
 
         this.numMoves++;
-        switch (action) {                               //convert action into accelerations
-            case 0:
-                accelerate(-1, -1);
-                break;
-            case 1:
-                accelerate(-1, 0);
-                break;
-            case 2:
-                accelerate(-1, 1);
-                break;
-            case 3:
-                accelerate(0, -1);
-                break;
-            case 4:
-                accelerate(0, 0);
-                break;
-            case 5:
-                accelerate(0, 1);
-                break;
-            case 6:
-                accelerate(1, -1);
-                break;
-            case 7:
-                accelerate(1, 0);
-                break;
-            case 8:
-                accelerate(1, 1);
-                break;
-            default:
-                System.out.println("Unreacable line: simulator.takeAction()");
-                System.exit(action);
-        }
+        int[] acceleration = action.getAction();
+        accelerate(acceleration[0], acceleration[1]);
         traverse();
         printTrack();
         return agent.state;

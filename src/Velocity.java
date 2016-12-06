@@ -1,6 +1,5 @@
 
 import java.util.LinkedList;
-import javafx.util.Pair;
 
 //Holds a set of actions, because calculating them from mins and maxs blows
 public class Velocity {
