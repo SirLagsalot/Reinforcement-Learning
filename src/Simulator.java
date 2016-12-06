@@ -23,43 +23,53 @@ public class Simulator {
         int[] policy = agent.learner.createPolicy();
 
         while (true) {
-
             //take action according to policy
             int stateID = agent.stateInfo.stateID;
-            takeAction(stateID, new Action(policy[stateID]));
+            go(stateID, new Action(policy[stateID]));
         }
     }
 
     public State takeAction(int stateID, Action action) {
 
+        int[] acceleration = action.getAction();
+        StateIDMapper mapper = new StateIDMapper(track);
+        State state = mapper.GetStateFromID(stateID);
+        accelerate(state, acceleration[0], acceleration[1]);
+        return traverse(state);
+    }
+
+    private State go(int stateID, Action action) {
+
         this.numMoves++;
         int[] acceleration = action.getAction();
-        accelerate(acceleration[0], acceleration[1]);
-        traverse();
+        agent.state = accelerate(agent.state, acceleration[0], acceleration[1]);
+        traverse(agent.state);
         printTrack();
         return agent.state;
     }
 
     //Updates the agent's current state by applying an acceleration
-    private void accelerate(int Ax, int Ay) {
+    private State accelerate(State state, int Ax, int Ay) {
 
         assert (Ax >= -1 && Ax <= 1) : "Invalid X acceleration.";
         assert (Ay >= -1 && Ay <= 1) : "Invalid Y acceleration.";
 
         //update velocities with 80% success rate
         if (Math.random() > 0.2) {
-            this.agent.state = new State(agent.state.position, (agent.state.Vx + Ax) % 6, (agent.state.Vy + Ay) % 6);
+            return new State(state.position, (state.Vx + Ax) % 6, (state.Vy + Ay) % 6);
+        } else {
+            return state;
         }
     }
 
     //Moves the agent according to their current velocity and detects wall collisions using
     //a super cover implementaion of Bresenham's line algorithm
-    private void traverse() {
+    private State traverse(State state) {
 
-        int x = agent.state.x;
-        int y = agent.state.y;
-        int vx = agent.state.Vx;
-        int vy = agent.state.Vy;
+        int x = state.x;
+        int y = state.y;
+        int vx = state.Vx;
+        int vy = state.Vy;
         int x2 = x + vx;
         int y2 = y + vy;
         int count = 1 + vx + vy;
@@ -73,11 +83,10 @@ public class Simulator {
         for (; count > 0; --count) {
 
             if (track[y][x] == '#') {
-                agent.state = collisionHandler.handleCollision(agent.state, new Position(x, y));
-                return;
+                return collisionHandler.handleCollision(agent.state, new Position(x, y));
             } else if (track[y][x] == 'F') {
                 endSimulation();
-                return;
+                return state;
             }
 
             if (error > 0) {
@@ -89,7 +98,8 @@ public class Simulator {
             }
         }
 
-        agent.state.position = new Position(x2, y2);
+        state.position = new Position(x2, y2);
+        return state;
     }
 
     //Terminate the simulation and print statistics
