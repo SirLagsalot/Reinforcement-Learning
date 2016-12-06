@@ -17,7 +17,7 @@ public class StateIDMapper {
                     } else if (curPosIdentifier == 'F') {
                         info.isFinal = true;
                     }
-                    info.position = new Position(row, col);
+                    info.position = new Position(col, row);
                     info.stateID = startingStateID;
                     info.maxVelocityX = findVelocityBound(true, true, track, row, col) - 1;
                     info.maxVelocityY = findVelocityBound(false, true, track, row, col) - 1;
@@ -31,7 +31,11 @@ public class StateIDMapper {
     }
 
     public int computeStateIDFromStateAndStateInfo(State state, StateInfo stateInfo) {
-        return stateInfo.stateID + (state.velocity.x - stateInfo.minVelocityX) * (stateInfo.maxVelocityY - stateInfo.minVelocityY) + state.velocity.y - stateInfo.minVelocityY;
+        int tempStateID = stateInfo.stateID + (state.velocity.x - stateInfo.minVelocityX) * (stateInfo.maxVelocityY - stateInfo.minVelocityY) + state.velocity.y - stateInfo.minVelocityY;
+        if(tempStateID < 0){
+            return 0;
+        }
+        return tempStateID;
     }
 
     private int findVelocityBound(boolean isXDirection, boolean isMax, char[][] track, int posY, int posX) {
@@ -93,7 +97,7 @@ public class StateIDMapper {
 
         //TODO
         for (int xVelocity = info.minVelocityX; xVelocity <= info.maxVelocityX; xVelocity++) {
-            for (int yVelocity = info.minVelocityY; yVelocity < info.maxVelocityY; yVelocity++) {
+            for (int yVelocity = info.minVelocityY; yVelocity <= info.maxVelocityY; yVelocity++) {
                 if (currentId == stateID) {
                     state.velocity = new Velocity(xVelocity, yVelocity);
 //                    state.Vx = xVelocity;
@@ -144,6 +148,8 @@ public class StateIDMapper {
                 return info;
             }
         }
+        System.out.println("Error: did not find stateinfo for position: "+pos.x + ", "+pos.y);
+        System.exit(0);
         return new StateInfo();
     }
 

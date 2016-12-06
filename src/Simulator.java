@@ -9,16 +9,24 @@ public class Simulator {
     private int numMoves;
     private State startState, currentState;
 
-    public Simulator() {
-
-    }
 
     public Simulator(char[][] track, ICollisionHandler collisionHandler) {
-
+        startState = getStartState(track);
         this.collisionHandler = collisionHandler;
         this.track = track;
         this.numMoves = 0;
         init();
+    }
+    
+    private State getStartState(char[][] track){
+         for (int row = 0; row < track.length; row++) {
+             for (int col = 0; col < track[row].length; col++) {
+                 if(track[row][col] == 'S')
+                     return new State(col, row, 0, 0);
+             }
+        }
+        
+        return new State();
     }
 
     private void init() {
@@ -51,8 +59,9 @@ public class Simulator {
     public State takeAction(State state, Action action) {
 
         int[] acceleration = action.getAction();
-        accelerate(state, acceleration[0], acceleration[1]);
-        return traverse(state);
+        System.out.println("Take action: Ax:"+acceleration[0] + " Ay: "+acceleration[1]);
+        State acceleratedState = accelerate(state, acceleration[0], acceleration[1]);
+        return traverse(acceleratedState);
     }
 
     //Updates the agent's current state by applying an acceleration
