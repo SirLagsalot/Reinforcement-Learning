@@ -14,7 +14,7 @@ public class Simulator {
         this.collisionHandler = collisionHandler;
         this.track = track;
         this.numMoves = 0;
-        init();
+        //init(); avoid some errors atm
     }
 
     private State getStartState(char[][] track) {
