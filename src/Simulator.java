@@ -95,7 +95,7 @@ public class Simulator {
         int vy = state.velocity.y;
         int x2 = x + vx;
         int y2 = y + vy;
-        int count = 1 + vx + vy;
+        int count = 1 + Math.abs(vx) + Math.abs(vy);
         int xInc = (x2 > x) ? 1 : -1;
         int yInc = (y2 > y) ? 1 : -1;
         int error = vx - vy;
