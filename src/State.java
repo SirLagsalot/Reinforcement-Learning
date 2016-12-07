@@ -7,7 +7,6 @@ public final class State {
 
     private double utility;                    //Utility associated with being in this state
 
-    //I would like to remove this constructor and make position and velocity final to enforce not creating new states.. should talk about that though
     public State() {
 
     }

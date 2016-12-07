@@ -4,8 +4,9 @@ import java.util.Random;
 
 public class Simulator {
 
+    public char[][] track;
+
     private ICollisionHandler collisionHandler;
-    private char[][] track;
     private int numMoves;
     private State startState, currentState;
 

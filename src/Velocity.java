@@ -2,8 +2,8 @@
 //Stores a pair of velocity components
 public final class Velocity {
 
-    protected final int x;      //Im not certain if we want these to be final in the end
-    protected final int y;      //State should be final, but it might make things easier if we relax that here.. up for debate
+    public final int x;
+    public final int y;
 
     public Velocity(int Vx, int Vy) {
 
