@@ -209,10 +209,6 @@ public class Simulator {
             System.out.println("Checking track at X:" + x + " ,Y:" + y + "   " + track[y][x]);
 
             if (track[y][x] == '#') {
-//<<<<<<< HEAD
-//                System.out.println("Collided at X:" + x + " , Y: " + y);
-//                return collisionHandler.handleCollision(startState, moves.get(moves.size() - 1));
-//=======
                 return collisionHandler.handleCollision(startState, new Position(prevX,prevY));
             } else if (track[y][x] == 'F') {
                 //endSimulation(); No we do not end the simulation, check the resulting position on the return...
@@ -223,19 +219,6 @@ public class Simulator {
             if (error > 0) {
                 prevX = x;
                 x += xInc;
-//<<<<<<< HEAD
-//                error -= vy;
-//            } else if (error < 0) {
-//                y += yInc;
-//                error += vx;
-//            } else {
-//                System.out.println("Through a vertex");
-//                x += xInc;
-//                error -= vy;
-//                y += yInc;
-//                error += vx;
-//                count--;
-//=======
                 error -= Math.abs(vy);
             } 
             else if(error == 0){
