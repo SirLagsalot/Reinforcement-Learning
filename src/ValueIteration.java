@@ -30,7 +30,7 @@ public class ValueIteration extends PolicyMaker {
     //Arbitrarily assign utility values to qValues
     private void init() {
 
-        this.stateUtilities = new double[100][9];       //TODO: need to get actual dimensions
+        this.stateUtilities = new double[idMap.getMaxState()][9];       //TODO: need to get actual dimensions --easy(Wilson)
         Random random = new Random();
 
         for (double[] rows : stateUtilities) {

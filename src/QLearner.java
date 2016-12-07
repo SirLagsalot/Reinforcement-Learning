@@ -30,7 +30,7 @@ public class QLearner extends PolicyMaker {
     }
 
     public void initializeQ() {
-        q = new double[getMaxState(this.idMap)][9];//array of every state and 9 actions.
+        q = new double[idMap.getMaxState()][9];//array of every state and 9 actions.
     }
 
     public int getMaxState(StateIDMapper mapper) {
@@ -53,7 +53,8 @@ public class QLearner extends PolicyMaker {
 //                
 //            }
 //        }
-        double eta = .1;//this should vary with step size? //TODO
+        double eta = .9;//this should vary with step size? //TODO
+        //maybe .9 because there is NO reward until the final state is reached...
         double gamma = .1;//I guess?
         int currentStateID = 0;
         Random rand = new Random();
