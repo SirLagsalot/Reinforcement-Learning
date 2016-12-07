@@ -101,6 +101,8 @@ public class Simulator {
         int yInc = (y2 > y) ? 1 : (y2 == y) ? 0 : -1;
         int error = Math.abs(vx) - Math.abs(vy);
 
+        int prevX = x;
+        int prevY = y;
         vx *= 2;
         vy *= 2;//why??
 
@@ -109,7 +111,7 @@ public class Simulator {
         for (; count > 0; --count) {
 
             if (track[y][x] == '#') {
-                return collisionHandler.handleCollision(startState, moves.get(moves.size() - 1));
+                return collisionHandler.handleCollision(startState, new Position(prevX,prevY));
             } else if (track[y][x] == 'F') {
                 endSimulation();
                 state.position = new Position(x,y);
@@ -117,13 +119,17 @@ public class Simulator {
             }
 
             if (error > 0) {
+                prevX = x;
                 x += xInc;
                 error -= Math.abs(vy);
             } 
             else if(error == 0){
+                prevX = x;
+                prevY = y;
                 x+= xInc;
                 y+= yInc;
             }else {
+                prevY = y;
                 y += yInc;
                 error += Math.abs(vx);
             }

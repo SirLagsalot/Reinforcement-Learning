@@ -9,10 +9,10 @@ public class Main {
         //char[][] OTrack = TrackReader.readFile("./tracks/O-track.txt");
         //char[][] RTrack = TrackReader.readFile("./tracks/R-track.txt");
         printTrack(LTrack);
-        PolicyMaker qLearner = new QLearner(mapper, LTrack, new Simulator(LTrack, new CollisionReset()));
+        PolicyMaker qLearner = new QLearner(mapper, LTrack, new Simulator(LTrack, new CollisionStop()));
         qLearner.createPolicy();
 
-        PolicyMaker valueIteration = new ValueIteration(mapper, LTrack, new Simulator(LTrack, new CollisionReset()));
+        PolicyMaker valueIteration = new ValueIteration(mapper, LTrack, new Simulator(LTrack, new CollisionStop()));
         valueIteration.createPolicy();
 
         printTrack(LTrack);
