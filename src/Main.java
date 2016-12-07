@@ -12,8 +12,8 @@ public class Main {
         PolicyMaker qLearner = new QLearner(mapper, LTrack, new Simulator(LTrack, new CollisionStop()));
         qLearner.createPolicy();
 
-        PolicyMaker valueIteration = new ValueIteration(mapper, LTrack, new Simulator(LTrack, new CollisionStop()));
-        valueIteration.createPolicy();
+        //PolicyMaker valueIteration = new ValueIteration(mapper, LTrack, new Simulator(LTrack, new CollisionStop()));
+        //valueIteration.createPolicy();
 
         printTrack(LTrack);
         //printTrack(OTrack);

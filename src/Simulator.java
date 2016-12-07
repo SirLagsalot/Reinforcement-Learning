@@ -113,7 +113,7 @@ public class Simulator {
             if (track[y][x] == '#') {
                 return collisionHandler.handleCollision(startState, new Position(prevX,prevY));
             } else if (track[y][x] == 'F') {
-                endSimulation();
+                //endSimulation(); No we do not end the simulation, check the resulting position on the return...
                 state.position = new Position(x,y);
                 return state;//need the final state for other code to know it's the final state...
             }

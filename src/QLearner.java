@@ -58,7 +58,7 @@ public class QLearner extends PolicyMaker {
         int currentStateID = 0;
         Random rand = new Random();
         //so each 'episode' is just like... a random round I guess? maybe have 100 episodes? TODO
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 8008; i++) {
 
             currentStateID = rand.nextInt(q.length);//TODO Bias this towards the end???
             System.out.println("Initial stateID:"+currentStateID);
@@ -78,9 +78,12 @@ public class QLearner extends PolicyMaker {
                 int nextBestAction = maxA(newStateID);
                 q[currentStateID][action] = q[currentStateID][action] + eta * (reward + gamma * (q[newStateID][nextBestAction] - q[currentStateID][action]));
                 currentStateID = newStateID;
+                if(resultInfo.isFinal)
+                    break;
             }
 
         }
+        System.out.println("finished q learning");
     }
 
     private int maxA(int stateID) {

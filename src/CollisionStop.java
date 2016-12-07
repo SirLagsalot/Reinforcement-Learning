@@ -5,7 +5,7 @@ public class CollisionStop implements ICollisionHandler {
 
     @Override
     public State handleCollision(State startState, Position prevPos) {
-
+        System.out.println("Wall Hit: collision stop");
         return new State(prevPos, new Velocity(0, 0));   //im not sure, but i think we just want to set the agent back to its previous spot and 0 its velocity?  This still isnt quite how we want to do this since we dont want to instantiate new state, but should work for now? maybe
 //        State state = new State();
 //        double shortest = 9999;
