@@ -35,7 +35,7 @@ public class QLearner extends PolicyMaker {
 
     public int getMaxState(StateIDMapper mapper) {
         StateInfo info = mapper.stateInfos.get(mapper.stateInfos.size() - 1);
-        return info.stateID + (info.maxVelocityX - info.minVelocityX) * (info.maxVelocityY - info.minVelocityY) + (info.maxVelocityY - info.minVelocityY);
+        return info.stateID + (info.maxVelocityX - info.minVelocityX) * (info.maxVelocityY - info.minVelocityY+1) + (info.maxVelocityY - info.minVelocityY);
     }
 
     //for all episodes
