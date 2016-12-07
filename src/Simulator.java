@@ -176,24 +176,31 @@ public class Simulator {
         int x2 = x + vx;
         int y2 = y + vy;
         int count = 1 + Math.abs(vx) + Math.abs(vy);
+//<<<<<<< HEAD
+//
+//        int xInc = 0;
+//        int yInc = 0;
+//        if (x2 > x) {
+//            xInc = 1;
+//        } else if (x2 < x) {
+//            xInc = -1;
+//        }
+//        if (y2 > y) {
+//            yInc = 1;
+//        } else if (y2 < y) {
+//            yInc = -1;
+//        }
+//
+//        int error = vx - vy;
+//=======
+        int xInc = (x2 > x) ? 1 : (x2 == x) ? 0 : -1;
+        int yInc = (y2 > y) ? 1 : (y2 == y) ? 0 : -1;
+        int error = Math.abs(vx) - Math.abs(vy);
 
-        int xInc = 0;
-        int yInc = 0;
-        if (x2 > x) {
-            xInc = 1;
-        } else if (x2 < x) {
-            xInc = -1;
-        }
-        if (y2 > y) {
-            yInc = 1;
-        } else if (y2 < y) {
-            yInc = -1;
-        }
-
-        int error = vx - vy;
-
+        int prevX = x;
+        int prevY = y;
         vx *= 2;
-        vy *= 2;
+        vy *= 2;//why??
 
         moves.add(new Position(x, y));
 
@@ -202,26 +209,44 @@ public class Simulator {
             System.out.println("Checking track at X:" + x + " ,Y:" + y + "   " + track[y][x]);
 
             if (track[y][x] == '#') {
-                System.out.println("Collided at X:" + x + " , Y: " + y);
-                return collisionHandler.handleCollision(startState, moves.get(moves.size() - 1));
+//<<<<<<< HEAD
+//                System.out.println("Collided at X:" + x + " , Y: " + y);
+//                return collisionHandler.handleCollision(startState, moves.get(moves.size() - 1));
+//=======
+                return collisionHandler.handleCollision(startState, new Position(prevX,prevY));
             } else if (track[y][x] == 'F') {
-                endSimulation();
-                return state;
+                //endSimulation(); No we do not end the simulation, check the resulting position on the return...
+                state.position = new Position(x,y);
+                return state;//need the final state for other code to know it's the final state...
             }
 
             if (error > 0) {
+                prevX = x;
                 x += xInc;
-                error -= vy;
-            } else if (error < 0) {
+//<<<<<<< HEAD
+//                error -= vy;
+//            } else if (error < 0) {
+//                y += yInc;
+//                error += vx;
+//            } else {
+//                System.out.println("Through a vertex");
+//                x += xInc;
+//                error -= vy;
+//                y += yInc;
+//                error += vx;
+//                count--;
+//=======
+                error -= Math.abs(vy);
+            } 
+            else if(error == 0){
+                prevX = x;
+                prevY = y;
+                x+= xInc;
+                y+= yInc;
+            }else {
+                prevY = y;
                 y += yInc;
-                error += vx;
-            } else {
-                System.out.println("Through a vertex");
-                x += xInc;
-                error -= vy;
-                y += yInc;
-                error += vx;
-                count--;
+                error += Math.abs(vx);
             }
             moves.add(new Position(x, y));
         }
