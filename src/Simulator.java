@@ -80,6 +80,8 @@ public class Simulator {
             }
             Velocity v = new Velocity(Vx, Vy);
             return new State(state.position, v);
+        } else {
+            System.out.println("Didn't accelerate");
         }
         return state;
     }
@@ -87,6 +89,83 @@ public class Simulator {
     //Moves the agent according to their current velocity and detects wall collisions using
     //a super cover implementaion of Bresenham's line algorithm
     private State traverse(State state) {
+        
+//        ArrayList<Position> moves = new ArrayList();
+//        
+//        int i;
+//        int ystep, xstep;
+//        int error;
+//        int errorprev;
+//        int x = state.position.x;
+//        int y = state.position.y;
+//        int vx = state.velocity.x;
+//        int vy = state.velocity.y;
+//        int dvx, dvy;
+//        int x1 = x - vx;
+//        int y1 = y - vy;
+//        
+//        if(vy < 0){
+//            ystep = -1;
+//            vy = -vy;
+//        }
+//        else{
+//            ystep = 1;
+//        }
+//        
+//        if(vx < 0){
+//            xstep = -1;
+//            vx = -vx;
+//        }
+//        else{
+//            xstep = 1;
+//        }
+//        
+//        dvy = 2 * vy;
+//        dvx = 2 * vx;
+//        
+//        if(dvx >= dvy){
+//            errorprev = vx;
+//            error = vx;
+//            
+//            for(i = 0; i < vx; i++){
+//                x += xstep;
+//                error += dvy;
+//                if(error > dvx){
+//                    y += ystep;
+//                    error -= dvx;
+//                    
+//                    if(error + errorprev < dvx){
+//                        System.out.println(track[y - ystep][x]);
+//                    }
+//                    else if(error + errorprev > dvx){
+//                        System.out.println(track[y][x - xstep]);
+//                    }
+//                }
+//                errorprev = error;
+//            }
+//        }
+//        else{
+//            errorprev = vy;
+//            error = vy;
+//            
+//            for(i = 0; i < vy; i++){
+//                y += ystep;
+//                error += dvx;
+//                if(error > dvy){
+//                    x += xstep;
+//                    error -= dvy;
+//                    
+//                    if(error + errorprev < dvy){
+//                        System.out.println(track[y][x - xstep]);
+//                    }
+//                    else if(error + errorprev > dvy){
+//                        
+//                    }System.out.println(track[y - ystep][x]);
+//                }
+//                errorprev = error;
+//            }
+//        }
+        
 
         ArrayList<Position> moves = new ArrayList();
 
@@ -96,9 +175,21 @@ public class Simulator {
         int vy = state.velocity.y;
         int x2 = x + vx;
         int y2 = y + vy;
-        int count = 1 + vx + vy;
-        int xInc = (x2 > x) ? 1 : -1;
-        int yInc = (y2 > y) ? 1 : -1;
+        int count = 1 + Math.abs(vx) + Math.abs(vy);
+
+        int xInc = 0;
+        int yInc = 0;
+        if (x2 > x) {
+            xInc = 1;
+        } else if (x2 < x) {
+            xInc = -1;
+        }
+        if (y2 > y) {
+            yInc = 1;
+        } else if (y2 < y) {
+            yInc = -1;
+        }
+
         int error = vx - vy;
 
         vx *= 2;
@@ -108,15 +199,8 @@ public class Simulator {
 
         for (; count > 0; --count) {
 
-            System.out.println(track[y][x]);
+            System.out.println("Checking track at X:" + x + " ,Y:" + y + "   " + track[y][x]);
 
-            if (error > 0) {
-                x += xInc;
-                error -= vy;
-            } else {
-                y += yInc;
-                error += vx;
-            }
             if (track[y][x] == '#') {
                 System.out.println("Collided at X:" + x + " , Y: " + y);
                 return collisionHandler.handleCollision(startState, moves.get(moves.size() - 1));
@@ -124,12 +208,27 @@ public class Simulator {
                 endSimulation();
                 return state;
             }
+
+            if (error > 0) {
+                x += xInc;
+                error -= vy;
+            } else if (error < 0) {
+                y += yInc;
+                error += vx;
+            } else {
+                System.out.println("Through a vertex");
+                x += xInc;
+                error -= vy;
+                y += yInc;
+                error += vx;
+                count--;
+            }
             moves.add(new Position(x, y));
         }
 
-//        if (track[y2][x2] == '#') 
-//                return collisionHandler.handleCollision(startState, moves.get(moves.size() - 1));
-        state.position = new Position(x2, y2);
+////        if (track[y2][x2] == '#') 
+////                return collisionHandler.handleCollision(startState, moves.get(moves.size() - 1));
+//        state.position = new Position(x2, y2);
         return state;
     }
 
