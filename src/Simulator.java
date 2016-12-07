@@ -107,12 +107,7 @@ public class Simulator {
 
         for (; count > 0; --count) {
 
-            if (track[y][x] == '#') {
-                return collisionHandler.handleCollision(startState, moves.get(moves.size() - 1));
-            } else if (track[y][x] == 'F') {
-                endSimulation();
-                return state;
-            }
+            System.out.println(track[y][x]);
 
             if (error > 0) {
                 x += xInc;
@@ -121,12 +116,18 @@ public class Simulator {
                 y += yInc;
                 error += vx;
             }
-
+            if (track[y][x] == '#') {
+                System.out.println("Collided at X:" + x + " , Y: " + y);
+                return collisionHandler.handleCollision(startState, moves.get(moves.size() - 1));
+            } else if (track[y][x] == 'F') {
+                endSimulation();
+                return state;
+            }
             moves.add(new Position(x, y));
         }
 
-        if (track[y2][x2] == '#') 
-                return collisionHandler.handleCollision(startState, moves.get(moves.size() - 1));
+//        if (track[y2][x2] == '#') 
+//                return collisionHandler.handleCollision(startState, moves.get(moves.size() - 1));
         state.position = new Position(x2, y2);
         return state;
     }
