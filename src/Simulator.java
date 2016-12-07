@@ -96,13 +96,13 @@ public class Simulator {
         int vy = state.velocity.y;
         int x2 = x + vx;
         int y2 = y + vy;
-        int count = 1 + vx + vy;
-        int xInc = (x2 > x) ? 1 : -1;
-        int yInc = (y2 > y) ? 1 : -1;
-        int error = vx - vy;
+        int count = 1 + Math.abs(vx) + Math.abs(vy);
+        int xInc = (x2 > x) ? 1 : (x2 == x) ? 0 : -1;
+        int yInc = (y2 > y) ? 1 : (y2 == y) ? 0 : -1;
+        int error = Math.abs(vx) - Math.abs(vy);
 
         vx *= 2;
-        vy *= 2;
+        vy *= 2;//why??
 
         moves.add(new Position(x, y));
 
@@ -112,15 +112,20 @@ public class Simulator {
                 return collisionHandler.handleCollision(startState, moves.get(moves.size() - 1));
             } else if (track[y][x] == 'F') {
                 endSimulation();
-                return state;
+                state.position = new Position(x,y);
+                return state;//need the final state for other code to know it's the final state...
             }
 
             if (error > 0) {
                 x += xInc;
-                error -= vy;
-            } else {
+                error -= Math.abs(vy);
+            } 
+            else if(error == 0){
+                x+= xInc;
+                y+= yInc;
+            }else {
                 y += yInc;
-                error += vx;
+                error += Math.abs(vx);
             }
 
             moves.add(new Position(x, y));
