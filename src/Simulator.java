@@ -16,7 +16,6 @@ public class Simulator {
         this.collisionHandler = collisionHandler;
         this.track = track;
         this.numMoves = 0;
-        //init(); avoid some errors atm
     }
 
     private State getStartState(char[][] track) {
@@ -56,23 +55,6 @@ public class Simulator {
         int x2 = x + vx;
         int y2 = y + vy;
         int count = 1 + Math.abs(vx) + Math.abs(vy);
-//<<<<<<< HEAD
-//
-//        int xInc = 0;
-//        int yInc = 0;
-//        if (x2 > x) {
-//            xInc = 1;
-//        } else if (x2 < x) {
-//            xInc = -1;
-//        }
-//        if (y2 > y) {
-//            yInc = 1;
-//        } else if (y2 < y) {
-//            yInc = -1;
-//        }
-//
-//        int error = vx - vy;
-//=======
         int xInc = (x2 > x) ? 1 : (x2 == x) ? 0 : -1;
         int yInc = (y2 > y) ? 1 : (y2 == y) ? 0 : -1;
         int error = Math.abs(vx) - Math.abs(vy);
@@ -92,12 +74,10 @@ public class Simulator {
                 return collisionHandler.handleCollision(startState, new Position(prevX, prevY));
             } else if (track[y][x] == 'F') {
                 state.finish = true;
-                //endSimulation(); No we do not end the simulation, check the resulting position on the return...
                 state.position = new Position(x, y);
-                state.velocity = new Velocity(0, 0);//final states are always 0 velocity.
-                return state;//need the final state for other code to know it's the final state...
+                state.velocity = new Velocity(0, 0);    //final states are always 0 velocity.
+                return state;                           //need the final state for other code to know it's the final state...
             }
-
             if (error > 0) {
                 prevX = x;
                 x += xInc;
@@ -107,7 +87,7 @@ public class Simulator {
                 prevY = y;
                 x += xInc;
                 y += yInc;
-                count--;//affected both x and y so this was effectively 2 moves.
+                count--;                                //affected both x and y so this was effectively 2 moves.
             } else {
                 prevY = y;
                 y += yInc;
