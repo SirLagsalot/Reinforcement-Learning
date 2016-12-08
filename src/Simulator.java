@@ -8,6 +8,7 @@ public class Simulator {
     private ICollisionHandler collisionHandler;
     private int numMoves;
     private State startState, currentState;
+    private int[] policy;
 
     public Simulator(char[][] track, ICollisionHandler collisionHandler) {
 
@@ -28,6 +29,10 @@ public class Simulator {
             }
         }
         return new State();
+    }
+    
+    private void readPolicy(){
+        policy = FileHandler.readPolicy("qPolicy");
     }
 
     public State takeAction(State state, Action action) {
