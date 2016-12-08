@@ -145,7 +145,7 @@ public class Simulator {
                 if (x == i && y == j) {
                     System.out.print("A");
                 } else {
-                    System.out.print(track[i][j]);
+                    System.out.print(track[j][i]);
                 }
             }
             System.out.println("");
