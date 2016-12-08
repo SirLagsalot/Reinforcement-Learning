@@ -84,6 +84,7 @@ public class QLearner extends PolicyMaker {
                     break;
             }
             //TODO: Kneel uhh... gamma or eta? at the end of everything. Something like gamma *= .95;
+            eta *= .95;
 
         }
         System.out.println("finished q learning");
