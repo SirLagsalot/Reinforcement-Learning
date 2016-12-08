@@ -12,7 +12,7 @@ public abstract class PolicyMaker {
         this.simulator = simulator;
     }
 
-    public int[] createPolicy() {
-        return new int[0];
+    public double[][] createPolicy() {
+        return new double[0][0];
     }
 }

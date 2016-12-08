@@ -3,19 +3,19 @@ public class Main {
 
     public static void main(String[] args) {
 
-        char[][] LTrack = TrackReader.readFile("./tracks/L-track.txt");
-        StateIDMapper mapper = new StateIDMapper(LTrack);
+        char[][] ITrack = TrackReader.readFile("./tracks/I-track.txt");
+        StateIDMapper mapper = new StateIDMapper(ITrack);
 
         //char[][] OTrack = TrackReader.readFile("./tracks/O-track.txt");
         //char[][] RTrack = TrackReader.readFile("./tracks/R-track.txt");
-        printTrack(LTrack);
-        Simulator simulator = new Simulator(LTrack, new CollisionStop());
-        PolicyMaker qLearner = new QLearner(mapper, LTrack, simulator);
-        int[] policy = qLearner.createPolicy();
-        FileHandler.exportPolicy(policy, "policy");
+        printTrack(ITrack);
+        Simulator simulator = new Simulator(ITrack, new CollisionStop());
+        PolicyMaker qLearner = new QLearner(mapper, ITrack, simulator);
+       double[][] q = qLearner.createPolicy();
+        //FileHandler.exportPolicy(policy, "policy");
         //int[] p = FileHandler.importPolicy("test");
 
-        //Tester tester = new Tester(simulator, mapper, policy);
+        Tester tester = new Tester(simulator, mapper, q);
         
         //PolicyMaker valueIteration = new ValueIteration(mapper, LTrack, new Simulator(LTrack, new CollisionStop()));
         //valueIteration.createPolicy();
