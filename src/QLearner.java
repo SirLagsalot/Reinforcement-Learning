@@ -64,6 +64,7 @@ public class QLearner extends PolicyMaker {
             currentStateID = rand.nextInt(q.length);//TODO Bias this towards the end???
             System.out.println("Initial stateID:"+currentStateID);
             while (true) {
+                //TODO: Choose action randomly, with SLIGHT weight towards best action, kneel it too I guess...
                 int action = maxA(currentStateID);//selectAction(currentStateID);
                 State currentState = this.idMap.GetStateFromID(currentStateID);
                 System.out.println("Current state is: Px:"+currentState.position.x + " Py:"+currentState.position.y+" Vx:"+currentState.velocity.x +" Vy:"+currentState.velocity.y);
@@ -82,6 +83,7 @@ public class QLearner extends PolicyMaker {
                 if(resultInfo.isFinal)
                     break;
             }
+            //TODO: Kneel uhh... gamma or eta? at the end of everything. Something like gamma *= .95;
 
         }
         System.out.println("finished q learning");
