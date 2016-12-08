@@ -227,6 +227,7 @@ public class Simulator {
                 prevY = y;
                 x+= xInc;
                 y+= yInc;
+                count--;//affected both x and y so this was effectively 2 moves.
             }else {
                 prevY = y;
                 y += yInc;

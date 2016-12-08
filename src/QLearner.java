@@ -57,7 +57,7 @@ public class QLearner extends PolicyMaker {
         //maybe .9 because there is NO reward until the final state is reached...
         double gamma = .1;//I guess?
         double liklihoodToExplore = 1;
-        double exploreToGreedyKneelingFactor = .999;
+        double exploreToGreedyKneelingFactor = .9999;
         int currentStateID = 0;
         Random rand = new Random();
         //so each 'episode' is just like... a random round I guess? maybe have 100 episodes? TODO
@@ -66,13 +66,14 @@ public class QLearner extends PolicyMaker {
             currentStateID = rand.nextInt(q.length);//TODO Bias this towards the end???
             System.out.println("Initial stateID:"+currentStateID);
             while (true) {
+                boolean isFirstUpdateOnState = false;
                 //TODO: Choose action randomly, with SLIGHT weight towards best action, kneel it too I guess...
                 int action = rand.nextInt(9);
                 if(rand.nextDouble() > liklihoodToExplore){
                     action = maxA(currentStateID);//selectAction(currentStateID);
                 }
                 if(q[currentStateID][action] == 0){//if it hasn't been tested before, mark it tested by giving it preference.
-                    q[currentStateID][action] = 1;
+                    isFirstUpdateOnState = true;
                 }
                 State currentState = this.idMap.GetStateFromID(currentStateID);
                 System.out.println("Current state is: Px:"+currentState.position.x + " Py:"+currentState.position.y+" Vx:"+currentState.velocity.x +" Vy:"+currentState.velocity.y);
@@ -88,11 +89,14 @@ public class QLearner extends PolicyMaker {
                 int nextBestAction = maxA(newStateID);
                 q[currentStateID][action] = q[currentStateID][action] + eta * (reward + gamma * (q[newStateID][nextBestAction] - q[currentStateID][action]));
                 currentStateID = newStateID;
+                if(isFirstUpdateOnState){
+                    q[currentStateID][action] += 50;
+                }
                 if(resultInfo.isFinal)
                     break;
             }
             //TODO: Kneel uhh... gamma or eta? at the end of everything. Something like gamma *= .95;
-            eta *= .999;
+            eta *= .9999;
             liklihoodToExplore *= exploreToGreedyKneelingFactor;
 
         }
