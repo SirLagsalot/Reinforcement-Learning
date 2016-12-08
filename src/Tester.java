@@ -31,14 +31,17 @@ public class Tester {
         Random random = new Random();
         State currentState = new State(startLine.remove(random.nextInt(startLine.size())), new Velocity(0, 0));
 
+        int actionCount = 0;
+        Softmax.setTemp(0.5);
         while (true) {
-
             if (currentState.finish) {
                 break;
             }
             Action action = new Action(Softmax.getNextAction(policy[mapper.getStateIDFromState(currentState)]));
             currentState = simulator.takeAction(currentState, action);
             simulator.printTrack();
+            actionCount++;
         }
+        System.out.println("Agent took " + actionCount + " actions to find the finish line.");
     }
 }
