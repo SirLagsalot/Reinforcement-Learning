@@ -57,7 +57,7 @@ public class QLearner extends PolicyMaker {
 //                
 //            }
 //        }
-        int totalEpisodes = 20;//this.idMap.getMaxState()/4; //TODO: Justify or come up with better scale...
+        int totalEpisodes = 5*idMap.getMaxState();//this.idMap.getMaxState()/4; //TODO: Justify or come up with better scale...
         double eta = .9;//startEta//this should vary with step size? //TODO
         double endEta = .1;
         double etaKneelingFactor = Math.pow(endEta/eta, 1/(double)totalEpisodes);
@@ -68,11 +68,11 @@ public class QLearner extends PolicyMaker {
         double exploreToGreedyKneelingFactor = Math.pow(endLiklihoodToExplore/liklihoodToExplore, 1/(double)totalEpisodes);
         int currentStateID = 0;
         Random rand = new Random();
-        for (int i = 0; i < totalEpisodes; i++) {
-            for (int j = 0; j < this.idMap.stateInfos.size(); j++) {
-                StateInfo info = idMap.stateInfos.get(j);
-                State state = new State(info.position, new Velocity(0,0));
-                currentStateID = idMap.computeStateIDFromStateAndStateInfo(state, info);
+        for (int i = 0; i < totalEpisodes/idMap.getMaxState(); i++) {
+            for (int j = 0; j < this.idMap.getMaxState(); j++) {
+                //StateInfo info = idMap.stateInfos.get(j);
+                //State state = new State(info.position, new Velocity(0,0));
+                currentStateID = j;//idMap.computeStateIDFromStateAndStateInfo(state, info);
             
             //currentStateID = rand.nextInt(q.length);//TODO Bias this towards the end???
             System.out.println("Initial stateID:"+currentStateID);
@@ -91,7 +91,7 @@ public class QLearner extends PolicyMaker {
                 int reward = -1;
                 StateInfo resultInfo = this.idMap.getStateInfoFromPosition(result.position);
                 if (resultInfo.isFinal) {
-                    reward = 0;
+                    reward = 100;
                 }
                 int newStateID = this.idMap.computeStateIDFromStateAndStateInfo(result, resultInfo);
                 
