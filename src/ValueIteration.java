@@ -14,7 +14,7 @@ public class ValueIteration extends PolicyMaker {
     }
 
     @Override
-    public int[] createPolicy() {
+    public double[][] createPolicy() {
         //TODO -- this is an int[] of size maximumPossibleStateID, so each position is the state and has a value of it's best action.
         init();
 
@@ -24,7 +24,7 @@ public class ValueIteration extends PolicyMaker {
             delta = iterate();
         } while (delta < bellmanResidual);
 
-        return new int[]{0, 0};
+        return new double[0][0];
     }
 
     //Arbitrarily assign utility values to qValues
