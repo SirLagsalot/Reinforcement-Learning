@@ -120,12 +120,12 @@ public class Simulator {
         int x = currentState.position.x;
         int y = currentState.position.y;
 
-        for (int i = 0; i < track.length; i++) {
-            for (int j = 0; j < track[0].length; j++) {
-                if (x == i && y == j) {
+        for (int row = 0; row < track.length; row++) {
+            for (int col = 0; col < track[0].length; col++) {
+                if (x == col && y == row) {
                     System.out.print("A");
                 } else {
-                    System.out.print(track[j][i]);
+                    System.out.print(track[row][col]);
                 }
             }
             System.out.println("");
