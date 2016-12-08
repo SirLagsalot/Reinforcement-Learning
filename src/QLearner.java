@@ -57,7 +57,7 @@ public class QLearner extends PolicyMaker {
 //                
 //            }
 //        }
-        int totalEpisodes = 2000;//this.idMap.getMaxState()/4; //TODO: Justify or come up with better scale...
+        int totalEpisodes = 20;//this.idMap.getMaxState()/4; //TODO: Justify or come up with better scale...
         double eta = .9;//startEta//this should vary with step size? //TODO
         double endEta = .1;
         double etaKneelingFactor = Math.pow(endEta/eta, 1/(double)totalEpisodes);
@@ -69,8 +69,12 @@ public class QLearner extends PolicyMaker {
         int currentStateID = 0;
         Random rand = new Random();
         for (int i = 0; i < totalEpisodes; i++) {
- 
-            currentStateID = rand.nextInt(q.length);//TODO Bias this towards the end???
+            for (int j = 0; j < this.idMap.stateInfos.size(); j++) {
+                StateInfo info = idMap.stateInfos.get(j);
+                State state = new State(info.position, new Velocity(0,0));
+                currentStateID = idMap.computeStateIDFromStateAndStateInfo(state, info);
+            
+            //currentStateID = rand.nextInt(q.length);//TODO Bias this towards the end???
             System.out.println("Initial stateID:"+currentStateID);
             while (true) {
 //                boolean isFirstUpdateOnState = false;
@@ -104,7 +108,7 @@ public class QLearner extends PolicyMaker {
             eta *= etaKneelingFactor;
             liklihoodToExplore *= exploreToGreedyKneelingFactor;
             //lolemptycommit
-        }
+        }}
         System.out.println("finished q learning");
     }
 
