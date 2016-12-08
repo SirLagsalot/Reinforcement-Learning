@@ -16,6 +16,15 @@ public class StateIDMapper {
                         info.isStart = true;
                     } else if (curPosIdentifier == 'F') {
                         info.isFinal = true;
+                        info.stateID = startingStateID;
+                        info.maxVelocityX = 0;
+                        info.minVelocityX = 0;
+                        info.maxVelocityY = 0;
+                        info.minVelocityY = 0;
+                        info.position = new Position(col, row);
+                        stateInfos.add(info);
+                        startingStateID += 1;
+                        continue;
                     }
                     info.position = new Position(col, row);
                     info.stateID = startingStateID;

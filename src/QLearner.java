@@ -91,7 +91,7 @@ public class QLearner extends PolicyMaker {
                 int reward = -1;
                 StateInfo resultInfo = this.idMap.getStateInfoFromPosition(result.position);
                 if (resultInfo.isFinal) {
-                    reward = 0;
+                    reward = 100;
                 }
                 int newStateID = this.idMap.computeStateIDFromStateAndStateInfo(result, resultInfo);
                 
