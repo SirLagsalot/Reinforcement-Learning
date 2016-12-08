@@ -159,9 +159,8 @@ public class StateIDMapper {
         return new StateInfo();
     }
 
-    //TODO: This whole method =D
-    public State getStateFromComponents(Position position, Velocity velocity) {
-
-        return new State();
+    public int getMaxState() {
+        StateInfo info = stateInfos.get(stateInfos.size() - 1);
+        return info.stateID + (info.maxVelocityX - info.minVelocityX) * (info.maxVelocityY - info.minVelocityY+1) + (info.maxVelocityY - info.minVelocityY);
     }
 }

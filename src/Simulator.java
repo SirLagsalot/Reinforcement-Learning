@@ -213,6 +213,7 @@ public class Simulator {
             } else if (track[y][x] == 'F') {
                 //endSimulation(); No we do not end the simulation, check the resulting position on the return...
                 state.position = new Position(x,y);
+                state.velocity = new Velocity(0,0);//final states are always 0 velocity.
                 return state;//need the final state for other code to know it's the final state...
             }
 
@@ -226,6 +227,7 @@ public class Simulator {
                 prevY = y;
                 x+= xInc;
                 y+= yInc;
+                count--;//affected both x and y so this was effectively 2 moves.
             }else {
                 prevY = y;
                 y += yInc;
@@ -234,9 +236,9 @@ public class Simulator {
             moves.add(new Position(x, y));
         }
 
-////        if (track[y2][x2] == '#') 
-////                return collisionHandler.handleCollision(startState, moves.get(moves.size() - 1));
-//        state.position = new Position(x2, y2);
+        if (track[y2][x2] == '#') 
+                return collisionHandler.handleCollision(startState, new Position(prevX, prevY));
+        state.position = new Position(x2, y2);
         return state;
     }
 

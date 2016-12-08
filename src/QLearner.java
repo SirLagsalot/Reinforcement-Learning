@@ -30,7 +30,7 @@ public class QLearner extends PolicyMaker {
     }
 
     public void initializeQ() {
-        q = new double[getMaxState(this.idMap)][9];//array of every state and 9 actions.
+        q = new double[idMap.getMaxState()][9];//array of every state and 9 actions.
     }
 
     public int getMaxState(StateIDMapper mapper) {
@@ -53,8 +53,11 @@ public class QLearner extends PolicyMaker {
 //                
 //            }
 //        }
-        double eta = .1;//this should vary with step size? //TODO
+        double eta = .9;//this should vary with step size? //TODO
+        //maybe .9 because there is NO reward until the final state is reached...
         double gamma = .1;//I guess?
+        double liklihoodToExplore = 1;
+        double exploreToGreedyKneelingFactor = .9999;
         int currentStateID = 0;
         Random rand = new Random();
         //so each 'episode' is just like... a random round I guess? maybe have 100 episodes? TODO
@@ -63,7 +66,15 @@ public class QLearner extends PolicyMaker {
             currentStateID = rand.nextInt(q.length);//TODO Bias this towards the end???
             System.out.println("Initial stateID:"+currentStateID);
             while (true) {
-                int action = maxA(currentStateID);//selectAction(currentStateID);
+                boolean isFirstUpdateOnState = false;
+                //TODO: Choose action randomly, with SLIGHT weight towards best action, kneel it too I guess...
+                int action = rand.nextInt(9);
+                if(rand.nextDouble() > liklihoodToExplore){
+                    action = maxA(currentStateID);//selectAction(currentStateID);
+                }
+                if(q[currentStateID][action] == 0){//if it hasn't been tested before, mark it tested by giving it preference.
+                    isFirstUpdateOnState = true;
+                }
                 State currentState = this.idMap.GetStateFromID(currentStateID);
                 System.out.println("Current state is: Px:"+currentState.position.x + " Py:"+currentState.position.y+" Vx:"+currentState.velocity.x +" Vy:"+currentState.velocity.y);
                 //System.out.println("Taking action: "+action);
@@ -78,9 +89,15 @@ public class QLearner extends PolicyMaker {
                 int nextBestAction = maxA(newStateID);
                 q[currentStateID][action] = q[currentStateID][action] + eta * (reward + gamma * (q[newStateID][nextBestAction] - q[currentStateID][action]));
                 currentStateID = newStateID;
+                if(isFirstUpdateOnState){
+                    q[currentStateID][action] += 50;
+                }
                 if(resultInfo.isFinal)
                     break;
             }
+            //TODO: Kneel uhh... gamma or eta? at the end of everything. Something like gamma *= .95;
+            eta *= .9999;
+            liklihoodToExplore *= exploreToGreedyKneelingFactor;
 
         }
         System.out.println("finished q learning");
