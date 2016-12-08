@@ -135,7 +135,7 @@ public class Simulator {
     }
 
     //Print the racetrack with agent's location to the console
-    private void printTrack() {
+    public void printTrack() {
 
         int x = currentState.position.x;
         int y = currentState.position.y;

@@ -13,6 +13,7 @@ public class Tester {
         this.policy = policy;
         this.mapper = mapper;
         this.simulator = simulator;
+        run();
     }
 
     private void run() {
@@ -35,6 +36,7 @@ public class Tester {
             if (currentState.finish) {
                 break;
             }
+            simulator.printTrack();
             Action action = new Action(policy[mapper.getStateIDFromState(currentState)]);
             currentState = simulator.takeAction(currentState, action);
         }
