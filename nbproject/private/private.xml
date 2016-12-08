@@ -3,19 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/thema_000/Documents/Reinforcement-Learning/src/FileHandler.java</file>
+            <file>file:/C:/Users/thema_000/Documents/Reinforcement-Learning/src/Simulator.java</file>
             <file>file:/C:/Users/thema_000/Documents/Reinforcement-Learning/src/QLearner.java</file>
+            <file>file:/C:/Users/thema_000/Documents/Reinforcement-Learning/src/Softmax.java</file>
             <file>file:/C:/Users/thema_000/Documents/Reinforcement-Learning/src/Tester.java</file>
+            <file>file:/C:/Users/thema_000/Documents/Reinforcement-Learning/src/CollisionStop.java</file>
+            <file>file:/C:/Users/thema_000/Documents/Reinforcement-Learning/src/Action.java</file>
             <file>file:/C:/Users/thema_000/Documents/Reinforcement-Learning/src/StateInfo.java</file>
+            <file>file:/C:/Users/thema_000/Documents/Reinforcement-Learning/src/CollisionReset.java</file>
             <file>file:/C:/Users/thema_000/Documents/Reinforcement-Learning/src/TrackReader.java</file>
             <file>file:/C:/Users/thema_000/Documents/Reinforcement-Learning/src/Main.java</file>
             <file>file:/C:/Users/thema_000/Documents/Reinforcement-Learning/src/ValueIteration.java</file>
-            <file>file:/C:/Users/thema_000/Documents/Reinforcement-Learning/src/FileHandler.java</file>
-            <file>file:/C:/Users/thema_000/Documents/Reinforcement-Learning/src/Simulator.java</file>
-            <file>file:/C:/Users/thema_000/Documents/Reinforcement-Learning/src/State.java</file>
-            <file>file:/C:/Users/thema_000/Documents/Reinforcement-Learning/src/Softmax.java</file>
-            <file>file:/C:/Users/thema_000/Documents/Reinforcement-Learning/src/CollisionStop.java</file>
-            <file>file:/C:/Users/thema_000/Documents/Reinforcement-Learning/src/Action.java</file>
-            <file>file:/C:/Users/thema_000/Documents/Reinforcement-Learning/src/CollisionReset.java</file>
         </group>
     </open-files>
 </project-private>

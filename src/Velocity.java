@@ -25,6 +25,8 @@ public final class Velocity {
             this.y = (this.y + acceleration.y > 5) ? 5 : this.y + acceleration.y;
             return true;
         }
+        else
+            System.out.println("fuck accelerating");
         return false;
     }
 
