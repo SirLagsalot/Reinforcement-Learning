@@ -67,7 +67,7 @@ public class QLearner extends PolicyMaker {
         double exploreToGreedyKneelingFactor = Math.pow(endLiklihoodToExplore/liklihoodToExplore, totalEpisodes);
         int currentStateID = 0;
         Random rand = new Random();
-        for (int i = 0; i < 100; i++){//totalEpisodes; i++) {
+        for (int i = 0; i < totalEpisodes; i++) {
 
             currentStateID = rand.nextInt(q.length);//TODO Bias this towards the end???
             System.out.println("Initial stateID:"+currentStateID);
