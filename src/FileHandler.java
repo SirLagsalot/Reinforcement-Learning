@@ -18,15 +18,12 @@ import java.util.ArrayList;
  */
 public class FileHandler {
 
-    public static void exportPolicy(int[][] policy, String name) {
+    public static void exportPolicy(int[] policy, String name) {
         try {
             System.setOut(new PrintStream(new FileOutputStream("policies/" + name + ".txt")));
 
             for (int i = 0; i < policy.length; i++) {
-                for (int j = 0; j < policy[i].length; j++) {
-                    System.out.print(policy[i][j]);
-                }
-                System.out.println("");
+                    System.out.print(policy[i]);
             }
             System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out)));
         } catch (Exception e) {
@@ -34,25 +31,15 @@ public class FileHandler {
         }
     }
     
-    public static int[][] readPolicy(String name){
-        int[][] policy;
+    public static int[] readPolicy(String name){
+        int[] policy;
          try {
             FileReader in = new FileReader(name);
-            ArrayList<int[]> lines = new ArrayList();
             BufferedReader reader = new BufferedReader(in);
-            String next;
-            while((next = reader.readLine()) != null){
-                int[] temp = new int[9];
-                char[] tempS = next.toCharArray();
-                for(int i = 0; i < temp.length; i++){
-                    temp[i] = tempS[i];
-                }
-                lines.add(temp);
-            }
-            
-            policy = new int[lines.size()][];
-            for(int i = 0; i < policy.length; i++){
-                policy[i] = lines.get(i);
+            char[] next = reader.readLine().toCharArray();
+            policy = new int[next.length];
+            for(int i = 0; i < next.length; i++){
+                policy[i] = Integer.parseInt(Character.toString(next[i]));
             }
             
             return policy;
@@ -60,6 +47,6 @@ public class FileHandler {
         } catch (IOException | NumberFormatException e) {
             System.out.println("Exception caught: " + e);
         }
-        return new int[1][];
+        return new int[1];
     }
 }
