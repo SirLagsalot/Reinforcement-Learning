@@ -58,12 +58,12 @@ public class QLearner extends PolicyMaker {
 //                
 //            }
 //        }
-        int totalEpisodes = 20 * idMap.getMaxState();//this.idMap.getMaxState()/4; //TODO: Justify or come up with better scale...
-        double eta = 0.9;//startEta//this should vary with step size? //TODO
-        double endEta = 0.1;
-        double etaKneelingFactor = Math.pow(endEta / eta, 1 / (double) totalEpisodes);
+        int totalEpisodes = 50*idMap.getMaxState();//this.idMap.getMaxState()/4; //TODO: Justify or come up with better scale...
+        double eta = .9;//startEta//this should vary with step size? //TODO
+        double endEta = .1;
+        double etaKneelingFactor = Math.pow(endEta/eta, 1/(double)totalEpisodes);
         //maybe .9 because there is NO reward until the final state is reached...
-        double gamma = 0.8;//I guess?
+        double gamma = .4;//I guess?
         double liklihoodToExplore = 1.5;//start liklihood to explore
         double endLiklihoodToExplore = 0.05;
         double exploreToGreedyKneelingFactor = Math.pow(endLiklihoodToExplore / liklihoodToExplore, 1 / (double) totalEpisodes);
