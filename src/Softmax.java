@@ -6,10 +6,8 @@ public class Softmax {
     public static Action getNextAction(State state, StateInfo info, StateIDMapper mapper, double[] qValues) {
 
         //assign probabilities to all potential actions
-        //int domain = (info.maxVelocityX - info.minVelocityX) * (info.maxVelocityY - info.minVelocityY);
-        double[] probabilityTable = new double[Action.VALID_ACTIONS.length];         //table containing probability that each of the potential accelerations should be chosen.
-
-        double[] potentialStateQ = new double[Action.VALID_ACTIONS.length];
+        double[] probabilityTable = new double[Action.VALID_ACTIONS.length];        //table containing probability that each of the potential accelerations should be chosen.
+        double[] potentialStateQ = new double[Action.VALID_ACTIONS.length];         //table containing q values for the result of all possible actions
 
         for (int a = 0; a < Action.VALID_ACTIONS.length; a++) {
             Action action = Action.VALID_ACTIONS[a];
@@ -23,9 +21,9 @@ public class Softmax {
         for (int action = 0; action < Action.VALID_ACTIONS.length; action++) {
             double denominator = 0.0;
             for (int i = 0; i < Action.VALID_ACTIONS.length; i++) {
-                denominator += (Math.exp(qValues[info.stateID]) / TEMPERATURE);     //this isnt quite right, need to sum Math.exp(value of Q(a) for all possible a values, dividing each by temp
+                denominator += (Math.exp(potentialStateQ[i]) / TEMPERATURE);
             }
-            probabilityTable[action] = (Math.exp(qValues[info.stateID]) / TEMPERATURE) / denominator;
+            probabilityTable[action] = (Math.exp(potentialStateQ[action]) / TEMPERATURE) / denominator;
         }
 
         //choose a random action based on weighted probabilites
@@ -33,7 +31,6 @@ public class Softmax {
         double total = 0;
 
         for (int i = 0; i < Action.VALID_ACTIONS.length; i++) {
-
             total += probabilityTable[i];
             if (total >= random) {
                 //choose action i
