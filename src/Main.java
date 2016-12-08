@@ -8,13 +8,12 @@ public class Main {
 
         //char[][] OTrack = TrackReader.readFile("./tracks/O-track.txt");
         //char[][] RTrack = TrackReader.readFile("./tracks/R-track.txt");
-        printTrack(ITrack);
+        
         Simulator simulator = new Simulator(ITrack, new CollisionStop());
-        PolicyMaker qLearner = new QLearner(mapper, ITrack, simulator);
+        //PolicyMaker qLearner = new QLearner(mapper, ITrack, simulator);
         //double[][] q = qLearner.createPolicy();
         //FileHandler.exportPolicy(q, "policy");
         double[][] policy = FileHandler.importPolicy("policy");
-
         Tester tester = new Tester(simulator, mapper, policy);
 
         //PolicyMaker valueIteration = new ValueIteration(mapper, LTrack, new Simulator(LTrack, new CollisionStop()));
