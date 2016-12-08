@@ -6,28 +6,20 @@ public class Main {
         char[][] ITrack = TrackReader.readFile("./tracks/I-track.txt");
         StateIDMapper mapper = new StateIDMapper(ITrack);
 
+        //char[][] LTrack = TrackReader.readFile("./tracks/L-track.txt");
         //char[][] OTrack = TrackReader.readFile("./tracks/O-track.txt");
         //char[][] RTrack = TrackReader.readFile("./tracks/R-track.txt");
         
         Simulator simulator = new Simulator(ITrack, new CollisionStop());
-        //PolicyMaker qLearner = new QLearner(mapper, ITrack, simulator);
         
+        //PolicyMaker qLearner = new QLearner(mapper, ITrack, simulator);
         //double[][] q = qLearner.createPolicy();
         //FileHandler.exportPolicy(q, "policy");
-        
-        double[][] policy = FileHandler.importPolicy("policy");
-        Tester tester = new Tester(simulator, mapper, policy);
 
-        //PolicyMaker valueIteration = new ValueIteration(mapper, LTrack, new Simulator(LTrack, new CollisionStop()));
-        //valueIteration.createPolicy();
-        //printTrack(LTrack);
-        //printTrack(OTrack);
-        //printTrack(RTrack);
-        //char[][] test = {{'.', '#', '.'}, {'.', '.', '.'}, {'.', '.', '.'}};
-        //printTrack(test);
-        //Position p = Bresenham.checkCollision(1, 1, 1, 1, test);
-        //System.out.println(p.x);
-        //System.out.println(p.y);
+        double[][] policy = FileHandler.importPolicy("policy");
+        //System.out.println("Policy size: " + policy.length +  " " + policy[0].length);
+
+        Tester tester = new Tester(simulator, mapper, policy);
     }
 
     private static void printTrack(char[][] track) {

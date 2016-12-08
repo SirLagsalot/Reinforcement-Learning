@@ -33,6 +33,13 @@ public class Simulator {
     private void readPolicy() {
         //policy = FileHandler.importPolicy("qPolicy");
     }
+    
+    public State takeActionDetermisistic(State state, Action action) {
+        System.out.println("Take action: Ax:" + action.x + " Ay: " + action.y);
+        state.velocity.changeVelocity(action);
+        currentState = traverse(state);
+        return currentState;
+    }
 
     public State takeAction(State state, Action action) {
 
