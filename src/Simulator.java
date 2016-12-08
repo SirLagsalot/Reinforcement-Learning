@@ -80,7 +80,7 @@ public class Simulator {
         int prevX = x;
         int prevY = y;
         vx *= 2;
-        vy *= 2;//why??
+        vy *= 2;
 
         moves.add(new Position(x, y));
 
