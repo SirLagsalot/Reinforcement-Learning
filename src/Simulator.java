@@ -99,6 +99,9 @@ public class Simulator {
         if (track[y2][x2] == '#') {
             return collisionHandler.handleCollision(startState, new Position(prevX, prevY));
         }
+        if(track[y2][x2] == 'F'){
+            state.finish = true;
+        }
         state.position = new Position(x2, y2);
         return state;
     }

@@ -11,8 +11,8 @@ public class Main {
         printTrack(ITrack);
         Simulator simulator = new Simulator(ITrack, new CollisionStop());
         PolicyMaker qLearner = new QLearner(mapper, ITrack, simulator);
-        double[][] q = qLearner.createPolicy();
-        FileHandler.exportPolicy(q, "policy");
+        //double[][] q = qLearner.createPolicy();
+        //FileHandler.exportPolicy(q, "policy");
         double[][] policy = FileHandler.importPolicy("policy");
 
         Tester tester = new Tester(simulator, mapper, policy);
