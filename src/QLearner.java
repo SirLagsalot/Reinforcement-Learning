@@ -98,7 +98,7 @@ public class QLearner extends PolicyMaker {
             //TODO: Kneel uhh... gamma or eta? at the end of everything. Something like gamma *= .95;
             eta *= .9999;
             liklihoodToExplore *= exploreToGreedyKneelingFactor;
-
+            //lolemptycommit
         }
         System.out.println("finished q learning");
     }
