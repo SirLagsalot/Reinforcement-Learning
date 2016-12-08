@@ -14,10 +14,6 @@ public final class Velocity {
         this.y = Vy;
     }
 
-    public int[] getVelocity() {
-        return new int[]{x, y};
-    }
-
     //Accelerates the velocity with 80% success
     public boolean accelerate(Action acceleration) {
 

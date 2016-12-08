@@ -32,7 +32,7 @@ public class StateIDMapper {
 
     public int computeStateIDFromStateAndStateInfo(State state, StateInfo stateInfo) {
         int tempStateID = stateInfo.stateID + (state.velocity.x - stateInfo.minVelocityX) * (stateInfo.maxVelocityY - stateInfo.minVelocityY + 1) + state.velocity.y - stateInfo.minVelocityY;
-        if(tempStateID < 0){
+        if (tempStateID < 0) {
             return 0;
         }
         return tempStateID;
@@ -94,12 +94,12 @@ public class StateIDMapper {
         StateInfo info = getStateInfoFromID(stateID);
         state.position = info.position;
         int currentId = info.stateID;
-        
+
         int idOffset = stateID - info.stateID;
         int yRange = info.maxVelocityY - info.minVelocityY + 1;
         int yVelocity = (idOffset % yRange) + info.minVelocityY;
-        
-        int xVelocity = ((int)((idOffset - (idOffset % yRange))/yRange)) + info.minVelocityX;
+
+        int xVelocity = ((int) ((idOffset - (idOffset % yRange)) / yRange)) + info.minVelocityX;
         state.velocity = new Velocity(xVelocity, yVelocity);
         //TODO
 //        for (int xVelocity = info.minVelocityX; xVelocity <= info.maxVelocityX; xVelocity++) {
@@ -154,13 +154,13 @@ public class StateIDMapper {
                 return info;
             }
         }
-        System.out.println("Error: did not find stateinfo for position: "+pos.x + ", "+pos.y);
+        System.out.println("Error: did not find stateinfo for position: " + pos.x + ", " + pos.y);
         System.exit(0);
         return new StateInfo();
     }
 
     public int getMaxState() {
         StateInfo info = stateInfos.get(stateInfos.size() - 1);
-        return info.stateID + (info.maxVelocityX - info.minVelocityX) * (info.maxVelocityY - info.minVelocityY+1) + (info.maxVelocityY - info.minVelocityY);
+        return info.stateID + (info.maxVelocityX - info.minVelocityX) * (info.maxVelocityY - info.minVelocityY + 1) + (info.maxVelocityY - info.minVelocityY);
     }
 }

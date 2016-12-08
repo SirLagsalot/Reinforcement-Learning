@@ -7,7 +7,7 @@ public class StateInfo {
     public ArrayList<Velocity> validVelocities;     //A list of the valid velocites for a given state
 
     public int stateID;                             //A refernce index for mapping states and their corresponding info
-    public int minVelocityX, maxVelocityX;          //Should condence into the validVelocites set
+    public int minVelocityX, maxVelocityX;
     public int minVelocityY, maxVelocityY;
 
     public boolean isStart = false;                 //Is on the starting line

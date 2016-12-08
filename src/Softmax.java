@@ -1,9 +1,10 @@
 
+//Softmax function returns an action from the set of possible actions according to a weighted probability distribution
 public class Softmax {
 
     private static final int TEMPERATURE = 99999;     //tunable temperature parameter.  Higher values force greater chance of choosing randomly.  Lower values force selection to become greedy.
 
-    public static Action getNextAction(State state, StateInfo info, StateIDMapper mapper, double[] qValues) {
+    public static Action getNextAction(State state, StateIDMapper mapper, double[] qValues) {
 
         //assign probabilities to all potential actions
         double[] probabilityTable = new double[Action.VALID_ACTIONS.length];        //table containing probability that each of the potential accelerations should be chosen.
@@ -19,16 +20,16 @@ public class Softmax {
 
         //probability of choosing action a from domain
         for (int action = 0; action < Action.VALID_ACTIONS.length; action++) {
-            double denominator = 0.0;
+            double sum = 0.0;
             for (int i = 0; i < Action.VALID_ACTIONS.length; i++) {
-                denominator += (Math.exp(potentialStateQ[i]) / TEMPERATURE);
+                sum += (Math.exp(potentialStateQ[i]) / TEMPERATURE);
             }
-            probabilityTable[action] = (Math.exp(potentialStateQ[action]) / TEMPERATURE) / denominator;
+            probabilityTable[action] = (Math.exp(potentialStateQ[action]) / TEMPERATURE) / sum;
         }
 
         //choose a random action based on weighted probabilites
         double random = Math.random();
-        double total = 0;
+        double total = 0.0;
 
         for (int i = 0; i < Action.VALID_ACTIONS.length; i++) {
             total += probabilityTable[i];
@@ -38,6 +39,7 @@ public class Softmax {
             }
         }
         System.out.println("Unreacable line: softmax.");
+        System.exit(-1);
         return new Action(-2, -2);
     }
 }

@@ -2,9 +2,9 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+//Tester runs a simulation using a fully generated policy and records statistics
 public class Tester {
 
-    //TODO: Test all the things
     private final int[] policy;
     private final Simulator simulator;
     private final StateIDMapper mapper;
@@ -32,8 +32,8 @@ public class Tester {
 
         while (true) {
 
-            int action = policy[mapper.getStateIDFromState(currentState)];
-            currentState = simulator.takeAction(currentState, new Action(action));
+            Action action = new Action(policy[mapper.getStateIDFromState(currentState)]);
+            currentState = simulator.takeAction(currentState, action);
         }
     }
 }
