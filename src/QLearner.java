@@ -6,6 +6,7 @@ public class QLearner extends PolicyMaker {
     private double learningFactor;
     private double discountFactor;
     private double[][] q;
+//    private double searchedBias = 1000;
 
     public QLearner(StateIDMapper map, char[][] track, Simulator sim) {
         super(map, track, sim);
@@ -31,6 +32,14 @@ public class QLearner extends PolicyMaker {
 
     public void initializeQ() {
         q = new double[idMap.getMaxState()][9];//array of every state and 9 actions.
+//        for (int i = 0; i < idMap.getMaxState(); i++) {
+//            State state = idMap.GetStateFromID(i);
+//            if(track[state.position.y][state.position.x] == 'F'){
+//                for (int j = 0; j < 9; j++) {
+//                    q[i][j] += searchedBias;//All final positions are pre-treated as though they've been searched.
+//                }
+//            }
+//        }
     }
 
     public int getMaxState(StateIDMapper mapper) {
@@ -61,20 +70,21 @@ public class QLearner extends PolicyMaker {
         int currentStateID = 0;
         Random rand = new Random();
         //so each 'episode' is just like... a random round I guess? maybe have 100 episodes? TODO
-        for (int i = 0; i < 8008; i++) {
+        int totalEpisodes = this.idMap.getMaxState()/4;
+        for (int i = 0; i < totalEpisodes; i++) {
 
             currentStateID = rand.nextInt(q.length);//TODO Bias this towards the end???
             System.out.println("Initial stateID:"+currentStateID);
             while (true) {
-                boolean isFirstUpdateOnState = false;
+//                boolean isFirstUpdateOnState = false;
                 //TODO: Choose action randomly, with SLIGHT weight towards best action, kneel it too I guess...
                 int action = rand.nextInt(9);
                 if(rand.nextDouble() > liklihoodToExplore){
                     action = maxA(currentStateID);//selectAction(currentStateID);
                 }
-                if(q[currentStateID][action] == 0){//if it hasn't been tested before, mark it tested by giving it preference.
-                    isFirstUpdateOnState = true;
-                }
+//                if(q[currentStateID][action] == 0){//if it hasn't been tested before, mark it tested by giving it preference.
+//                    isFirstUpdateOnState = true;
+//                }
                 State currentState = this.idMap.GetStateFromID(currentStateID);
                 System.out.println("Current state is: Px:"+currentState.position.x + " Py:"+currentState.position.y+" Vx:"+currentState.velocity.x +" Vy:"+currentState.velocity.y);
                 //System.out.println("Taking action: "+action);
@@ -86,12 +96,13 @@ public class QLearner extends PolicyMaker {
                     reward = 0;
                 }
                 int newStateID = this.idMap.computeStateIDFromStateAndStateInfo(result, resultInfo);
+                
                 int nextBestAction = maxA(newStateID);
-                q[currentStateID][action] = q[currentStateID][action] + eta * (reward + gamma * (q[newStateID][nextBestAction] - q[currentStateID][action]));
+                q[currentStateID][action] = q[currentStateID][action] + (eta * (reward + (gamma * q[newStateID][nextBestAction]) - q[currentStateID][action]));
                 currentStateID = newStateID;
-                if(isFirstUpdateOnState){
-                    q[currentStateID][action] += 50;
-                }
+//                if(isFirstUpdateOnState){
+//                    q[currentStateID][action] += searchedBias;
+//                }
                 if(resultInfo.isFinal)
                     break;
             }
