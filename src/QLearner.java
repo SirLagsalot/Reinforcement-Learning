@@ -64,7 +64,7 @@ public class QLearner extends PolicyMaker {
         double etaKneelingFactor = Math.pow(endEta / eta, 1 / (double) totalEpisodes);
         //maybe .9 because there is NO reward until the final state is reached...
         double gamma = 0.8;//I guess?
-        double liklihoodToExplore = 1;//start liklihood to explore
+        double liklihoodToExplore = 1.5;//start liklihood to explore
         double endLiklihoodToExplore = 0.05;
         double exploreToGreedyKneelingFactor = Math.pow(endLiklihoodToExplore / liklihoodToExplore, 1 / (double) totalEpisodes);
         int currentStateID = 0;
@@ -92,7 +92,7 @@ public class QLearner extends PolicyMaker {
                     int reward = -1;
                     StateInfo resultInfo = this.idMap.getStateInfoFromPosition(result.position);
                     if (resultInfo.isFinal) {
-                        reward = 100;
+                    reward = 0;
                     }
                     int newStateID = this.idMap.computeStateIDFromStateAndStateInfo(result, resultInfo);
 
