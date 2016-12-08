@@ -30,8 +30,8 @@ public class Simulator {
         }
         return new State();
     }
-    
-    private void readPolicy(){
+
+    private void readPolicy() {
         policy = FileHandler.readPolicy("qPolicy");
     }
 
@@ -91,6 +91,7 @@ public class Simulator {
             if (track[y][x] == '#') {
                 return collisionHandler.handleCollision(startState, new Position(prevX, prevY));
             } else if (track[y][x] == 'F') {
+                state.finish = true;
                 //endSimulation(); No we do not end the simulation, check the resulting position on the return...
                 state.position = new Position(x, y);
                 state.velocity = new Velocity(0, 0);//final states are always 0 velocity.

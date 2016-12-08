@@ -32,6 +32,9 @@ public class Tester {
 
         while (true) {
 
+            if (currentState.finish) {
+                break;
+            }
             Action action = new Action(policy[mapper.getStateIDFromState(currentState)]);
             currentState = simulator.takeAction(currentState, action);
         }

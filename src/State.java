@@ -4,6 +4,8 @@ public final class State {
 
     public Position position;                  //Agent's (x,y) position
     public Velocity velocity;                  //Agent's velocity
+    public boolean start;
+    public boolean finish;
 
     private double utility;                    //Utility associated with being in this state
 
