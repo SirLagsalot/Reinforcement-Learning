@@ -15,7 +15,7 @@ public class Main {
         FileHandler.exportPolicy(q, "policy");
         //int[] p = FileHandler.importPolicy("test");
 
-        //Tester tester = new Tester(simulator, mapper, q);
+        Tester tester = new Tester(simulator, mapper, q);
         
         //PolicyMaker valueIteration = new ValueIteration(mapper, LTrack, new Simulator(LTrack, new CollisionStop()));
         //valueIteration.createPolicy();
