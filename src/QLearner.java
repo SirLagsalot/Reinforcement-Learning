@@ -68,16 +68,13 @@ public class QLearner extends PolicyMaker {
         int currentStateID = 0;
         Random rand = new Random();
         for (int i = 0; i < totalEpisodes; i++) {
-
+ 
             currentStateID = rand.nextInt(q.length);//TODO Bias this towards the end???
             System.out.println("Initial stateID:"+currentStateID);
             while (true) {
 //                boolean isFirstUpdateOnState = false;
                 //TODO: Choose action randomly, with SLIGHT weight towards best action, kneel it too I guess...
-                int action = rand.nextInt(9);
-                if(rand.nextDouble() > liklihoodToExplore){
-                    action = maxA(currentStateID);//selectAction(currentStateID);
-                }
+                int action = Softmax.getNextAction(q[currentStateID]);
 //                if(q[currentStateID][action] == 0){//if it hasn't been tested before, mark it tested by giving it preference.
 //                    isFirstUpdateOnState = true;
 //                }
