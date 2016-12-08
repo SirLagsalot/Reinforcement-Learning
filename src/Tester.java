@@ -32,7 +32,7 @@ public class Tester {
         State currentState = new State(startLine.remove(random.nextInt(startLine.size())), new Velocity(0, 0));
 
         int actionCount = 0;
-        Softmax.setTemp(0.5);
+        Softmax.setTemp(0.1);
         while (true) {
             if (currentState.finish) {
                 break;
