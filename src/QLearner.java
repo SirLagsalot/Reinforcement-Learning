@@ -23,7 +23,6 @@ public class QLearner extends PolicyMaker {
     //s = s'
     //until s is terminal state
     public int[] createPolicy() {
-        //TODO
         initializeQ();
         learnQ();
         int[] policy = softMaxQ();
@@ -68,7 +67,7 @@ public class QLearner extends PolicyMaker {
         double exploreToGreedyKneelingFactor = Math.pow(endLiklihoodToExplore/liklihoodToExplore, totalEpisodes);
         int currentStateID = 0;
         Random rand = new Random();
-        for (int i = 0; i < totalEpisodes; i++) {
+        for (int i = 0; i < 100; i++){//totalEpisodes; i++) {
 
             currentStateID = rand.nextInt(q.length);//TODO Bias this towards the end???
             System.out.println("Initial stateID:"+currentStateID);
@@ -130,6 +129,6 @@ public class QLearner extends PolicyMaker {
         for (int i = 0; i < policy.length; i++) {
             policy[i] = Softmax.getNextAction(q[i]);
         }
-        return new int[0];
+        return policy;
     }
 }
