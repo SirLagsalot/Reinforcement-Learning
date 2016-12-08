@@ -42,11 +42,6 @@ public class QLearner extends PolicyMaker {
 //        }
     }
 
-    public int getMaxState(StateIDMapper mapper) {
-        StateInfo info = mapper.stateInfos.get(mapper.stateInfos.size() - 1);
-        return info.stateID + (info.maxVelocityX - info.minVelocityX) * (info.maxVelocityY - info.minVelocityY+1) + (info.maxVelocityY - info.minVelocityY);
-    }
-
     //for all episodes
     //initialize s -- maybe near finish?
     //repeat
@@ -62,7 +57,7 @@ public class QLearner extends PolicyMaker {
 //                
 //            }
 //        }
-        int totalEpisodes = this.idMap.getMaxState()/4;
+        int totalEpisodes = this.idMap.getMaxState()/4; //TODO: Justify or come up with better scale...
         double eta = .9;//startEta//this should vary with step size? //TODO
         double endEta = .1;
         double etaKneelingFactor = Math.pow(endEta/eta, totalEpisodes);
@@ -73,7 +68,6 @@ public class QLearner extends PolicyMaker {
         double exploreToGreedyKneelingFactor = Math.pow(endLiklihoodToExplore/liklihoodToExplore, totalEpisodes);
         int currentStateID = 0;
         Random rand = new Random();
-        //so each 'episode' is just like... a random round I guess? maybe have 100 episodes? TODO
         for (int i = 0; i < totalEpisodes; i++) {
 
             currentStateID = rand.nextInt(q.length);//TODO Bias this towards the end???
@@ -128,11 +122,6 @@ public class QLearner extends PolicyMaker {
             }
         }
         return bestIndex;
-    }
-
-    private int selectAction(int stateID) {
-        //TODO
-        return 1;
     }
 
     public int[] softMaxQ() {
