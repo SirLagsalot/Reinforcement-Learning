@@ -62,15 +62,18 @@ public class QLearner extends PolicyMaker {
 //                
 //            }
 //        }
-        double eta = .9;//this should vary with step size? //TODO
+        int totalEpisodes = this.idMap.getMaxState()/4;
+        double eta = .9;//startEta//this should vary with step size? //TODO
+        double endEta = .1;
+        double etaKneelingFactor = Math.pow(endEta/eta, totalEpisodes);
         //maybe .9 because there is NO reward until the final state is reached...
         double gamma = .1;//I guess?
-        double liklihoodToExplore = 1;
-        double exploreToGreedyKneelingFactor = .9999;
+        double liklihoodToExplore = 1;//start liklihood to explore
+        double endLiklihoodToExplore = .05;
+        double exploreToGreedyKneelingFactor = Math.pow(endLiklihoodToExplore/liklihoodToExplore, totalEpisodes);
         int currentStateID = 0;
         Random rand = new Random();
         //so each 'episode' is just like... a random round I guess? maybe have 100 episodes? TODO
-        int totalEpisodes = this.idMap.getMaxState()/4;
         for (int i = 0; i < totalEpisodes; i++) {
 
             currentStateID = rand.nextInt(q.length);//TODO Bias this towards the end???
@@ -107,7 +110,7 @@ public class QLearner extends PolicyMaker {
                     break;
             }
             //TODO: Kneel uhh... gamma or eta? at the end of everything. Something like gamma *= .95;
-            eta *= .9999;
+            eta *= etaKneelingFactor;
             liklihoodToExplore *= exploreToGreedyKneelingFactor;
             //lolemptycommit
         }
@@ -134,6 +137,10 @@ public class QLearner extends PolicyMaker {
 
     public int[] softMaxQ() {
         //todo
+        int[] policy = new int[this.idMap.getMaxState()];
+        for (int i = 0; i < policy.length; i++) {
+            policy[i] = Softmax.getNextAction(q[i]);
+        }
         return new int[0];
     }
 }
