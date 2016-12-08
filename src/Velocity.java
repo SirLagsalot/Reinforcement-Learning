@@ -2,8 +2,8 @@
 //Stores a pair of velocity components
 public final class Velocity {
 
-    public final int x;
-    public final int y;
+    public int x;
+    public int y;
 
     public Velocity(int Vx, int Vy) {
 
@@ -16,5 +16,25 @@ public final class Velocity {
 
     public int[] getVelocity() {
         return new int[]{x, y};
+    }
+
+    //Accelerates the velocity with 80% success
+    public boolean accelerate(Action acceleration) {
+
+        assert (acceleration.x >= -1 && acceleration.x <= 1) : "Invalid X acceleration.";
+        assert (acceleration.y >= -1 && acceleration.y <= 1) : "Invalid Y acceleration.";
+
+        if (Math.random() > 0.2) {
+            this.x = (this.x + acceleration.x > 5) ? 5 : this.x + acceleration.x;
+            this.y = (this.y + acceleration.y > 5) ? 5 : this.y + acceleration.y;
+            return true;
+        }
+        return false;
+    }
+
+    //Accelerates this velocity, for use when computing an expected new state
+    public void changeVelocity(Action acceleration) {
+        this.x = (this.x + acceleration.x > 5) ? 5 : this.x + acceleration.x;
+        this.y = (this.y + acceleration.y > 5) ? 5 : this.y + acceleration.y;
     }
 }

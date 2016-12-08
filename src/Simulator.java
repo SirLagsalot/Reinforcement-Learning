@@ -51,45 +51,45 @@ public class Simulator {
 
         int[] acceleration = action.getAction();
         System.out.println("Take action: Ax:" + acceleration[0] + " Ay: " + acceleration[1]);
-        State acceleratedState = accelerate(state, acceleration[0], acceleration[1]);
-        currentState = traverse(acceleratedState);
+        state.velocity.accelerate(action);
+        //State acceleratedState = accelerate(state, acceleration[0], acceleration[1]);
+        currentState = traverse(state);
         return currentState;
     }
 
-    //Updates the agent's current state by applying an acceleration
-    private State accelerate(State state, int Ax, int Ay) {
-
-        assert (Ax >= -1 && Ax <= 1) : "Invalid X acceleration.";
-        assert (Ay >= -1 && Ay <= 1) : "Invalid Y acceleration.";
-
-        //update velocities with 80% success rate
-        if (Math.random() > 0.2) {
-            int Vx = (state.velocity.x + Ax);
-            if (Vx > 5) {
-                Vx = 5;
-            }
-            if (Vx < -5) {
-                Vx = -5;
-            }
-            int Vy = (state.velocity.y + Ay);
-            if (Vy > 5) {
-                Vy = 5;
-            }
-            if (Vy < -5) {
-                Vy = -5;
-            }
-            Velocity v = new Velocity(Vx, Vy);
-            return new State(state.position, v);
-        } else {
-            System.out.println("Didn't accelerate");
-        }
-        return state;
-    }
-
+//    //Updates the agent's current state by applying an acceleration
+//    private State accelerate(State state, int Ax, int Ay) {
+//
+//        assert (Ax >= -1 && Ax <= 1) : "Invalid X acceleration.";
+//        assert (Ay >= -1 && Ay <= 1) : "Invalid Y acceleration.";
+//
+//        //update velocities with 80% success rate
+//        if (Math.random() > 0.2) {
+//            int Vx = (state.velocity.x + Ax);
+//            if (Vx > 5) {
+//                Vx = 5;
+//            }
+//            if (Vx < -5) {
+//                Vx = -5;
+//            }
+//            int Vy = (state.velocity.y + Ay);
+//            if (Vy > 5) {
+//                Vy = 5;
+//            }
+//            if (Vy < -5) {
+//                Vy = -5;
+//            }
+//            Velocity v = new Velocity(Vx, Vy);
+//            return new State(state.position, v);
+//        } else {
+//            System.out.println("Didn't accelerate");
+//        }
+//        return state;
+//    }
     //Moves the agent according to their current velocity and detects wall collisions using
     //a super cover implementaion of Bresenham's line algorithm
     private State traverse(State state) {
-        
+
 //        ArrayList<Position> moves = new ArrayList();
 //        
 //        int i;
@@ -165,8 +165,6 @@ public class Simulator {
 //                errorprev = error;
 //            }
 //        }
-        
-
         ArrayList<Position> moves = new ArrayList();
 
         int x = state.position.x;
@@ -209,11 +207,11 @@ public class Simulator {
             System.out.println("Checking track at X:" + x + " ,Y:" + y + "   " + track[y][x]);
 
             if (track[y][x] == '#') {
-                return collisionHandler.handleCollision(startState, new Position(prevX,prevY));
+                return collisionHandler.handleCollision(startState, new Position(prevX, prevY));
             } else if (track[y][x] == 'F') {
                 //endSimulation(); No we do not end the simulation, check the resulting position on the return...
-                state.position = new Position(x,y);
-                state.velocity = new Velocity(0,0);//final states are always 0 velocity.
+                state.position = new Position(x, y);
+                state.velocity = new Velocity(0, 0);//final states are always 0 velocity.
                 return state;//need the final state for other code to know it's the final state...
             }
 
@@ -221,14 +219,13 @@ public class Simulator {
                 prevX = x;
                 x += xInc;
                 error -= Math.abs(vy);
-            } 
-            else if(error == 0){
+            } else if (error == 0) {
                 prevX = x;
                 prevY = y;
-                x+= xInc;
-                y+= yInc;
+                x += xInc;
+                y += yInc;
                 count--;//affected both x and y so this was effectively 2 moves.
-            }else {
+            } else {
                 prevY = y;
                 y += yInc;
                 error += Math.abs(vx);
@@ -236,8 +233,9 @@ public class Simulator {
             moves.add(new Position(x, y));
         }
 
-        if (track[y2][x2] == '#') 
-                return collisionHandler.handleCollision(startState, new Position(prevX, prevY));
+        if (track[y2][x2] == '#') {
+            return collisionHandler.handleCollision(startState, new Position(prevX, prevY));
+        }
         state.position = new Position(x2, y2);
         return state;
     }
