@@ -3,7 +3,7 @@ public class Softmax {
 
     private static final int TEMPERATURE = 99999;     //tunable temperature parameter.  Higher values force greater chance of choosing randomly.  Lower values force selection to become greedy.
 
-    public static int[] getNextAction(State state, StateInfo info, StateIDMapper mapper, double[] qValues) {
+    public static Action getNextAction(State state, StateInfo info, StateIDMapper mapper, double[] qValues) {
 
         //assign probabilities to all potential actions
         //int domain = (info.maxVelocityX - info.minVelocityX) * (info.maxVelocityY - info.minVelocityY);
@@ -37,10 +37,10 @@ public class Softmax {
             total += probabilityTable[i];
             if (total >= random) {
                 //choose action i
-                return Action.VALID_ACTIONS[i].getAction();
+                return Action.VALID_ACTIONS[i];
             }
         }
         System.out.println("Unreacable line: softmax.");
-        return new int[]{-2, -2};
+        return new Action(-2, -2);
     }
 }

@@ -35,27 +35,4 @@ public class Action {
         this.x = Ax;
         this.y = Ay;
     }
-
-    public int[] getAction() {
-        return new int[]{x, y};
-    }
-
-    //this is the sloppiest thing ever and i resent the fact were using an index to store our acclerations when they are inherently a pair of values
-    public int toInt() {
-
-        int val = 0;
-        if (x == 0) {
-            val += 3;
-        }
-        if (x == 1) {
-            val += 6;
-        }
-        if (y == 0) {
-            val += 1;
-        }
-        if (y == 1) {
-            val += 2;
-        }
-        return val;
-    }
 }

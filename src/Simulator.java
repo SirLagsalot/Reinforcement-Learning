@@ -1,16 +1,16 @@
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Simulator {
 
-    public char[][] track;
+    public final char[][] track;
 
     private ICollisionHandler collisionHandler;
     private int numMoves;
     private State startState, currentState;
 
     public Simulator(char[][] track, ICollisionHandler collisionHandler) {
+
         startState = getStartState(track);//this just gets the first start state possible, whatever.
         this.collisionHandler = collisionHandler;
         this.track = track;
@@ -19,6 +19,7 @@ public class Simulator {
     }
 
     private State getStartState(char[][] track) {
+
         for (int row = 0; row < track.length; row++) {
             for (int col = 0; col < track[row].length; col++) {
                 if (track[row][col] == 'S') {
@@ -26,66 +27,17 @@ public class Simulator {
                 }
             }
         }
-
         return new State();
-    }
-
-    private void init() {
-
-        //Find all spaces on the starting line
-        ArrayList<Position> startLine = new ArrayList<>();
-        for (int i = 0; i < track.length; i++) {
-            for (int j = 0; j < track[i].length; j++) {
-                if (track[i][j] == 'S') {
-                    startLine.add(new Position(i, j));
-                }
-            }
-        }
-
-        //Randomly select one as the starting position
-        Random random = new Random();
-        startState = new State(startLine.get(random.nextInt(startLine.size())), new Velocity(0, 0));        //Instantiating new state
     }
 
     public State takeAction(State state, Action action) {
 
-        int[] acceleration = action.getAction();
-        System.out.println("Take action: Ax:" + acceleration[0] + " Ay: " + acceleration[1]);
+        System.out.println("Take action: Ax:" + action.x + " Ay: " + action.y);
         state.velocity.accelerate(action);
-        //State acceleratedState = accelerate(state, acceleration[0], acceleration[1]);
         currentState = traverse(state);
         return currentState;
     }
 
-//    //Updates the agent's current state by applying an acceleration
-//    private State accelerate(State state, int Ax, int Ay) {
-//
-//        assert (Ax >= -1 && Ax <= 1) : "Invalid X acceleration.";
-//        assert (Ay >= -1 && Ay <= 1) : "Invalid Y acceleration.";
-//
-//        //update velocities with 80% success rate
-//        if (Math.random() > 0.2) {
-//            int Vx = (state.velocity.x + Ax);
-//            if (Vx > 5) {
-//                Vx = 5;
-//            }
-//            if (Vx < -5) {
-//                Vx = -5;
-//            }
-//            int Vy = (state.velocity.y + Ay);
-//            if (Vy > 5) {
-//                Vy = 5;
-//            }
-//            if (Vy < -5) {
-//                Vy = -5;
-//            }
-//            Velocity v = new Velocity(Vx, Vy);
-//            return new State(state.position, v);
-//        } else {
-//            System.out.println("Didn't accelerate");
-//        }
-//        return state;
-//    }
     //Moves the agent according to their current velocity and detects wall collisions using
     //a super cover implementaion of Bresenham's line algorithm
     private State traverse(State state) {

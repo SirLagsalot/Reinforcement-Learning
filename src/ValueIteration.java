@@ -71,8 +71,8 @@ public class ValueIteration extends PolicyMaker {
 
         double result = 0.0;
 
-        for (Action action : Action.VALID_ACTIONS) {
-            result += 0.8 * stateUtilities[this.idMap.getStateIDFromState(currentState)][action.toInt()];
+        for (int action = 0; action < Action.VALID_ACTIONS.length; action++) {
+            result += 0.8 * stateUtilities[this.idMap.getStateIDFromState(currentState)][action];
         }
 
         return currentState.getUtility() + (gamma * result);
