@@ -57,7 +57,7 @@ public class QLearner extends PolicyMaker {
 //                
 //            }
 //        }
-        int totalEpisodes = 5*idMap.getMaxState();//this.idMap.getMaxState()/4; //TODO: Justify or come up with better scale...
+        int totalEpisodes = 20*idMap.getMaxState();//this.idMap.getMaxState()/4; //TODO: Justify or come up with better scale...
         double eta = .9;//startEta//this should vary with step size? //TODO
         double endEta = .1;
         double etaKneelingFactor = Math.pow(endEta/eta, 1/(double)totalEpisodes);

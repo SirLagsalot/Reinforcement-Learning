@@ -13,17 +13,15 @@ public class Main {
         PolicyMaker qLearner = new QLearner(mapper, ITrack, simulator);
         double[][] q = qLearner.createPolicy();
         FileHandler.exportPolicy(q, "policy");
-        //int[] p = FileHandler.importPolicy("test");
+        double[][] policy = FileHandler.importPolicy("policy");
 
-        Tester tester = new Tester(simulator, mapper, q);
-        
+        Tester tester = new Tester(simulator, mapper, policy);
+
         //PolicyMaker valueIteration = new ValueIteration(mapper, LTrack, new Simulator(LTrack, new CollisionStop()));
         //valueIteration.createPolicy();
-
         //printTrack(LTrack);
         //printTrack(OTrack);
         //printTrack(RTrack);
-
         //char[][] test = {{'.', '#', '.'}, {'.', '.', '.'}, {'.', '.', '.'}};
         //printTrack(test);
         //Position p = Bresenham.checkCollision(1, 1, 1, 1, test);
