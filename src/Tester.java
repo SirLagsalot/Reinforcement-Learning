@@ -23,7 +23,7 @@ public class Tester {
         for (int i = 0; i < simulator.track.length; i++) {
             for (int j = 0; j < simulator.track[i].length; j++) {
                 if (simulator.track[i][j] == 'S') {
-                    startLine.add(new Position(i, j));
+                    startLine.add(new Position(j, i));
                 }
             }
         }
