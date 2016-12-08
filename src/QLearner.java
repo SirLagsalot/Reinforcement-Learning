@@ -56,6 +56,8 @@ public class QLearner extends PolicyMaker {
         double eta = .9;//this should vary with step size? //TODO
         //maybe .9 because there is NO reward until the final state is reached...
         double gamma = .1;//I guess?
+        double liklihoodToExplore = 1;
+        double exploreToGreedyKneelingFactor = .999;
         int currentStateID = 0;
         Random rand = new Random();
         //so each 'episode' is just like... a random round I guess? maybe have 100 episodes? TODO
@@ -65,7 +67,13 @@ public class QLearner extends PolicyMaker {
             System.out.println("Initial stateID:"+currentStateID);
             while (true) {
                 //TODO: Choose action randomly, with SLIGHT weight towards best action, kneel it too I guess...
-                int action = maxA(currentStateID);//selectAction(currentStateID);
+                int action = rand.nextInt(9);
+                if(rand.nextDouble() > liklihoodToExplore){
+                    action = maxA(currentStateID);//selectAction(currentStateID);
+                }
+                if(q[currentStateID][action] == 0){//if it hasn't been tested before, mark it tested by giving it preference.
+                    q[currentStateID][action] = 1;
+                }
                 State currentState = this.idMap.GetStateFromID(currentStateID);
                 System.out.println("Current state is: Px:"+currentState.position.x + " Py:"+currentState.position.y+" Vx:"+currentState.velocity.x +" Vy:"+currentState.velocity.y);
                 //System.out.println("Taking action: "+action);
@@ -84,7 +92,8 @@ public class QLearner extends PolicyMaker {
                     break;
             }
             //TODO: Kneel uhh... gamma or eta? at the end of everything. Something like gamma *= .95;
-            eta *= .95;
+            eta *= .999;
+            liklihoodToExplore *= exploreToGreedyKneelingFactor;
 
         }
         System.out.println("finished q learning");

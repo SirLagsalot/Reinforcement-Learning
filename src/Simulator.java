@@ -236,7 +236,7 @@ public class Simulator {
         }
 
         if (track[y2][x2] == '#') 
-                return collisionHandler.handleCollision(startState, moves.get(moves.size() - 1));
+                return collisionHandler.handleCollision(startState, new Position(prevX, prevY));
         state.position = new Position(x2, y2);
         return state;
     }
