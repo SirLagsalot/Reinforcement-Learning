@@ -12,12 +12,15 @@ public class Main {
         Simulator simulator = new Simulator(LTrack, new CollisionStop());
         PolicyMaker qLearner = new QLearner(mapper, LTrack, simulator);
         int[] policy = qLearner.createPolicy();
-        Tester tester = new Tester(simulator, mapper, policy);
+        FileHandler.exportPolicy(policy, "policy");
+        //int[] p = FileHandler.importPolicy("test");
+
+        //Tester tester = new Tester(simulator, mapper, policy);
         
         //PolicyMaker valueIteration = new ValueIteration(mapper, LTrack, new Simulator(LTrack, new CollisionStop()));
         //valueIteration.createPolicy();
 
-        printTrack(LTrack);
+        //printTrack(LTrack);
         //printTrack(OTrack);
         //printTrack(RTrack);
 

@@ -1,49 +1,44 @@
 
 import java.io.BufferedReader;
-import java.io.FileDescriptor;
-import java.io.FileOutputStream;
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author UNA
- */
 public class FileHandler {
 
-    public static void exportPolicy(int[] policy, String name) {
-        try {
-            System.setOut(new PrintStream(new FileOutputStream("policies/" + name + ".txt")));
+    public static void exportPolicy(int[] policy, String fileName) {
 
-            for (int i = 0; i < policy.length; i++) {
-                    System.out.print(policy[i]);
+        Path path = Paths.get("policies/" + fileName + ".txt");
+        String output = "";
+        for (int i = 0; i < policy.length; i++) {
+            output += policy[i];
+            if (i < policy.length - 1) {
+                output += ",";
             }
-            System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out)));
-        } catch (Exception e) {
-            e.printStackTrace();
+        }
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            writer.write(output);
+        } catch (IOException ex) {
+            System.out.println("Exception:" + ex);
         }
     }
-    
-    public static int[] readPolicy(String name){
+
+    public static int[] importPolicy(String fileName) {
+
         int[] policy;
-         try {
-            FileReader in = new FileReader(name);
+        try {
+            FileReader in = new FileReader("policies/" + fileName + ".txt");
             BufferedReader reader = new BufferedReader(in);
-            char[] next = reader.readLine().toCharArray();
-            policy = new int[next.length];
-            for(int i = 0; i < next.length; i++){
-                policy[i] = Integer.parseInt(Character.toString(next[i]));
+            String line = reader.readLine();
+            String[] values = line.split(",");
+            policy = new int[values.length];
+            for (int i = 0; i < values.length; i++) {
+                policy[i] = Integer.parseInt(values[i]);
             }
-            
             return policy;
-            
         } catch (IOException | NumberFormatException e) {
             System.out.println("Exception caught: " + e);
         }

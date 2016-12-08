@@ -31,7 +31,7 @@ public class Simulator {
     }
 
     private void readPolicy() {
-        policy = FileHandler.readPolicy("qPolicy");
+        policy = FileHandler.importPolicy("qPolicy");
     }
 
     public State takeAction(State state, Action action) {
