@@ -11,11 +11,12 @@ public class Softmax {
 
         double sum = 0.0;
         for (double q : qValues) {
-            sum += Math.exp(q) / temperature;
+            sum += Math.exp(q / temperature);
         }
 
         for (int i = 0; i < qValues.length; i++) {
-            probabilityTable[i] = (Math.exp(qValues[i]) / sum) / temperature;
+            double top = Math.exp(qValues[i] / temperature);
+            probabilityTable[i] = top / sum;
         }
 
         //choose a random action based on weighted probabilites
