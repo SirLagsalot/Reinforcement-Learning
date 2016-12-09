@@ -98,7 +98,7 @@ public class QLearner extends PolicyMaker {
 
                     int nextBestAction = maxA(newStateID);
                     //q[currentStateID][action] = q[currentStateID][action] + (eta * (reward + (gamma * q[newStateID][nextBestAction]) - q[currentStateID][action]));
-                    q[currentStateID][action] = q[currentStateID][action] + (.3 * (reward + (.98 * q[newStateID][nextBestAction]) - q[currentStateID][action]));
+                    q[currentStateID][action] = q[currentStateID][action] + (.9 * (reward + (.98 * q[newStateID][nextBestAction]) - q[currentStateID][action]));
                     currentStateID = newStateID;
 //                if(isFirstUpdateOnState){
 //                    q[currentStateID][action] += searchedBias;
