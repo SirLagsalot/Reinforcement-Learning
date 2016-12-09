@@ -6,7 +6,7 @@ public abstract class PolicyMaker {
     public char[][] track;
 
     public PolicyMaker(StateIDMapper idMap, char[][] track, Simulator simulator) {
-        
+
         this.idMap = idMap;
         this.track = track;
         this.simulator = simulator;
