@@ -3,9 +3,10 @@ import java.util.ArrayList;
 
 public class StateIDMapper {
 
-    public ArrayList<StateInfo> stateInfos = new ArrayList<>();
+    private ArrayList<StateInfo> stateInfos = new ArrayList<>();
 
     public StateIDMapper(char[][] track) {
+
         int startingStateID = 0;
         for (int row = 0; row < track.length; row++) {
             for (int col = 0; col < track[0].length; col++) {
@@ -39,15 +40,8 @@ public class StateIDMapper {
         }
     }
 
-    public int computeStateIDFromStateAndStateInfo(State state, StateInfo stateInfo) {
-        int tempStateID = stateInfo.stateID + (state.velocity.x - stateInfo.minVelocityX) * (stateInfo.maxVelocityY - stateInfo.minVelocityY + 1) + state.velocity.y - stateInfo.minVelocityY;
-        if (tempStateID < 0) {
-            return 0;
-        }
-        return tempStateID;
-    }
-
     private int findVelocityBound(boolean isXDirection, boolean isMax, char[][] track, int posY, int posX) {
+        
         if (isXDirection) {
             for (int a = 1; a <= 6; a++) {
                 if (!isMax) {
@@ -58,7 +52,6 @@ public class StateIDMapper {
                         if (prime == 5) {
                             return a;
                         }
-                        continue;
                     } else if (track[posY + prime][posX - a] != '#') {
                         break;
                     } else if (prime == 5) {
@@ -79,7 +72,6 @@ public class StateIDMapper {
                         if (prime == 5) {
                             return a;
                         }
-                        continue;
                     } else if (track[posY - a][posX + prime] != '#') {
                         break;
                     } else if (prime == 5) {
@@ -96,6 +88,15 @@ public class StateIDMapper {
             return 6;
         }
         return -6;
+    }
+
+    public int computeStateIDFromStateAndStateInfo(State state, StateInfo stateInfo) {
+
+        int tempStateID = stateInfo.stateID + (state.velocity.x - stateInfo.minVelocityX) * (stateInfo.maxVelocityY - stateInfo.minVelocityY + 1) + state.velocity.y - stateInfo.minVelocityY;
+        if (tempStateID < 0) {
+            return 0;
+        }
+        return tempStateID;
     }
 
     public State GetStateFromID(int stateID) {
@@ -126,7 +127,8 @@ public class StateIDMapper {
         return state;
     }
 
-    private StateInfo getStateInfoFromID(int stateID) {
+    public StateInfo getStateInfoFromID(int stateID) {
+        
         if (stateID >= stateInfos.get(stateInfos.size() - 1).stateID) {
             return stateInfos.get(stateInfos.size() - 1);
         }
@@ -153,11 +155,13 @@ public class StateIDMapper {
     }
 
     public int getStateIDFromState(State state) {
+        
         StateInfo info = getStateInfoFromPosition(state.position);
         return info.stateID + (state.velocity.x - info.minVelocityX) * (info.maxVelocityY - info.minVelocityY + 1) + state.velocity.y - info.minVelocityY;
     }
 
     public StateInfo getStateInfoFromPosition(Position pos) {
+        
         for (StateInfo info : stateInfos) {
             if (info.position.x == pos.x && info.position.y == pos.y) {
                 return info;
@@ -169,6 +173,7 @@ public class StateIDMapper {
     }
 
     public int getMaxState() {
+        
         StateInfo info = stateInfos.get(stateInfos.size() - 1);
         return info.stateID + (info.maxVelocityX - info.minVelocityX) * (info.maxVelocityY - info.minVelocityY + 1) + (info.maxVelocityY - info.minVelocityY);
     }

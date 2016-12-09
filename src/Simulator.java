@@ -33,7 +33,7 @@ public class Simulator {
     private void readPolicy() {
         //policy = FileHandler.importPolicy("qPolicy");
     }
-    
+
     public State takeActionDetermisistic(State state, Action action) {
         System.out.println("Take action: Ax:" + action.x + " Ay: " + action.y);
         state.velocity.changeVelocity(action);
@@ -106,7 +106,7 @@ public class Simulator {
         if (track[y2][x2] == '#') {
             return collisionHandler.handleCollision(startState, new Position(prevX, prevY));
         }
-        if(track[y2][x2] == 'F'){
+        if (track[y2][x2] == 'F') {
             state.finish = true;
         }
         state.position = new Position(x2, y2);
