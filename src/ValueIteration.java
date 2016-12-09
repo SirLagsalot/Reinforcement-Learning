@@ -7,7 +7,6 @@ public class ValueIteration extends PolicyMaker {
     private final double epsilon = 0.000001;        //stopping threshold
     private final double gamma = 0.5;               //discount factor 
     private int numIterations;                      //count of iterations required to build policy
-    private double[][] stateUtilities;              //Array holding the utility of all state action pairs
 
     public ValueIteration(StateIDMapper map, char[][] track, Simulator sim) {
         super(map, track, sim);
@@ -30,10 +29,10 @@ public class ValueIteration extends PolicyMaker {
     //Arbitrarily assign utility values to qValues
     private void init() {
 
-        this.stateUtilities = new double[idMap.getMaxState()][9];       //TODO: need to get actual dimensions --easy(Wilson)
+        this.q = new double[idMap.getMaxState()][9];       //TODO: need to get actual dimensions --easy(Wilson)
         Random random = new Random();
 
-        for (double[] rows : stateUtilities) {
+        for (double[] rows : q) {
             for (double stateUtility : rows) {
                 stateUtility = random.nextDouble();
             }
@@ -43,9 +42,9 @@ public class ValueIteration extends PolicyMaker {
     private double iterate() {
 
         double maxError = 0.0;
-        double[][] newQValues = Arrays.copyOf(stateUtilities, stateUtilities.length);  //needs to be the old qValues, this double array thing is stupid
+        double[][] newQValues = Arrays.copyOf(q, q.length);  //needs to be the old qValues, this double array thing is stupid
         //go through each state
-        for (int s = 0; s < stateUtilities.length; s++) {
+        for (int s = 0; s < q.length; s++) {
 
             double currentUtility = this.idMap.GetStateFromID(s).getUtility();
             double bestAction = -9999;
@@ -56,7 +55,7 @@ public class ValueIteration extends PolicyMaker {
                 //compute the state after taking action
                 //compute the utility of said state
                 newQValues[s][a] = getBellmanUtility(this.idMap.GetStateFromID(s));
-                double currentError = Math.abs(newQValues[s][a] - stateUtilities[s][a]);
+                double currentError = Math.abs(newQValues[s][a] - q[s][a]);
                 if (currentError > maxError) {
                     maxError = currentError;
                 }
@@ -72,7 +71,7 @@ public class ValueIteration extends PolicyMaker {
         double result = 0.0;
 
         for (int action = 0; action < Action.VALID_ACTIONS.length; action++) {
-            result += 0.8 * stateUtilities[this.idMap.getStateIDFromState(currentState)][action];
+            result += 0.8 * q[this.idMap.getStateIDFromState(currentState)][action];
         }
 
         return currentState.getUtility() + (gamma * result);

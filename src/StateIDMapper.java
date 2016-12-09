@@ -41,7 +41,7 @@ public class StateIDMapper {
     }
 
     private int findVelocityBound(boolean isXDirection, boolean isMax, char[][] track, int posY, int posX) {
-        
+
         if (isXDirection) {
             for (int a = 1; a <= 6; a++) {
                 if (!isMax) {
@@ -128,7 +128,7 @@ public class StateIDMapper {
     }
 
     public StateInfo getStateInfoFromID(int stateID) {
-        
+
         if (stateID >= stateInfos.get(stateInfos.size() - 1).stateID) {
             return stateInfos.get(stateInfos.size() - 1);
         }
@@ -155,13 +155,13 @@ public class StateIDMapper {
     }
 
     public int getStateIDFromState(State state) {
-        
+
         StateInfo info = getStateInfoFromPosition(state.position);
         return info.stateID + (state.velocity.x - info.minVelocityX) * (info.maxVelocityY - info.minVelocityY + 1) + state.velocity.y - info.minVelocityY;
     }
 
     public StateInfo getStateInfoFromPosition(Position pos) {
-        
+
         for (StateInfo info : stateInfos) {
             if (info.position.x == pos.x && info.position.y == pos.y) {
                 return info;
@@ -173,7 +173,7 @@ public class StateIDMapper {
     }
 
     public int getMaxState() {
-        
+
         StateInfo info = stateInfos.get(stateInfos.size() - 1);
         return info.stateID + (info.maxVelocityX - info.minVelocityX) * (info.maxVelocityY - info.minVelocityY + 1) + (info.maxVelocityY - info.minVelocityY);
     }

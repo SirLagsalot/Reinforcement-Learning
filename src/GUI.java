@@ -1,11 +1,8 @@
 
 import java.awt.Dimension;
 import java.awt.Frame;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,7 +22,7 @@ public class GUI extends Frame {
     ImageIcon explosion;
 
     public GUI() {
-        
+
         this.frame = new JFrame("Track Simulator");
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setLocationRelativeTo(null);

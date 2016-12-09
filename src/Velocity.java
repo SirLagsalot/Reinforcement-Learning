@@ -23,14 +23,18 @@ public final class Velocity {
         if (Math.random() > 0.2) {
             this.x = this.x + acceleration.x;
             this.y = this.y + acceleration.y;
-            if(this.x > 5)
+            if (this.x > 5) {
                 this.x = 5;
-            if(this.x < -5)
+            }
+            if (this.x < -5) {
                 this.x = -5;
-            if(this.y > 5)
+            }
+            if (this.y > 5) {
                 this.y = 5;
-            if(this.y < -5)
+            }
+            if (this.y < -5) {
                 this.y = -5;
+            }
             return true;
         } else {
             System.out.println("fuck accelerating");

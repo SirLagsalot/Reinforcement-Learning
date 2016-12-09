@@ -52,7 +52,7 @@ public class Simulator {
     //Moves the agent according to their current velocity and detects wall collisions using
     //a super cover implementaion of Bresenham's line algorithm
     private State traverse(State state) {
-        System.out.println("In Traverse: current velocities: X: "+state.velocity.x+" Y: "+state.velocity.y);
+        System.out.println("In Traverse: current velocities: X: " + state.velocity.x + " Y: " + state.velocity.y);
         ArrayList<Position> moves = new ArrayList();
 
         int x = state.position.x;
@@ -87,7 +87,7 @@ public class Simulator {
             }
             if (error > 0) {
                 prevX = x;
-                prevY  = y;
+                prevY = y;
                 x += xInc;
                 error -= Math.abs(vy);
             } else if (error == 0) {

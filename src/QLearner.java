@@ -4,31 +4,24 @@ import java.util.Random;
 public class QLearner extends PolicyMaker {
 
     private double eta = 0.9;
-    private double endEta = 0.1;
-    private double gamme = 0.1;
     private double liklihoodToExplore = 1.5;
-    private double endLiklihoodToExplore = 0.05;
 
-    private double[][] q;
-    private double searchedBias = 1000;
+    private final double endEta = 0.1;
+    private final double gamma = 0.1;
+    private final double endLiklihoodToExplore = 0.05;
 
     public QLearner(StateIDMapper map, char[][] track, Simulator sim) {
         super(map, track, sim);
+        this.q = new double[idMap.getMaxState()][9];
     }
 
     @Override
     public double[][] createPolicy() {
-        this.q = new double[idMap.getMaxState()][9];
         learnQ();
-        return q;
+        return this.q;
     }
 
     private void learnQ() {
-//        for (int episodeStartID = 0; episodeStartID < q.length; episodeStartID++) {
-//            for (int episodeStartAction = 0; episodeStartAction < q[0].length; episodeStartAction++) {
-//                
-//            }
-//        }
 
         int currentStateID;
         int totalEpisodes = idMap.getMaxState() / 4;//this.idMap.getMaxState()/4; //TODO: Justify or come up with better scale...
@@ -63,7 +56,7 @@ public class QLearner extends PolicyMaker {
 
                     int nextBestAction = maxA(newStateID);
                     //q[currentStateID][action] = q[currentStateID][action] + (eta * (reward + (gamma * q[newStateID][nextBestAction]) - q[currentStateID][action]));
-                    q[currentStateID][action] = q[currentStateID][action] + (.9 * (reward + (.98 * q[newStateID][nextBestAction]) - q[currentStateID][action]));
+                    q[currentStateID][action] = q[currentStateID][action] + (0.9 * (reward + (0.98 * q[newStateID][nextBestAction]) - q[currentStateID][action]));
                     currentStateID = newStateID;
 //                if(isFirstUpdateOnState){
 //                    q[currentStateID][action] += searchedBias;
