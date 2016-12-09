@@ -1,18 +1,24 @@
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //Tester runs a simulation using a fully generated policy and records statistics
 public class Tester {
 
+    public static boolean wait = true;
+
     private final double[][] policy;
     private final Simulator simulator;
     private final StateIDMapper mapper;
+    private GUI gui;
 
     public Tester(Simulator simulator, StateIDMapper mapper, double[][] policy) {
         this.policy = policy;
         this.mapper = mapper;
         this.simulator = simulator;
+        this.gui = new GUI();
         run();
     }
 
@@ -34,6 +40,14 @@ public class Tester {
         int actionCount = 0;
         Softmax.setTemp(.1);
         while (true) {
+            gui.renderTrack(simulator.track, currentState.position, false);
+            while (wait) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ex) {
+                }
+            }
+            wait = true;
             if (currentState.finish) {
                 break;
             }

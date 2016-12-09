@@ -3,19 +3,19 @@ public class Main {
 
     public static void main(String[] args) {
         
-        boolean buildPolicy = true;         //Set me to true to create a new policy
+        boolean buildPolicy = false;         //Set me to true to create a new policy
         double[][] policy;
         ICollisionHandler collisionHandler = new CollisionStop();
 
-//        char[][] ITrack = TrackReader.readFile("./tracks/I-track.txt");
-//        StateIDMapper mapper = new StateIDMapper(ITrack);
-//        Simulator simulator = new Simulator(ITrack, collisionHandler);
-//        PolicyMaker qLearner = new QLearner(mapper, ITrack, simulator);
+        char[][] ITrack = TrackReader.readFile("./tracks/I-track.txt");
+        StateIDMapper mapper = new StateIDMapper(ITrack);
+        Simulator simulator = new Simulator(ITrack, collisionHandler);
+        PolicyMaker qLearner = new QLearner(mapper, ITrack, simulator);
 
-        char[][] LTrack = TrackReader.readFile("./tracks/L-track.txt");
-        StateIDMapper mapper = new StateIDMapper(LTrack);
-        Simulator simulator = new Simulator(LTrack, collisionHandler);
-        PolicyMaker qLearner = new QLearner(mapper, LTrack, simulator);
+//        char[][] LTrack = TrackReader.readFile("./tracks/L-track.txt");
+//        StateIDMapper mapper = new StateIDMapper(LTrack);
+//        Simulator simulator = new Simulator(LTrack, collisionHandler);
+//        PolicyMaker qLearner = new QLearner(mapper, LTrack, simulator);
 
 //        char[][] OTrack = TrackReader.readFile("./tracks/O-track.txt");
 //        StateIDMapper mapper = new StateIDMapper(OTrack);
