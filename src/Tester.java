@@ -16,7 +16,7 @@ public class Tester {
         this.policy = policy;
         this.mapper = mapper;
         this.simulator = simulator;
-        this.gui = new GUI();
+        this.gui = new GUI(simulator.track);
         run();
     }
 
@@ -38,7 +38,7 @@ public class Tester {
         int actionCount = 0;
         Softmax.setTemp(0.1);
         while (true) {
-            gui.renderTrack(simulator.track, currentState.position, false);
+            gui.renderTrack(currentState.position, false);
             while (wait) {      //this is kind of a sloppy way of making the program wait.. 
                 try {
                     Thread.sleep(10);
