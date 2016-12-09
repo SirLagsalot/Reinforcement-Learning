@@ -63,7 +63,7 @@ public class QLearner extends PolicyMaker {
         double endEta = .1;
         double etaKneelingFactor = Math.pow(endEta/eta, 1/(double)totalEpisodes);
         //maybe .9 because there is NO reward until the final state is reached...
-        double gamma = .4;//I guess?
+        double gamma = .1;//I guess?
         double liklihoodToExplore = 1.5;//start liklihood to explore
         double endLiklihoodToExplore = 0.05;
         double exploreToGreedyKneelingFactor = Math.pow(endLiklihoodToExplore / liklihoodToExplore, 1 / (double) totalEpisodes);
@@ -97,7 +97,8 @@ public class QLearner extends PolicyMaker {
                     int newStateID = this.idMap.computeStateIDFromStateAndStateInfo(result, resultInfo);
 
                     int nextBestAction = maxA(newStateID);
-                    q[currentStateID][action] = q[currentStateID][action] + (eta * (reward + (gamma * q[newStateID][nextBestAction]) - q[currentStateID][action]));
+                    //q[currentStateID][action] = q[currentStateID][action] + (eta * (reward + (gamma * q[newStateID][nextBestAction]) - q[currentStateID][action]));
+                    q[currentStateID][action] = q[currentStateID][action] + (.9 * (reward + (.9 * q[newStateID][nextBestAction]) - q[currentStateID][action]));
                     currentStateID = newStateID;
 //                if(isFirstUpdateOnState){
 //                    q[currentStateID][action] += searchedBias;
