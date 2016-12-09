@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class StateIDMapper {
 
-    private ArrayList<StateInfo> stateInfos = new ArrayList<>();
+    public ArrayList<StateInfo> stateInfos = new ArrayList<>();
 
     public StateIDMapper(char[][] track) {
 
