@@ -3,7 +3,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        char[][] ITrack = TrackReader.readFile("./tracks/L-track.txt");
+        char[][] ITrack = TrackReader.readFile("./tracks/O-track.txt");
         StateIDMapper mapper = new StateIDMapper(ITrack);
 
         //char[][] LTrack = TrackReader.readFile("./tracks/L-track.txt");
@@ -12,9 +12,9 @@ public class Main {
         
         Simulator simulator = new Simulator(ITrack, new CollisionStop());
         
-//        PolicyMaker qLearner = new QLearner(mapper, ITrack, simulator);
-//        double[][] q = qLearner.createPolicy();
-//        FileHandler.exportPolicy(q, "policy");
+        PolicyMaker qLearner = new QLearner(mapper, ITrack, simulator);
+        double[][] q = qLearner.createPolicy();
+        FileHandler.exportPolicy(q, "policy");
 
         double[][] policy = FileHandler.importPolicy("policy");
         //System.out.println("Policy size: " + policy.length +  " " + policy[0].length);

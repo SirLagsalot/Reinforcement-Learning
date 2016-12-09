@@ -21,8 +21,16 @@ public final class Velocity {
         assert (acceleration.y >= -1 && acceleration.y <= 1) : "Invalid Y acceleration.";
 
         if (Math.random() > 0.2) {
-            this.x = (this.x + acceleration.x > 5) ? 5 : this.x + acceleration.x;
-            this.y = (this.y + acceleration.y > 5) ? 5 : this.y + acceleration.y;
+            this.x = this.x + acceleration.x;
+            this.y = this.y + acceleration.y;
+            if(this.x > 5)
+                this.x = 5;
+            if(this.x < -5)
+                this.x = -5;
+            if(this.y > 5)
+                this.y = 5;
+            if(this.y < -5)
+                this.y = -5;
             return true;
         } else {
             System.out.println("fuck accelerating");
