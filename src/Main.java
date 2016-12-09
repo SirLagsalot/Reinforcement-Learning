@@ -27,12 +27,12 @@ public class Main {
         Simulator simulator = new Simulator(RTrack, collisionHandler);
         PolicyMaker qLearner = new QLearner(mapper, RTrack, simulator);
 
-        if (buildPolicy) {
+        //if (buildPolicy) {
             policy = qLearner.createPolicy();
             FileHandler.exportPolicy(policy, "policy");
-        } else {
+        //} else {
             policy = FileHandler.importPolicy("policy");
-        }
+        //}
 
         Tester tester = new Tester(simulator, mapper, policy);
     }
