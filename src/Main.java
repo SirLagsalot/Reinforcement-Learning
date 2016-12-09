@@ -3,7 +3,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        char[][] ITrack = TrackReader.readFile("./tracks/I-track.txt");
+        char[][] ITrack = TrackReader.readFile("./tracks/L-track.txt");
         StateIDMapper mapper = new StateIDMapper(ITrack);
 
         //char[][] LTrack = TrackReader.readFile("./tracks/L-track.txt");
