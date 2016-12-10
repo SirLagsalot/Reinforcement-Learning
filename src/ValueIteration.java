@@ -19,8 +19,10 @@ public class ValueIteration extends PolicyMaker {
 
         double delta;
         double bellmanResidual = epsilon * (1 - gamma) / gamma;
+        System.out.println("Bellman Residual: "+bellmanResidual);
         do {
             delta = iterate();
+            System.out.println("Finished iteration: Delta = "+delta);
         } while (delta < bellmanResidual);
 
         return new double[0][0];

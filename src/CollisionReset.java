@@ -4,7 +4,7 @@ public class CollisionReset implements ICollisionHandler {
 
     @Override
     public State handleCollision(State startState, Position prevPos) {
-        System.out.println("Wall hit: collision reset");
+        //System.out.println("Wall hit: collision reset");
         return startState;
     }
 }
