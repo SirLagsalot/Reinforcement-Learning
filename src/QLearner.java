@@ -12,7 +12,7 @@ public class QLearner extends PolicyMaker {
 
     public QLearner(StateIDMapper map, char[][] track, Simulator sim) {
         super(map, track, sim);
-        this.q = new double[idMap.getMaxState()][9];
+        this.q = new double[idMap.getMaxState()+1][9];
     }
 
     @Override
@@ -24,15 +24,16 @@ public class QLearner extends PolicyMaker {
     private void learnQ() {
 
         int currentStateID;
-        int totalEpisodes = idMap.getMaxState() / 4;//this.idMap.getMaxState()/4; //TODO: Justify or come up with better scale...
+        int totalEpisodes = idMap.getMaxState() / 8;//this.idMap.getMaxState()/4; //TODO: Justify or come up with better scale...
         double etaKneelingFactor = Math.pow(endEta / eta, 1 / (double) totalEpisodes);
         double exploreToGreedyKneelingFactor = Math.pow(endLiklihoodToExplore / liklihoodToExplore, 1 / (double) totalEpisodes);
 
-        for (int i = 0; i < 100; i++) {//totalEpisodes / idMap.getMaxState(); i++) {
-            for (int j = 0; j < this.idMap.stateInfos.size(); j++) {
-                StateInfo info = idMap.stateInfos.get(j);
+        for (int i = 0; i <totalEpisodes; i++) {
+            //for (int j = 0; j < this.idMap.stateInfos.size(); j++) {
+            Random rand = new Random();
+                StateInfo info = idMap.stateInfos.get(rand.nextInt(idMap.stateInfos.size()));
                 State state = new State(info.position, new Velocity(0, 0));
-                currentStateID = idMap.computeStateIDFromStateAndStateInfo(state, info);
+                currentStateID = idMap.getStateIDFromState(state);//rand.nextInt(q.length);//idMap.computeStateIDFromStateAndStateInfo(state, info);
 
                 //currentStateID = rand.nextInt(q.length);//TODO Bias this towards the end???
                 System.out.println("Initial stateID:" + currentStateID);
@@ -68,7 +69,7 @@ public class QLearner extends PolicyMaker {
                 //TODO: Kneel uhh... gamma or eta? at the end of everything. Something like gamma *= .95;
                 eta *= etaKneelingFactor;
                 liklihoodToExplore *= exploreToGreedyKneelingFactor;
-            }
+            //}
         }
         System.out.println("Finished Q-Learning");
     }

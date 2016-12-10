@@ -7,7 +7,7 @@ public class Main {
         double[][] policy;
         ICollisionHandler collisionHandler = new CollisionStop();
 
-        char[][] ITrack = TrackReader.readFile("./tracks/I-track.txt");
+//        char[][] ITrack = TrackReader.readFile("./tracks/I-track.txt");
 //        StateIDMapper mapper = new StateIDMapper(ITrack);
 //        Simulator simulator = new Simulator(ITrack, collisionHandler);
 //        PolicyMaker qLearner = new QLearner(mapper, ITrack, simulator);
@@ -17,22 +17,22 @@ public class Main {
 //        Simulator simulator = new Simulator(LTrack, collisionHandler);
 //        PolicyMaker qLearner = new QLearner(mapper, LTrack, simulator);
 
-//        char[][] OTrack = TrackReader.readFile("./tracks/O-track.txt");
-//        StateIDMapper mapper = new StateIDMapper(OTrack);
-//        Simulator simulator = new Simulator(OTrack, collisionHandler);
-//        PolicyMaker qLearner = new QLearner(mapper, OTrack, simulator);
+        char[][] OTrack = TrackReader.readFile("./tracks/O-track.txt");
+        StateIDMapper mapper = new StateIDMapper(OTrack);
+        Simulator simulator = new Simulator(OTrack, collisionHandler);
+        PolicyMaker qLearner = new QLearner(mapper, OTrack, simulator);
 
-        char[][] RTrack = TrackReader.readFile("./tracks/R-track.txt");
-        StateIDMapper mapper = new StateIDMapper(RTrack);
-        Simulator simulator = new Simulator(RTrack, collisionHandler);
-        PolicyMaker qLearner = new QLearner(mapper, RTrack, simulator);
+//        char[][] RTrack = TrackReader.readFile("./tracks/R-track.txt");
+//        StateIDMapper mapper = new StateIDMapper(RTrack);
+//        Simulator simulator = new Simulator(RTrack, collisionHandler);
+//        PolicyMaker qLearner = new QLearner(mapper, RTrack, simulator);
 
-        //if (buildPolicy) {
+        if (buildPolicy) {
             policy = qLearner.createPolicy();
             FileHandler.exportPolicy(policy, "policy");
-        //} else {
+        } else {
             policy = FileHandler.importPolicy("policy");
-        //}
+        }
 
         Tester tester = new Tester(simulator, mapper, policy);
     }
