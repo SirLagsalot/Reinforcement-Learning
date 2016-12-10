@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class ValueIteration extends PolicyMaker {
 
-    private final double epsilon = 0.000000000000001;        //stopping threshold
+    private final double epsilon = 0.00000000000000001;        //stopping threshold
     private final double gamma = 0.5;               //discount factor 
     private int numIterations;                      //count of iterations required to build policy
     private double eta = .9;

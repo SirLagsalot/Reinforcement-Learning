@@ -20,7 +20,8 @@ public class QLearner extends PolicyMaker {
     public int[] createPolicy() {
         learnQ();
         int[] policy = new int[q.length];
-        for (int i = 0; i < 10; i++) {
+        Softmax.setTemp(.1);
+        for (int i = 0; i < policy.length; i++) {
             policy[i] = Softmax.getNextAction(q[i]);
         }
         return policy;
@@ -40,11 +41,12 @@ public class QLearner extends PolicyMaker {
     private void learnQ() {
 
         int currentStateID;
-        int totalEpisodes = idMap.getMaxState() / 4;//this.idMap.getMaxState()/4; //TODO: Justify or come up with better scale...
+        int totalEpisodes = idMap.getMaxState();//this.idMap.getMaxState()/4; //TODO: Justify or come up with better scale...
         double etaKneelingFactor = Math.pow(endEta / eta, 1 / (double) totalEpisodes);
-        int episodesPerStartState = totalEpisodes / 4;
+        
         double exploreToGreedyKneelingFactor = Math.pow(endLiklihoodToExplore / liklihoodToExplore, 1 / (double) totalEpisodes);
         ArrayList<State> startingStates = getStartingStates();
+        int episodesPerStartState = totalEpisodes*10;// / startingStates.size();
         for (int startStateIndex = 0; startStateIndex < startingStates.size(); startStateIndex++) {
             
         
