@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class ValueIteration extends PolicyMaker {
 
-    private final double epsilon = 0.0001;        //stopping threshold
+    private final double epsilon = 0.01;        //stopping threshold
     private final double gamma = 0.5;               //discount factor 
     private int numIterations;                      //count of iterations required to build policy
     private double eta = .9;
@@ -20,15 +20,19 @@ public class ValueIteration extends PolicyMaker {
 
         double delta;
         double bellmanResidual = epsilon * (1 - gamma) / gamma;
-        double[] vK = new double[this.idMap.getMaxState()];
+        double[] vK = new double[this.idMap.getMaxState()+1];
         System.out.println("Bellman Residual: " + bellmanResidual);
         while (true) {
             boolean allvkPass = true;
-            vK = iterate(vK);
+            double[] oldVK = vK;
+            double[] newVK = iterate(vK);
+            vK = newVK;
             //System.out.println("Finished iteration: Delta = "+delta);
             for (int i = 0; i < vK.length; i++) {
-                if (vK[i] >= epsilon) {
+                if (Math.abs(newVK[i] - oldVK[i]) >= epsilon) {
+                    System.out.println("the too big vK difference was...: "+Math.abs(newVK[i] - oldVK[i]));
                     allvkPass = false;
+                    
                     break;
                 }
             }

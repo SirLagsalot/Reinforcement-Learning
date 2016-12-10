@@ -22,7 +22,7 @@ public class Main {
 //        Simulator simulator = new Simulator(OTrack, collisionHandler);
 //        PolicyMaker qLearner = new QLearner(mapper, OTrack, simulator);
 
-        char[][] RTrack = TrackReader.readFile("./tracks/I-track.txt");
+        char[][] RTrack = TrackReader.readFile("./tracks/R-track.txt");
         StateIDMapper mapper = new StateIDMapper(RTrack);
         Simulator simulator = new Simulator(RTrack, collisionHandler);
         PolicyMaker qLearner = new ValueIteration(mapper, RTrack, simulator);
