@@ -10,13 +10,13 @@ public class Tester {
     private final double[][] policy;
     private final Simulator simulator;
     private final StateIDMapper mapper;
-    private final GUI gui;
+//    private final GUI gui;
 
     public Tester(Simulator simulator, StateIDMapper mapper, double[][] policy) {
         this.policy = policy;
         this.mapper = mapper;
         this.simulator = simulator;
-        this.gui = new GUI(simulator.track);
+//        this.gui = new GUI(simulator.track);
         run();
     }
 
@@ -38,14 +38,14 @@ public class Tester {
         int actionCount = 0;
         Softmax.setTemp(0.1);
         while (true) {
-            gui.renderTrack(currentState.position, false);
-            while (wait) {      //this is kind of a sloppy way of making the program wait.. 
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException ex) {
-                    System.out.println(ex);
-                }
-            }
+            //gui.renderTrack(currentState.position, false);
+            //while (wait) {      //this is kind of a sloppy way of making the program wait.. 
+//                try {
+//                    Thread.sleep(10);
+//                } catch (InterruptedException ex) {
+//                    System.out.println(ex);
+//                }
+            //}
             wait = true;
             if (currentState.finish) {
                 break;

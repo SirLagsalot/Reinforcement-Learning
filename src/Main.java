@@ -3,7 +3,7 @@ public class Main {
 
     public static void main(String[] args) {
         
-        boolean buildPolicy = false;         //Set me to true to create a new policy
+        boolean buildPolicy = true;         //Set me to true to create a new policy
         double[][] policy;
         ICollisionHandler collisionHandler = new CollisionStop();
 
@@ -17,15 +17,15 @@ public class Main {
 //        Simulator simulator = new Simulator(LTrack, collisionHandler);
 //        PolicyMaker qLearner = new QLearner(mapper, LTrack, simulator);
 
-        char[][] OTrack = TrackReader.readFile("./tracks/O-track.txt");
-        StateIDMapper mapper = new StateIDMapper(OTrack);
-        Simulator simulator = new Simulator(OTrack, collisionHandler);
-        PolicyMaker qLearner = new QLearner(mapper, OTrack, simulator);
+//        char[][] OTrack = TrackReader.readFile("./tracks/O-track.txt");
+//        StateIDMapper mapper = new StateIDMapper(OTrack);
+//        Simulator simulator = new Simulator(OTrack, collisionHandler);
+//        PolicyMaker qLearner = new QLearner(mapper, OTrack, simulator);
 
-//        char[][] RTrack = TrackReader.readFile("./tracks/R-track.txt");
-//        StateIDMapper mapper = new StateIDMapper(RTrack);
-//        Simulator simulator = new Simulator(RTrack, collisionHandler);
-//        PolicyMaker qLearner = new QLearner(mapper, RTrack, simulator);
+        char[][] RTrack = TrackReader.readFile("./tracks/R-track.txt");
+        StateIDMapper mapper = new StateIDMapper(RTrack);
+        Simulator simulator = new Simulator(RTrack, collisionHandler);
+        PolicyMaker qLearner = new QLearner(mapper, RTrack, simulator);
 
         if (buildPolicy) {
             policy = qLearner.createPolicy();

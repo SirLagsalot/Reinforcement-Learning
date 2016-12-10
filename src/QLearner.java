@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class QLearner extends PolicyMaker {
@@ -21,19 +22,34 @@ public class QLearner extends PolicyMaker {
         return this.q;
     }
 
+    private ArrayList<State> getStartingStates(){
+        ArrayList<State> startLine = new ArrayList<>();
+        for (int i = 0; i < simulator.track.length; i++) {
+            for (int j = 0; j < simulator.track[i].length; j++) {
+                if (simulator.track[i][j] == 'S') {
+                    startLine.add(new State(new Position(j, i), new Velocity(0,0)));
+                }
+            }
+        }
+        return startLine;
+    }
     private void learnQ() {
 
         int currentStateID;
-        int totalEpisodes = idMap.getMaxState() / 8;//this.idMap.getMaxState()/4; //TODO: Justify or come up with better scale...
+        int totalEpisodes = idMap.getMaxState() / 4;//this.idMap.getMaxState()/4; //TODO: Justify or come up with better scale...
         double etaKneelingFactor = Math.pow(endEta / eta, 1 / (double) totalEpisodes);
+        int episodesPerStartState = totalEpisodes / 4;
         double exploreToGreedyKneelingFactor = Math.pow(endLiklihoodToExplore / liklihoodToExplore, 1 / (double) totalEpisodes);
-
-        for (int i = 0; i <totalEpisodes; i++) {
+        ArrayList<State> startingStates = getStartingStates();
+        for (int startStateIndex = 0; startStateIndex < startingStates.size(); startStateIndex++) {
+            
+        
+        for (int i = 0; i < episodesPerStartState; i++) {//totalEpisodes / idMap.getMaxState(); i++) {
+            currentStateID = idMap.getStateIDFromState(startingStates.get(startStateIndex));
             //for (int j = 0; j < this.idMap.stateInfos.size(); j++) {
-            Random rand = new Random();
-                StateInfo info = idMap.stateInfos.get(rand.nextInt(idMap.stateInfos.size()));
-                State state = new State(info.position, new Velocity(0, 0));
-                currentStateID = idMap.getStateIDFromState(state);//rand.nextInt(q.length);//idMap.computeStateIDFromStateAndStateInfo(state, info);
+//                StateInfo info = idMap.stateInfos.get(j);
+//                State state = new State(info.position, new Velocity(0, 0));
+//                currentStateID = idMap.computeStateIDFromStateAndStateInfo(state, info);
 
                 //currentStateID = rand.nextInt(q.length);//TODO Bias this towards the end???
                 System.out.println("Initial stateID:" + currentStateID);
@@ -69,7 +85,7 @@ public class QLearner extends PolicyMaker {
                 //TODO: Kneel uhh... gamma or eta? at the end of everything. Something like gamma *= .95;
                 eta *= etaKneelingFactor;
                 liklihoodToExplore *= exploreToGreedyKneelingFactor;
-            //}
+            }
         }
         System.out.println("Finished Q-Learning");
     }
