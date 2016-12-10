@@ -31,7 +31,7 @@ public class Main {
             policy = qLearner.createPolicy();
             FileHandler.exportPolicy(policy, "policy");
         } else {
-            policy = FileHandler.importPolicy("policy");
+            policy = FileHandler.importPolicy("policyOtrack2");
         }
 
         Tester tester = new Tester(simulator, mapper, policy);

@@ -52,7 +52,7 @@ public class QLearner extends PolicyMaker {
 //                currentStateID = idMap.computeStateIDFromStateAndStateInfo(state, info);
 
                 //currentStateID = rand.nextInt(q.length);//TODO Bias this towards the end???
-                System.out.println("Initial stateID:" + currentStateID);
+//                System.out.println("Initial stateID:" + currentStateID);
                 while (true) {
 //                boolean isFirstUpdateOnState = false;
                     //TODO: Choose action randomly, with SLIGHT weight towards best action, kneel it too I guess...
@@ -61,9 +61,9 @@ public class QLearner extends PolicyMaker {
 //                    isFirstUpdateOnState = true;
 //                }
                     State currentState = this.idMap.GetStateFromID(currentStateID);
-                    System.out.println("Current state is: Px:" + currentState.position.x + " Py:" + currentState.position.y + " Vx:" + currentState.velocity.x + " Vy:" + currentState.velocity.y);
+//                    System.out.println("Current state is: Px:" + currentState.position.x + " Py:" + currentState.position.y + " Vx:" + currentState.velocity.x + " Vy:" + currentState.velocity.y);
                     State result = this.simulator.takeAction(currentState, new Action(action));
-                    System.out.println("Resulting Position: X:" + result.position.x + " Y:" + result.position.y + "\n");
+//                    System.out.println("Resulting Position: X:" + result.position.x + " Y:" + result.position.y + "\n");
                     int reward = -1;
                     StateInfo resultInfo = this.idMap.getStateInfoFromPosition(result.position);
                     if (resultInfo.isFinal) {

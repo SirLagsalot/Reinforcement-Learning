@@ -37,7 +37,7 @@ public final class Velocity {
             }
             return true;
         } else {
-            System.out.println("fuck accelerating");
+//            System.out.println("fuck accelerating");
         }
         return false;
     }

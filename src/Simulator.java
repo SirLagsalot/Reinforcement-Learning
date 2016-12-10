@@ -35,7 +35,7 @@ public class Simulator {
     }
 
     public State takeActionDetermisistic(State state, Action action) {
-        System.out.println("Take action: Ax:" + action.x + " Ay: " + action.y);
+//        System.out.println("Take action: Ax:" + action.x + " Ay: " + action.y);
         state.velocity.changeVelocity(action);
         currentState = traverse(state);
         return currentState;
@@ -43,7 +43,7 @@ public class Simulator {
 
     public State takeAction(State state, Action action) {
 
-        System.out.println("Take action: Ax:" + action.x + " Ay: " + action.y);
+//        System.out.println("Take action: Ax:" + action.x + " Ay: " + action.y);
         state.velocity.accelerate(action);
         currentState = traverse(state);
         return currentState;
@@ -52,7 +52,7 @@ public class Simulator {
     //Moves the agent according to their current velocity and detects wall collisions using
     //a super cover implementaion of Bresenham's line algorithm
     private State traverse(State state) {
-        System.out.println("In Traverse: current velocities: X: " + state.velocity.x + " Y: " + state.velocity.y);
+//        System.out.println("In Traverse: current velocities: X: " + state.velocity.x + " Y: " + state.velocity.y);
         ArrayList<Position> moves = new ArrayList();
 
         int x = state.position.x;
@@ -75,7 +75,7 @@ public class Simulator {
 
         for (; count > 0; --count) {
 
-            System.out.println("Checking track at X:" + x + " ,Y:" + y + "   " + track[y][x]);
+//            System.out.println("Checking track at X:" + x + " ,Y:" + y + "   " + track[y][x]);
 
             if (track[y][x] == '#') {
                 return collisionHandler.handleCollision(startState, new Position(prevX, prevY));
