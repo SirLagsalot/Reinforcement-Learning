@@ -3,7 +3,7 @@ public class Main {
 
     public static void main(String[] args) {
         
-        boolean buildPolicy = true;         //Set me to true to create a new policy
+        boolean buildPolicy = false;         //Set me to true to create a new policy
         double[][] policy;
         ICollisionHandler collisionHandler = new CollisionStop();
 
