@@ -76,7 +76,6 @@ public class Simulator {
         for (; count > 0; --count) {
 
 //            System.out.println("Checking track at X:" + x + " ,Y:" + y + "   " + track[y][x]);
-
             if (track[y][x] == '#') {
                 return collisionHandler.handleCollision(startState, new Position(prevX, prevY));
             } else if (track[y][x] == 'F') {
@@ -109,7 +108,7 @@ public class Simulator {
             return collisionHandler.handleCollision(startState, new Position(prevX, prevY));
         }
         if (track[y2][x2] == 'F') {
-            state.velocity = new Velocity(0,0);
+            state.velocity = new Velocity(0, 0);
             state.finish = true;
         }
         state.position = new Position(x2, y2);

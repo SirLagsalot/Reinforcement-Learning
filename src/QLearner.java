@@ -8,7 +8,6 @@ public class QLearner extends PolicyMaker {
     private double liklihoodToExplore = 1.5;
 
     private final double endEta = 0.8;
-    private final double gamma = 0.1;
     private final double endLiklihoodToExplore = 0.05;
 
     public QLearner(StateIDMapper map, char[][] track, Simulator sim) {
@@ -18,17 +17,17 @@ public class QLearner extends PolicyMaker {
 
     @Override
     public int[] createPolicy() {
+
         learnQ();
         int[] policy = new int[q.length];
-        //Softmax.setTemp(.1);
         for (int i = 0; i < policy.length; i++) {
             policy[i] = maxA(i);
-            //policy[i] = Softmax.getNextAction(q[i]);
         }
         return policy;
     }
 
     private ArrayList<State> getStartingStates() {
+
         ArrayList<State> startLine = new ArrayList<>();
         for (int i = 0; i < simulator.track.length; i++) {
             for (int j = 0; j < simulator.track[i].length; j++) {
@@ -44,30 +43,19 @@ public class QLearner extends PolicyMaker {
 
         int currentStateID;
         ArrayList<State> startingStates = getStartingStates();
-        int totalEpisodes = idMap.getMaxState();//this.idMap.getMaxState()/4; //TODO: Justify or come up with better scale...
+        int totalEpisodes = idMap.getMaxState();                                            //TODO: Justify or come up with better scale...
         double etaKneelingFactor = Math.pow(endEta / eta, 1 / (double) totalEpisodes);
 
         double exploreToGreedyKneelingFactor = Math.pow(endLiklihoodToExplore / liklihoodToExplore, 1 / (double) totalEpisodes);
 
-        int episodesPerStartState = totalEpisodes / startingStates.size();// / startingStates.size();
+        int episodesPerStartState = totalEpisodes / startingStates.size();
         for (int startStateIndex = 0; startStateIndex < startingStates.size(); startStateIndex++) {
 
-            for (int i = 0; i < episodesPerStartState; i++) {//totalEpisodes / idMap.getMaxState(); i++) {
+            for (int i = 0; i < episodesPerStartState; i++) {
                 currentStateID = idMap.getStateIDFromState(startingStates.get(startStateIndex));
-            //for (int j = 0; j < this.idMap.stateInfos.size(); j++) {
-//                StateInfo info = idMap.stateInfos.get(j);
-//                State state = new State(info.position, new Velocity(0, 0));
-//                currentStateID = idMap.computeStateIDFromStateAndStateInfo(state, info);
-
-                //currentStateID = rand.nextInt(q.length);//TODO Bias this towards the end???
 //                System.out.println("Initial stateID:" + currentStateID);
                 while (true) {
-//                boolean isFirstUpdateOnState = false;
-                    //TODO: Choose action randomly, with SLIGHT weight towards best action, kneel it too I guess...
                     int action = Softmax.getNextAction(q[currentStateID]);
-//                if(q[currentStateID][action] == 0){//if it hasn't been tested before, mark it tested by giving it preference.
-//                    isFirstUpdateOnState = true;
-//                }
                     State currentState = this.idMap.GetStateFromID(currentStateID);
 //                    System.out.println("Current state is: Px:" + currentState.position.x + " Py:" + currentState.position.y + " Vx:" + currentState.velocity.x + " Vy:" + currentState.velocity.y);
                     State result = this.simulator.takeAction(currentState, new Action(action));
@@ -80,19 +68,14 @@ public class QLearner extends PolicyMaker {
                     int newStateID = this.idMap.computeStateIDFromStateAndStateInfo(result, resultInfo);
 
                     int nextBestAction = maxA(newStateID);
-                    //q[currentStateID][action] = q[currentStateID][action] + (eta * (reward + (gamma * q[newStateID][nextBestAction]) - q[currentStateID][action]));
                     q[currentStateID][action] = q[currentStateID][action] + (eta * (reward + (0.98 * q[newStateID][nextBestAction]) - q[currentStateID][action]));
                     currentStateID = newStateID;
-//                if(isFirstUpdateOnState){
-//                    q[currentStateID][action] += searchedBias;
-//                }
                     if (resultInfo.isFinal) {
                         break;
                     }
                 }
-                //TODO: Kneel uhh... gamma or eta? at the end of everything. Something like gamma *= .95;
-                eta *= etaKneelingFactor;
-                liklihoodToExplore *= exploreToGreedyKneelingFactor;
+                this.eta *= etaKneelingFactor;
+                this.liklihoodToExplore *= exploreToGreedyKneelingFactor;
             }
         }
         System.out.println("Finished Q-Learning");

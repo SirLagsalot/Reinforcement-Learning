@@ -7,18 +7,11 @@ import java.util.List;
 
 public class FileHandler {
 
-    public static void exportPolicy(double[][] policy, String fileName) {
+    public static void exportPolicy(int[] policy, String fileName) {    //of format StateID, action \n
 
         List<String> lines = new ArrayList<>();
-        for (double[] p : policy) {
-            String line = "";
-            for (int j = 0; j < policy[0].length; j++) {
-                line += p[j];
-                if (j < policy[0].length - 1) {
-                    line += ",";
-                }
-            }
-            lines.add(line);
+        for (int i = 0; i < policy.length; i++) {
+            lines.add("StateID: " + i + "\tAction: " + policy[i]);
         }
         try {
             Files.write(Paths.get("policies/" + fileName + ".txt"), lines);
@@ -27,23 +20,19 @@ public class FileHandler {
         }
     }
 
-    public static double[][] importPolicy(String fileName) {
+    public static int[] importPolicy(String fileName) {
 
         try {
             List<String> lines = Files.readAllLines(Paths.get("policies/" + fileName + ".txt"));
-            double[][] policy = new double[lines.size()][9];
+            int[] policy = new int[lines.size()];
             for (int i = 0; i < lines.size(); i++) {
-                String[] elements = lines.get(i).split(",");
-                double[] values = new double[elements.length];
-                for (int j = 0; j < elements.length; j++) {
-                    values[j] = Double.parseDouble(elements[j]);
-                }
-                policy[i] = values;
+                String[] elements = lines.get(i).split("Action: ");
+                policy[i] = Integer.parseInt(elements[1]);
             }
             return policy;
         } catch (IOException ex) {
             System.out.println(ex);
         }
-        return new double[0][0];
+        return new int[0];
     }
 }

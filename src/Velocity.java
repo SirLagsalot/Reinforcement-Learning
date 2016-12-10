@@ -47,16 +47,16 @@ public final class Velocity {
         this.x = this.x + acceleration.x;
         this.y = this.y + acceleration.y;
         if (this.x > 5) {
-                this.x = 5;
-            }
-            if (this.x < -5) {
-                this.x = -5;
-            }
-            if (this.y > 5) {
-                this.y = 5;
-            }
-            if (this.y < -5) {
-                this.y = -5;
-            }
+            this.x = 5;
+        }
+        if (this.x < -5) {
+            this.x = -5;
+        }
+        if (this.y > 5) {
+            this.y = 5;
+        }
+        if (this.y < -5) {
+            this.y = -5;
+        }
     }
 }
