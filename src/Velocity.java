@@ -21,20 +21,23 @@ public final class Velocity {
         assert (acceleration.y >= -1 && acceleration.y <= 1) : "Invalid Y acceleration.";
 
         if (Math.random() > 0.2) {
-            this.x = this.x + acceleration.x;
-            this.y = this.y + acceleration.y;
-            if (this.x > 5) {
+
+            if (this.x + acceleration.x > 5) {
                 this.x = 5;
-            }
-            if (this.x < -5) {
+            } else if (this.x + acceleration.x < -5) {
                 this.x = -5;
+            } else {
+                this.x += acceleration.x;
             }
-            if (this.y > 5) {
+
+            if (this.y + acceleration.y > 5) {
                 this.y = 5;
-            }
-            if (this.y < -5) {
+            } else if (this.y + acceleration.y < -5) {
                 this.y = -5;
+            } else {
+                this.y += acceleration.y;
             }
+
             return true;
         } else {
 //            System.out.println("fuck accelerating");
@@ -44,19 +47,21 @@ public final class Velocity {
 
     //Accelerates this velocity, for use when computing an expected new state
     public void changeVelocity(Action acceleration) {
-        this.x = this.x + acceleration.x;
-        this.y = this.y + acceleration.y;
-        if (this.x > 5) {
+        
+        if (this.x + acceleration.x > 5) {
             this.x = 5;
-        }
-        if (this.x < -5) {
+        } else if (this.x + acceleration.x < -5) {
             this.x = -5;
+        } else {
+            this.x += acceleration.x;
         }
-        if (this.y > 5) {
+
+        if (this.y + acceleration.y > 5) {
             this.y = 5;
-        }
-        if (this.y < -5) {
+        } else if (this.y + acceleration.y < -5) {
             this.y = -5;
+        } else {
+            this.y += acceleration.y;
         }
     }
 }

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class StateIDMapper {
 
-    public ArrayList<StateInfo> stateInfos = new ArrayList<>();
+    private ArrayList<StateInfo> stateInfos = new ArrayList<>();
 
     public StateIDMapper(char[][] track) {
 
@@ -100,10 +100,10 @@ public class StateIDMapper {
     }
 
     public State GetStateFromID(int stateID) {
+        
         State state = new State();
         StateInfo info = getStateInfoFromID(stateID);
         state.position = info.position;
-        int currentId = info.stateID;
 
         int idOffset = stateID - info.stateID;
         int yRange = info.maxVelocityY - info.minVelocityY + 1;
@@ -134,7 +134,7 @@ public class StateIDMapper {
         }
 
         int currentIndex;
-        currentIndex = (stateInfos.size() - 1) / 2;
+        currentIndex = (stateInfos.size() - 1) >> 1;
         int maxBound = stateInfos.size() - 1;
         int minBound = 0;
         while (minBound >= 0) {
@@ -144,11 +144,11 @@ public class StateIDMapper {
                     return curInfo;
                 } else {
                     minBound = currentIndex;
-                    currentIndex = (maxBound + minBound) / 2;
+                    currentIndex = (maxBound + minBound) >> 1;
                 }
             } else {
                 maxBound = currentIndex;
-                currentIndex = (maxBound + minBound) / 2;
+                currentIndex = (maxBound + minBound) >> 1;
             }
         }
         return new StateInfo();

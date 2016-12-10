@@ -1,12 +1,9 @@
 
-import java.util.ArrayList;
-
 public class Simulator {
 
     public final char[][] track;
 
-    private ICollisionHandler collisionHandler;
-    private int numMoves;
+    private final ICollisionHandler collisionHandler;
     private State startState, currentState;
     private int[] policy;
 
@@ -15,7 +12,6 @@ public class Simulator {
         startState = getStartState(track);//this just gets the first start state possible, whatever.
         this.collisionHandler = collisionHandler;
         this.track = track;
-        this.numMoves = 0;
     }
 
     private State getStartState(char[][] track) {
@@ -28,10 +24,6 @@ public class Simulator {
             }
         }
         return new State();
-    }
-
-    private void readPolicy() {
-        //policy = FileHandler.importPolicy("qPolicy");
     }
 
     public State takeActionDetermisistic(State state, Action action) {
@@ -53,7 +45,6 @@ public class Simulator {
     //a super cover implementaion of Bresenham's line algorithm
     private State traverse(State state) {
 //        System.out.println("In Traverse: current velocities: X: " + state.velocity.x + " Y: " + state.velocity.y);
-        ArrayList<Position> moves = new ArrayList();
 
         int x = state.position.x;
         int y = state.position.y;
@@ -68,10 +59,8 @@ public class Simulator {
 
         int prevX = x;
         int prevY = y;
-        vx *= 2;
-        vy *= 2;
-
-        moves.add(new Position(x, y));
+        vx = vx << 1;
+        vy = vy << 1;
 
         for (; count > 0; --count) {
 
@@ -101,7 +90,6 @@ public class Simulator {
                 y += yInc;
                 error += Math.abs(vx);
             }
-            moves.add(new Position(x, y));
         }
 
         if (track[y2][x2] == '#') {
@@ -113,17 +101,6 @@ public class Simulator {
         }
         state.position = new Position(x2, y2);
         return state;
-    }
-
-    //Terminate the simulation and print statistics
-    private void endSimulation() {
-
-        System.out.println("Agent reached the finish line!");
-        System.out.println("Number of actions: " + numMoves);
-        printTrack();
-        //TODO add stats tracking and print out summary here
-
-        System.exit(0);
     }
 
     //Print the racetrack with agent's location to the console
