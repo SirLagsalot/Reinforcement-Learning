@@ -7,12 +7,12 @@ public class Tester {
 
     public static boolean wait = true;
 
-    private final double[][] policy;
+    private final int[] policy;
     private final Simulator simulator;
     private final StateIDMapper mapper;
 //    private final GUI gui;
 
-    public Tester(Simulator simulator, StateIDMapper mapper, double[][] policy) {
+    public Tester(Simulator simulator, StateIDMapper mapper, int[] policy) {
         this.policy = policy;
         this.mapper = mapper;
         this.simulator = simulator;
@@ -50,7 +50,7 @@ public class Tester {
             if (currentState.finish) {
                 break;
             }
-            Action action = new Action(Softmax.getNextAction(policy[mapper.getStateIDFromState(currentState)]));
+            Action action = new Action(policy[mapper.getStateIDFromState(currentState)]);//Softmax.getNextAction(policy[mapper.getStateIDFromState(currentState)]));
             currentState = simulator.takeAction(currentState, action);
             simulator.printTrack();
             actionCount++;

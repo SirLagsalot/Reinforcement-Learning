@@ -44,7 +44,19 @@ public final class Velocity {
 
     //Accelerates this velocity, for use when computing an expected new state
     public void changeVelocity(Action acceleration) {
-        this.x = (this.x + acceleration.x > 5) ? 5 : this.x + acceleration.x;
-        this.y = (this.y + acceleration.y > 5) ? 5 : this.y + acceleration.y;
+        this.x = this.x + acceleration.x;
+        this.y = this.y + acceleration.y;
+        if (this.x > 5) {
+                this.x = 5;
+            }
+            if (this.x < -5) {
+                this.x = -5;
+            }
+            if (this.y > 5) {
+                this.y = 5;
+            }
+            if (this.y < -5) {
+                this.y = -5;
+            }
     }
 }

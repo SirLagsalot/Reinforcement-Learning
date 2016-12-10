@@ -4,28 +4,71 @@ import java.util.Random;
 
 public class ValueIteration extends PolicyMaker {
 
-    private final double epsilon = 0.000001;        //stopping threshold
+    private final double epsilon = 0.0001;        //stopping threshold
     private final double gamma = 0.5;               //discount factor 
     private int numIterations;                      //count of iterations required to build policy
+    private double eta = .9;
 
     public ValueIteration(StateIDMapper map, char[][] track, Simulator sim) {
         super(map, track, sim);
     }
 
     @Override
-    public double[][] createPolicy() {
+    public int[] createPolicy() {
         //TODO -- this is an int[] of size maximumPossibleStateID, so each position is the state and has a value of it's best action.
         init();
 
         double delta;
         double bellmanResidual = epsilon * (1 - gamma) / gamma;
-        System.out.println("Bellman Residual: "+bellmanResidual);
-        do {
-            delta = iterate();
-            System.out.println("Finished iteration: Delta = "+delta);
-        } while (delta < bellmanResidual);
+        double[] vK = new double[this.idMap.getMaxState()];
+        System.out.println("Bellman Residual: " + bellmanResidual);
+        while (true) {
+            boolean allvkPass = true;
+            vK = iterate(vK);
+            //System.out.println("Finished iteration: Delta = "+delta);
+            for (int i = 0; i < vK.length; i++) {
+                if (vK[i] >= epsilon) {
+                    allvkPass = false;
+                    break;
+                }
+            }
+            if (allvkPass) {
+                break;
+            }
+        } //while (delta < bellmanResidual);
 
-        return new double[0][0];
+        //max v_k into policy: todo
+        return getBestActions(vK);
+    }
+
+    private int[] getBestActions(double[] vK) {
+        int[] policy = new int[vK.length];
+        for (int stateID = 0; stateID < vK.length; stateID++) {
+            double bestResult = -99999;
+            int bestAction = 0;
+            for (int i = 0; i < 9; i++) {
+                double actionValue = 0;
+                State state = idMap.GetStateFromID(stateID);
+                State succActionState = simulator.takeActionDetermisistic(state, new Action(i));
+                int succActionReward = -1;
+                if (succActionState.finish == true) {
+                    succActionReward = 0;
+                }
+                State failActionState = simulator.takeActionDetermisistic(state, new Action(4));//should be the 0,0 action...
+                int failActionReward = -1;
+                if (failActionState.finish == true) {
+                    failActionReward = 0;
+                }
+                actionValue += .2 * (failActionReward + (eta * vK[idMap.getStateIDFromState(failActionState)]));
+                actionValue += .8 * (succActionReward + (eta * vK[idMap.getStateIDFromState(succActionState)]));
+                if (actionValue > bestResult) {
+                    bestResult = actionValue;
+                    bestAction = i;
+                }
+            }
+            policy[stateID] = bestAction;
+        }
+        return policy;
     }
 
     //Arbitrarily assign utility values to qValues
@@ -41,7 +84,39 @@ public class ValueIteration extends PolicyMaker {
         }
     }
 
-    private double iterate() {
+    private double[] iterate(double[] vK) {
+        double[] newVK = new double[vK.length];
+        for (int i = 0; i < newVK.length; i++) {
+            newVK[i] = getBestResult(vK, i);
+        }
+        return newVK;
+    }
+
+    private double getBestResult(double[] vK, int stateID) {
+        double bestResult = -99999;
+        for (int i = 0; i < 9; i++) {//for each action
+            double actionValue = 0;
+            State state = idMap.GetStateFromID(stateID);
+            State succActionState = simulator.takeActionDetermisistic(state, new Action(i));
+            int succActionReward = -1;
+            if (succActionState.finish == true) {
+                succActionReward = 0;
+            }
+            State failActionState = simulator.takeActionDetermisistic(state, new Action(4));//should be the 0,0 action...
+            int failActionReward = -1;
+            if (failActionState.finish == true) {
+                failActionReward = 0;
+            }
+            actionValue += .2 * (failActionReward + (eta * vK[idMap.getStateIDFromState(failActionState)]));
+            actionValue += .8 * (succActionReward + (eta * vK[idMap.getStateIDFromState(succActionState)]));
+            if (actionValue > bestResult) {
+                bestResult = actionValue;
+            }
+        }
+        return bestResult;
+    }
+
+    private double[] iterateOLD() {
 
         double maxError = 0.0;
         double[][] newQValues = Arrays.copyOf(q, q.length);  //needs to be the old qValues, this double array thing is stupid
@@ -65,7 +140,8 @@ public class ValueIteration extends PolicyMaker {
                 //update qValues with that utility
             }
         }
-        return maxError;
+//        return maxError;
+        return new double[0];
     }
 
     private double getBellmanUtility(State currentState) {

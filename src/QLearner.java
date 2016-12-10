@@ -17,9 +17,13 @@ public class QLearner extends PolicyMaker {
     }
 
     @Override
-    public double[][] createPolicy() {
+    public int[] createPolicy() {
         learnQ();
-        return this.q;
+        int[] policy = new int[q.length];
+        for (int i = 0; i < 10; i++) {
+            policy[i] = Softmax.getNextAction(q[i]);
+        }
+        return policy;
     }
 
     private ArrayList<State> getStartingStates(){

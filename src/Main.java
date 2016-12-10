@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         
         boolean buildPolicy = true;         //Set me to true to create a new policy
-        double[][] policy;
+        int[] policy;
         ICollisionHandler collisionHandler = new CollisionStop();
 
 //        char[][] ITrack = TrackReader.readFile("./tracks/I-track.txt");
@@ -27,12 +27,12 @@ public class Main {
         Simulator simulator = new Simulator(RTrack, collisionHandler);
         PolicyMaker qLearner = new ValueIteration(mapper, RTrack, simulator);
 
-        if (buildPolicy) {
+        //if (buildPolicy) {
             policy = qLearner.createPolicy();
-            FileHandler.exportPolicy(policy, "policy");
-        } else {
-            policy = FileHandler.importPolicy("policy");
-        }
+//            FileHandler.exportPolicy(policy, "policy");
+       // } else {
+//            policy = FileHandler.importPolicy("policy");
+//        }
 
         Tester tester = new Tester(simulator, mapper, policy);
     }
