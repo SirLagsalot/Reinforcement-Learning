@@ -7,51 +7,53 @@ public class QLearner extends PolicyMaker {
     private double eta = 0.9;
     private double liklihoodToExplore = 1.5;
 
-    private final double endEta = 0.1;
+    private final double endEta = 0.8;
     private final double gamma = 0.1;
     private final double endLiklihoodToExplore = 0.05;
 
     public QLearner(StateIDMapper map, char[][] track, Simulator sim) {
         super(map, track, sim);
-        this.q = new double[idMap.getMaxState()+1][9];
+        this.q = new double[idMap.getMaxState() + 1][9];
     }
 
     @Override
     public int[] createPolicy() {
         learnQ();
         int[] policy = new int[q.length];
-        Softmax.setTemp(.1);
+        //Softmax.setTemp(.1);
         for (int i = 0; i < policy.length; i++) {
-            policy[i] = Softmax.getNextAction(q[i]);
+            policy[i] = maxA(i);
+            //policy[i] = Softmax.getNextAction(q[i]);
         }
         return policy;
     }
 
-    private ArrayList<State> getStartingStates(){
+    private ArrayList<State> getStartingStates() {
         ArrayList<State> startLine = new ArrayList<>();
         for (int i = 0; i < simulator.track.length; i++) {
             for (int j = 0; j < simulator.track[i].length; j++) {
                 if (simulator.track[i][j] == 'S') {
-                    startLine.add(new State(new Position(j, i), new Velocity(0,0)));
+                    startLine.add(new State(new Position(j, i), new Velocity(0, 0)));
                 }
             }
         }
         return startLine;
     }
+
     private void learnQ() {
 
         int currentStateID;
+        ArrayList<State> startingStates = getStartingStates();
         int totalEpisodes = idMap.getMaxState();//this.idMap.getMaxState()/4; //TODO: Justify or come up with better scale...
         double etaKneelingFactor = Math.pow(endEta / eta, 1 / (double) totalEpisodes);
-        
+
         double exploreToGreedyKneelingFactor = Math.pow(endLiklihoodToExplore / liklihoodToExplore, 1 / (double) totalEpisodes);
-        ArrayList<State> startingStates = getStartingStates();
-        int episodesPerStartState = totalEpisodes*10;// / startingStates.size();
+
+        int episodesPerStartState = totalEpisodes / startingStates.size();// / startingStates.size();
         for (int startStateIndex = 0; startStateIndex < startingStates.size(); startStateIndex++) {
-            
-        
-        for (int i = 0; i < episodesPerStartState; i++) {//totalEpisodes / idMap.getMaxState(); i++) {
-            currentStateID = idMap.getStateIDFromState(startingStates.get(startStateIndex));
+
+            for (int i = 0; i < episodesPerStartState; i++) {//totalEpisodes / idMap.getMaxState(); i++) {
+                currentStateID = idMap.getStateIDFromState(startingStates.get(startStateIndex));
             //for (int j = 0; j < this.idMap.stateInfos.size(); j++) {
 //                StateInfo info = idMap.stateInfos.get(j);
 //                State state = new State(info.position, new Velocity(0, 0));
@@ -79,7 +81,7 @@ public class QLearner extends PolicyMaker {
 
                     int nextBestAction = maxA(newStateID);
                     //q[currentStateID][action] = q[currentStateID][action] + (eta * (reward + (gamma * q[newStateID][nextBestAction]) - q[currentStateID][action]));
-                    q[currentStateID][action] = q[currentStateID][action] + (0.9 * (reward + (0.98 * q[newStateID][nextBestAction]) - q[currentStateID][action]));
+                    q[currentStateID][action] = q[currentStateID][action] + (eta * (reward + (0.98 * q[newStateID][nextBestAction]) - q[currentStateID][action]));
                     currentStateID = newStateID;
 //                if(isFirstUpdateOnState){
 //                    q[currentStateID][action] += searchedBias;
