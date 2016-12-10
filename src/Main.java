@@ -5,7 +5,7 @@ public class Main {
         
         boolean buildPolicy = true;         //Set me to true to create a new policy
         int[] policy;
-        ICollisionHandler collisionHandler = new CollisionStop();
+        ICollisionHandler collisionHandler = new CollisionReset();
 
 //        char[][] ITrack = TrackReader.readFile("./tracks/I-track.txt");
 //        StateIDMapper mapper = new StateIDMapper(ITrack);
