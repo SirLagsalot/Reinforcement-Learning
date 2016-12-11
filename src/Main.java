@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
 
         boolean buildPolicy = true;        //Set me to true to create a new policy
-        boolean algorithm = false;          //False for ValueIteration, true for Q-Learning
+        boolean algorithm = true;          //False for ValueIteration, true for Q-Learning
         int[] policy;
         int iterations = 0;
         int actions = 0;
@@ -21,8 +21,9 @@ public class Main {
 //        Simulator simulator = new Simulator(OTrack, collisionHandler);
 //        PolicyMaker qLearner = new QLearner(mapper, OTrack, simulator);
         char[][] RTrack = TrackReader.readFile("./tracks/R-track.txt");
-        System.out.println("******** VALUE ITERATION TRIALS ON R TRACK, COLLISION RESET ********");
+        System.out.println("******** Q-LEARNING TRIALS ON R TRACK, COLLISION RESET ********");
         System.out.println("");
+        System.out.println("Number of episodes per start state: 4352");
 
         for (int i = 0; i < 10; i++) {
             System.out.println("Trial " + (i + 1));
@@ -38,13 +39,13 @@ public class Main {
 
             if (buildPolicy) {
                 policy = policyMaker.createPolicy();
-                FileHandler.exportPolicy(policy, "policy");
+                //FileHandler.exportPolicy(policy, "policy");
             } else {
                 policy = FileHandler.importPolicy("policy");
             }
 
             iterations += policyMaker.getIterations();
-            System.out.println("Number of iterations: " + policyMaker.getIterations());
+            System.out.println("Average iterations per episode: " + policyMaker.getIterations());
 
             Tester tester = new Tester(new Simulator(RTrack, collisionHandler), mapper, policy);
             actions += tester.getActions();

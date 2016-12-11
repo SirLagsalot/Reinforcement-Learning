@@ -9,6 +9,10 @@ public class QLearner extends PolicyMaker {
 
     private final double endEta = 0.8;
     private final double endLiklihoodToExplore = 0.05;
+    
+    private int states;
+    int episodes = 0;
+    private int iterations = 0;
 
     public QLearner(StateIDMapper map, char[][] track, Simulator sim) {
         super(map, track, sim);
@@ -49,12 +53,14 @@ public class QLearner extends PolicyMaker {
         double exploreToGreedyKneelingFactor = Math.pow(endLiklihoodToExplore / liklihoodToExplore, 1 / (double) totalEpisodes);
 
         int episodesPerStartState = totalEpisodes / startingStates.size();
+        episodes = episodesPerStartState;
         for (int startStateIndex = 0; startStateIndex < startingStates.size(); startStateIndex++) {
 
             for (int i = 0; i < episodesPerStartState; i++) {
                 currentStateID = idMap.getStateIDFromState(startingStates.get(startStateIndex));
 //                System.out.println("Initial stateID:" + currentStateID);
                 while (true) {
+                    iterations++;
                     int action = Softmax.getNextAction(q[currentStateID]);
                     State currentState = this.idMap.GetStateFromID(currentStateID);
 //                    System.out.println("Current state is: Px:" + currentState.position.x + " Py:" + currentState.position.y + " Vx:" + currentState.velocity.x + " Vy:" + currentState.velocity.y);
@@ -93,5 +99,10 @@ public class QLearner extends PolicyMaker {
             }
         }
         return bestIndex;
+    }
+    
+    @Override
+    public int getIterations(){
+        return iterations/episodes;
     }
 }
