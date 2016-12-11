@@ -1,0 +1,57 @@
+***Value Iteration, R-Track, CollisionStop***
+______________________________
+Trial 1:
+Iterations:	22
+Actions:	28
+Collisions:	0
+
+Trial 2:
+Num Iterations:	22
+Num Actions:	33
+Collisions:	0
+
+Trial 3:
+Iterations:	22
+Actions:	32
+Collisions:	0
+
+Trial 4:
+Iterations:	22
+Actions:	37
+Collisions:	0
+
+Trial 5:
+Iterations:	22
+Actions:	31
+Collisions:	0
+
+Trial 6:
+Iterations:	22
+Actions:	31
+Collisions:	0
+
+Trial 7:
+Iterations:	22
+Actions:	33
+Collisions:	0
+
+Trial 8:
+Iterations:	22
+Actions:	32
+Collisions:	0
+
+Trial 9:
+Iterations:	22
+Actions:	26
+Collisions:	0
+
+Trial 10:
+Iterations:	22
+Actions:	33
+Collisions:	0
+
+Averages
+___________
+Iterations:	22
+Actions:	32
+Collisions:	0
