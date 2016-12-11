@@ -1,0 +1,57 @@
+***Value Iteration, L-Track, CollisionStop***
+______________________________
+Trial 1:
+Iterations:	11
+Actions:	12
+Collisions:	0
+
+Trial 2:
+Num Iterations:	11
+Num Actions:	12
+Collisions:	0
+
+Trial 3:
+Iterations:	11
+Actions:	12
+Collisions:	0
+
+Trial 4:
+Iterations:	11
+Actions:	14
+Collisions:	0
+
+Trial 5:
+Iterations:	11
+Actions:	12
+Collisions:	0
+
+Trial 6:
+Iterations:	11
+Actions:	12
+Collisions:	0
+
+Trial 7:
+Iterations:	11
+Actions:	12
+Collisions:	0
+
+Trial 8:
+Iterations:	11
+Actions:	14
+Collisions:	0
+
+Trial 9:
+Iterations:	11
+Actions:	12
+Collisions:	0
+
+Trial 10:
+Iterations:	11
+Actions:	15
+Collisions:	0
+
+Averages
+___________
+Iterations:	11
+Actions:	13
+Collisions:	0
