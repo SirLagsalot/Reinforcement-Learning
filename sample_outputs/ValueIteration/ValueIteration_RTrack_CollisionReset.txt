@@ -6,8 +6,8 @@ Actions:	38
 Collisions:	0
 
 Trial 2:
-Num Iterations:	25
-Num Actions:	35
+Iterations:	25
+Actions:	35
 Collisions:	0
 
 Trial 3:
