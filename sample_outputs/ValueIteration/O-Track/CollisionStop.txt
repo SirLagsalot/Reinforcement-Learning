@@ -1,0 +1,63 @@
+run:
+******** VALUE ITERATION TRIALS ON O TRACK, COLLISION STOP ********
+
+Trial 1
+Number of iterations: 19
+Number of actions: 31
+Number of collisions: 1
+
+Trial 2
+Number of iterations: 19
+Number of actions: 29
+Number of collisions: 2
+
+Trial 3
+Number of iterations: 19
+Number of actions: 31
+Number of collisions: 0
+
+Trial 4
+Number of iterations: 19
+Number of actions: 36
+Number of collisions: 2
+
+Trial 5
+Number of iterations: 19
+Number of actions: 33
+Number of collisions: 3
+
+Trial 6
+Number of iterations: 19
+Number of actions: 32
+Number of collisions: 2
+
+Trial 7
+Number of iterations: 19
+Number of actions: 32
+Number of collisions: 1
+
+Trial 8
+Number of iterations: 19
+Number of actions: 30
+Number of collisions: 1
+
+Trial 9
+Number of iterations: 19
+Number of actions: 32
+Number of collisions: 2
+
+Trial 10
+Number of iterations: 19
+Number of actions: 32
+Number of collisions: 2
+
+---------------------------------------------
+Total iterations: 190
+Average iterations: 19
+
+Total actions: 318
+Average actions: 31
+
+Total collisions: 16
+Average collisions: 1
+BUILD SUCCESSFUL (total time: 9 seconds)

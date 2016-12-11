@@ -1,0 +1,63 @@
+run:
+******** VALUE ITERATION TRIALS ON L TRACK, COLLISION STOP ********
+
+Trial 1
+Number of iterations: 11
+Number of actions: 13
+Number of collisions: 1
+
+Trial 2
+Number of iterations: 11
+Number of actions: 13
+Number of collisions: 1
+
+Trial 3
+Number of iterations: 11
+Number of actions: 12
+Number of collisions: 0
+
+Trial 4
+Number of iterations: 11
+Number of actions: 13
+Number of collisions: 1
+
+Trial 5
+Number of iterations: 11
+Number of actions: 13
+Number of collisions: 0
+
+Trial 6
+Number of iterations: 11
+Number of actions: 12
+Number of collisions: 0
+
+Trial 7
+Number of iterations: 11
+Number of actions: 15
+Number of collisions: 1
+
+Trial 8
+Number of iterations: 11
+Number of actions: 12
+Number of collisions: 0
+
+Trial 9
+Number of iterations: 11
+Number of actions: 15
+Number of collisions: 1
+
+Trial 10
+Number of iterations: 11
+Number of actions: 13
+Number of collisions: 0
+
+---------------------------------------------
+Total iterations: 110
+Average iterations: 11
+
+Total actions: 131
+Average actions: 13
+
+Total collisions: 5
+Average collisions: 0
+BUILD SUCCESSFUL (total time: 3 seconds)

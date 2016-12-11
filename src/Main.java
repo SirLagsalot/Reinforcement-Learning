@@ -9,7 +9,7 @@ public class Main {
         int iterations = 0;
         int actions = 0;
         int collisions = 0;
-        ICollisionHandler collisionHandler = new CollisionStop();
+        ICollisionHandler collisionHandler = new CollisionReset();
 
 //        PolicyMaker qLearner = new QLearner(mapper, ITrack, simulator);
 //        char[][] LTrack = TrackReader.readFile("./tracks/L-track.txt");
@@ -21,7 +21,7 @@ public class Main {
 //        Simulator simulator = new Simulator(OTrack, collisionHandler);
 //        PolicyMaker qLearner = new QLearner(mapper, OTrack, simulator);
         char[][] RTrack = TrackReader.readFile("./tracks/R-track.txt");
-        System.out.println("******** VALUE ITERATION TRIALS ON R TRACK ********");
+        System.out.println("******** VALUE ITERATION TRIALS ON R TRACK, COLLISION RESET ********");
         System.out.println("");
 
         for (int i = 0; i < 10; i++) {

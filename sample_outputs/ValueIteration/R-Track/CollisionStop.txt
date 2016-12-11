@@ -1,0 +1,63 @@
+run:
+******** VALUE ITERATION TRIALS ON R TRACK, COLLISION STOP ********
+
+Trial 1
+Number of iterations: 22
+Number of actions: 28
+Number of collisions: 2
+
+Trial 2
+Number of iterations: 22
+Number of actions: 29
+Number of collisions: 2
+
+Trial 3
+Number of iterations: 22
+Number of actions: 30
+Number of collisions: 2
+
+Trial 4
+Number of iterations: 22
+Number of actions: 28
+Number of collisions: 2
+
+Trial 5
+Number of iterations: 22
+Number of actions: 30
+Number of collisions: 3
+
+Trial 6
+Number of iterations: 22
+Number of actions: 31
+Number of collisions: 2
+
+Trial 7
+Number of iterations: 22
+Number of actions: 29
+Number of collisions: 3
+
+Trial 8
+Number of iterations: 22
+Number of actions: 32
+Number of collisions: 2
+
+Trial 9
+Number of iterations: 22
+Number of actions: 30
+Number of collisions: 2
+
+Trial 10
+Number of iterations: 22
+Number of actions: 29
+Number of collisions: 2
+
+---------------------------------------------
+Total iterations: 220
+Average iterations: 22
+
+Total actions: 296
+Average actions: 29
+
+Total collisions: 22
+Average collisions: 2
+BUILD SUCCESSFUL (total time: 20 seconds)
