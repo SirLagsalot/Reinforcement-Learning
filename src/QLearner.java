@@ -5,10 +5,12 @@ import java.util.Random;
 public class QLearner extends PolicyMaker {
 
     private double eta = 0.9;
-    private double liklihoodToExplore = 1.5;
+    private double liklihoodToExplore = 1.5;//currently unused
 
+    private double discountFactor = 0.98;
+    
     private final double endEta = 0.8;
-    private final double endLiklihoodToExplore = 0.05;
+    private final double endLiklihoodToExplore = 0.05;//currently unused
 
     public QLearner(StateIDMapper map, char[][] track, Simulator sim) {
         super(map, track, sim);
@@ -68,7 +70,7 @@ public class QLearner extends PolicyMaker {
                     int newStateID = this.idMap.computeStateIDFromStateAndStateInfo(result, resultInfo);
 
                     int nextBestAction = maxA(newStateID);
-                    q[currentStateID][action] = q[currentStateID][action] + (eta * (reward + (0.98 * q[newStateID][nextBestAction]) - q[currentStateID][action]));
+                    q[currentStateID][action] = q[currentStateID][action] + (eta * (reward + (discountFactor * q[newStateID][nextBestAction]) - q[currentStateID][action]));
                     currentStateID = newStateID;
                     if (resultInfo.isFinal) {
                         break;
@@ -81,6 +83,7 @@ public class QLearner extends PolicyMaker {
         System.out.println("Finished Q-Learning");
     }
 
+    //Returns the currently-believed best action for the given state
     private int maxA(int stateID) {
 
         Random rand = new Random();

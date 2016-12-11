@@ -71,6 +71,7 @@ public class ValueIteration extends PolicyMaker {
         return newVK;
     }
 
+    //Returns the best utility value currently possible for a given state
     private double getBestResult(double[] vK, int stateID) {
 
         double bestResult = Double.NEGATIVE_INFINITY;
@@ -92,6 +93,7 @@ public class ValueIteration extends PolicyMaker {
             }
             actionValue += 0.2 * (failActionReward + (eta * vK[idMap.getStateIDFromState(failActionState)]));
             actionValue += 0.8 * (succActionReward + (eta * vK[idMap.getStateIDFromState(succActionState)]));
+            //if it's better than the current best, update the current best
             if (actionValue > bestResult) {
                 bestResult = actionValue;
             }
@@ -99,6 +101,7 @@ public class ValueIteration extends PolicyMaker {
         return bestResult;
     }
 
+    //returns the ACTIONS which provide the most utility for each state
     private int[] getBestActions(double[] vK) {
 
         int[] policy = new int[vK.length];

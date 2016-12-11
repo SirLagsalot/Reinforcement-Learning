@@ -2,7 +2,7 @@
 //Softmax function returns an action from the set of possible actions according to a weighted probability distribution
 public class Softmax {
 
-    private static double temperature = 1.0;                            //tunable temperature parameter.  Higher values force greater chance of choosing randomly.  Lower values force selection to become greedy.
+    private static double temperature = 1.0;//tunable temperature parameter.  Higher values force greater chance of choosing randomly.  Lower values force selection to become greedy.
 
     public static int getNextAction(double[] qValues) {
 

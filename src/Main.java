@@ -4,12 +4,17 @@ public class Main {
     public static void main(String[] args) {
 
         boolean buildPolicy = true;        //Set me to true to create a new policy
-        boolean algorithm = false;          //False for ValueIteration, true for Q-Learning
+        boolean algorithm = true;          //False for ValueIteration, true for Q-Learning
+        boolean useCollisionStop = true;
         int[] policy;
         int iterations = 0;
         int actions = 0;
         int collisions = 0;
-        ICollisionHandler collisionHandler = new CollisionReset();
+        ICollisionHandler collisionHandler;
+        if(useCollisionStop)
+            collisionHandler = new CollisionStop();
+        else
+            collisionHandler = new CollisionReset();
 
 //        PolicyMaker qLearner = new QLearner(mapper, ITrack, simulator);
 //        char[][] LTrack = TrackReader.readFile("./tracks/L-track.txt");
