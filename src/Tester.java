@@ -10,6 +10,7 @@ public class Tester {
     private final int[] policy;
     private final Simulator simulator;
     private final StateIDMapper mapper;
+    private int actionCount = 0;
 //    private final GUI gui;
 
     public Tester(Simulator simulator, StateIDMapper mapper, int[] policy) {
@@ -35,7 +36,6 @@ public class Tester {
         Random random = new Random();
         State currentState = new State(startLine.remove(random.nextInt(startLine.size())), new Velocity(0, 0));
 
-        int actionCount = 0;
         Softmax.setTemp(0.1);
         while (true) {
             //gui.renderTrack(currentState.position, false);
@@ -52,9 +52,16 @@ public class Tester {
             }
             Action action = new Action(policy[mapper.getStateIDFromState(currentState)]);//Softmax.getNextAction(policy[mapper.getStateIDFromState(currentState)]));
             currentState = simulator.takeAction(currentState, action);
-            simulator.printTrack();
+            //simulator.printTrack();
             actionCount++;
         }
-        System.out.println("Agent took " + actionCount + " actions to find the finish line.");
+        System.out.println("Number of actions: " + actionCount);
+    }
+    public int getActions(){
+        return actionCount;
+    }
+    
+    public int getCollisions(){
+        return simulator.getCollisions();
     }
 }

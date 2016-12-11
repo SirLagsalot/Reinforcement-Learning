@@ -6,6 +6,7 @@ public class Simulator {
     private final ICollisionHandler collisionHandler;
     private State startState, currentState;
     private int[] policy;
+    private int collisions;
 
     public Simulator(char[][] track, ICollisionHandler collisionHandler) {
 
@@ -66,6 +67,7 @@ public class Simulator {
 
 //            System.out.println("Checking track at X:" + x + " ,Y:" + y + "   " + track[y][x]);
             if (track[y][x] == '#') {
+                collisions++;
                 return collisionHandler.handleCollision(startState, new Position(prevX, prevY));
             } else if (track[y][x] == 'F') {
                 state.finish = true;
@@ -119,5 +121,10 @@ public class Simulator {
             }
             System.out.println("");
         }
+        System.out.println("");
+    }
+    
+    public int getCollisions(){
+        return collisions;
     }
 }
