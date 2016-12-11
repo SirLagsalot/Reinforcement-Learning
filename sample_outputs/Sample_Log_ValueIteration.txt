@@ -1,0 +1,134 @@
+run:
+Bellman Residual: 1.0E-17
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 1: Delta(Vk) for stateID 0: 1.0000 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 2: Delta(Vk) for stateID 0: 0.9000 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 3: Delta(Vk) for stateID 0: 0.8100 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 4: Delta(Vk) for stateID 0: 0.7290 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 5: Delta(Vk) for stateID 0: 0.6561 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 6: Delta(Vk) for stateID 0: 0.5905 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 7: Delta(Vk) for stateID 0: 0.5314 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 8: Delta(Vk) for stateID 0: 0.4783 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 9: Delta(Vk) for stateID 0: 0.4305 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 10: Delta(Vk) for stateID 0: 0.3874 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 11: Delta(Vk) for stateID 0: 0.3487 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 12: Delta(Vk) for stateID 0: 0.3138 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 13: Delta(Vk) for stateID 0: 0.2802 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 14: Delta(Vk) for stateID 0: 0.1952 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 15: Delta(Vk) for stateID 814: 0.1464 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 16: Delta(Vk) for stateID 1121: 0.1054 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 17: Delta(Vk) for stateID 4207: 0.0066 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 18: Delta(Vk) for stateID 5276: 0.0107 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 19: Delta(Vk) for stateID 7253: 0.0043 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 20: Delta(Vk) for stateID 11699: 0.0016 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+Iteration 21: Delta(Vk) for stateID 13470: 0.0046 is > residual (1.0E-17)
+Continuing to next iteration.
+
+Computing new Vk[] for all states
+
+Comparing new Vk[] to old Vk
+ALL Vk < BELLMAN RESIDUAL
+Comupting best action for each state.
+Done building Value Iteration Policy after 22 iterations!
