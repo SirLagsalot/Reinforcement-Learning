@@ -55,17 +55,22 @@ public class QLearner extends PolicyMaker {
         int episodesPerStartState = totalEpisodes / startingStates.size();
         episodes = episodesPerStartState;
         for (int startStateIndex = 0; startStateIndex < startingStates.size(); startStateIndex++) {
+            
+            System.out.println("BEGINNING AT START INDEX " + startStateIndex);
 
             for (int i = 0; i < episodesPerStartState; i++) {
+                
+                System.out.println("BEGINNING EPISODE " + i + " OF START " + startStateIndex);
+                
                 currentStateID = idMap.getStateIDFromState(startingStates.get(startStateIndex));
-//                System.out.println("Initial stateID:" + currentStateID);
+                System.out.println("Initial stateID:" + currentStateID);
                 while (true) {
                     iterations++;
                     int action = Softmax.getNextAction(q[currentStateID]);
                     State currentState = this.idMap.GetStateFromID(currentStateID);
-//                    System.out.println("Current state is: Px:" + currentState.position.x + " Py:" + currentState.position.y + " Vx:" + currentState.velocity.x + " Vy:" + currentState.velocity.y);
+                    //System.out.println("Current state is: Px:" + currentState.position.x + " Py:" + currentState.position.y + " Vx:" + currentState.velocity.x + " Vy:" + currentState.velocity.y);
                     State result = this.simulator.takeAction(currentState, new Action(action));
-//                    System.out.println("Resulting Position: X:" + result.position.x + " Y:" + result.position.y + "\n");
+                    //System.out.println("Resulting Position: X:" + result.position.x + " Y:" + result.position.y + "\n");
                     int reward = -1;
                     StateInfo resultInfo = this.idMap.getStateInfoFromPosition(result.position);
                     if (resultInfo.isFinal) {
@@ -76,7 +81,9 @@ public class QLearner extends PolicyMaker {
                     int nextBestAction = maxA(newStateID);
                     q[currentStateID][action] = q[currentStateID][action] + (eta * (reward + (0.98 * q[newStateID][nextBestAction]) - q[currentStateID][action]));
                     currentStateID = newStateID;
+                    System.out.println("\tNext stateID: " + currentStateID);
                     if (resultInfo.isFinal) {
+                        System.out.println("Hit finish line, episode complete");
                         break;
                     }
                 }

@@ -9,7 +9,7 @@ public class Main {
         int iterations = 0;
         int actions = 0;
         int collisions = 0;
-        ICollisionHandler collisionHandler = new CollisionReset();
+        ICollisionHandler collisionHandler = new CollisionStop();
 
 //        PolicyMaker qLearner = new QLearner(mapper, ITrack, simulator);
 //        char[][] LTrack = TrackReader.readFile("./tracks/L-track.txt");
@@ -20,13 +20,13 @@ public class Main {
 //        StateIDMapper mapper = new StateIDMapper(OTrack);
 //        Simulator simulator = new Simulator(OTrack, collisionHandler);
 //        PolicyMaker qLearner = new QLearner(mapper, OTrack, simulator);
-        char[][] RTrack = TrackReader.readFile("./tracks/R-track.txt");
-        System.out.println("******** Q-LEARNING TRIALS ON R TRACK, COLLISION RESET ********");
-        System.out.println("");
-        System.out.println("Number of episodes per start state: 4352");
+        char[][] RTrack = TrackReader.readFile("./tracks/L-track.txt");
+//        System.out.println("******** Q-LEARNING TRIALS ON R TRACK, COLLISION RESET ********");
+//        System.out.println("");
+//        System.out.println("Number of episodes per start state: 4352");
 
-        for (int i = 0; i < 10; i++) {
-            System.out.println("Trial " + (i + 1));
+        for (int i = 0; i < 1; i++) {
+//            System.out.println("Trial " + (i + 1));
             StateIDMapper mapper = new StateIDMapper(RTrack);
             Simulator simulator = new Simulator(RTrack, collisionHandler);
 
@@ -45,24 +45,24 @@ public class Main {
             }
 
             iterations += policyMaker.getIterations();
-            System.out.println("Average iterations per episode: " + policyMaker.getIterations());
+//            System.out.println("Average iterations per episode: " + policyMaker.getIterations());
 
             Tester tester = new Tester(new Simulator(RTrack, collisionHandler), mapper, policy);
             actions += tester.getActions();
 
             collisions += tester.getCollisions();
-            System.out.println("Number of collisions: " + tester.getCollisions());
-
-            System.out.println("");
+//            System.out.println("Number of collisions: " + tester.getCollisions());
+//
+//            System.out.println("");
         }
-        System.out.println("---------------------------------------------");
-        System.out.println("Total iterations: " + iterations);
-        System.out.println("Average iterations: " + (iterations / 10));
-        System.out.println("");
-        System.out.println("Total actions: " + actions);
-        System.out.println("Average actions: " + (actions / 10));
-        System.out.println("");
-        System.out.println("Total collisions: " + collisions);
-        System.out.println("Average collisions: " + (collisions / 10));
+//        System.out.println("---------------------------------------------");
+//        System.out.println("Total iterations: " + iterations);
+//        System.out.println("Average iterations: " + (iterations / 10));
+//        System.out.println("");
+//        System.out.println("Total actions: " + actions);
+//        System.out.println("Average actions: " + (actions / 10));
+//        System.out.println("");
+//        System.out.println("Total collisions: " + collisions);
+//        System.out.println("Average collisions: " + (collisions / 10));
     }
 }
