@@ -37,8 +37,9 @@ public class Tester {
                 break;
             }
             Action action = new Action(policy[mapper.getStateIDFromState(currentState)]);
-            System.out.println("Taking action: ("+action.x+","+action.y+")");
+            System.out.println("Taking action: (" + action.x + "," + action.y + ")");
             currentState = simulator.takeAction(currentState, action);
+            simulator.printTrack();
             actionCount++;
         }
         System.out.println("Number of actions: " + actionCount);
