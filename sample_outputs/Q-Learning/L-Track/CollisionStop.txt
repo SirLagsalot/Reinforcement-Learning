@@ -1,0 +1,74 @@
+run:
+******** Q-LEARNING TRIALS ON L TRACK, COLLISION STOP ********
+
+Number of episodes per start state: 1962
+Trial 1
+Finished Q-Learning
+Average iterations per episode: 369
+Number of actions: 19
+Number of collisions: 2
+
+Trial 2
+Finished Q-Learning
+Average iterations per episode: 187
+Number of actions: 15
+Number of collisions: 1
+
+Trial 3
+Finished Q-Learning
+Average iterations per episode: 189
+Number of actions: 13
+Number of collisions: 1
+
+Trial 4
+Finished Q-Learning
+Average iterations per episode: 186
+Number of actions: 12
+Number of collisions: 0
+
+Trial 5
+Finished Q-Learning
+Average iterations per episode: 189
+Number of actions: 16
+Number of collisions: 2
+
+Trial 6
+Finished Q-Learning
+Average iterations per episode: 189
+Number of actions: 13
+Number of collisions: 1
+
+Trial 7
+Finished Q-Learning
+Average iterations per episode: 189
+Number of actions: 17
+Number of collisions: 1
+
+Trial 8
+Finished Q-Learning
+Average iterations per episode: 187
+Number of actions: 19
+Number of collisions: 2
+
+Trial 9
+Finished Q-Learning
+Average iterations per episode: 187
+Number of actions: 15
+Number of collisions: 1
+
+Trial 10
+Finished Q-Learning
+Average iterations per episode: 186
+Number of actions: 15
+Number of collisions: 1
+
+---------------------------------------------
+Total iterations: 2058
+Average iterations: 205
+
+Total actions: 154
+Average actions: 15
+
+Total collisions: 12
+Average collisions: 1
+BUILD SUCCESSFUL (total time: 6 seconds)
