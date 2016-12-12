@@ -4,14 +4,15 @@ import java.util.Random;
 
 public class ValueIteration extends PolicyMaker {
 
-    private final double epsilon = 0.00000000000000001;     //stopping threshold
+    private double epsilon;    //stopping threshold
     private final double gamma = 0.5;                       //discount factor 
     private final double eta = 0.9;
 
     private int numIterations;                              //count of iterations required to build policy
 
-    public ValueIteration(StateIDMapper map, char[][] track, Simulator sim) {
+    public ValueIteration(StateIDMapper map, char[][] track, Simulator sim, double epsilon) {
         super(map, track, sim);
+        this.epsilon = epsilon;
         init();
     }
 

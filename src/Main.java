@@ -127,9 +127,13 @@ public class Main {
             int choice = in.nextInt();
             switch (choice) {
                 case 1:
-                    return new QLearner(map, track, simulator);
+                    System.out.println("Enter the number of episodes:");
+                    int numEpisodes = in.nextInt();
+                    return new QLearner(map, track, simulator, numEpisodes);
                 case 2:
-                    return new ValueIteration(map, track, simulator);
+                    System.out.println("Enter the stopping threshhold(between 0 and 1, closer to 0 for more accuracy):");
+                    double stoppingThreshold = in.nextDouble();
+                    return new ValueIteration(map, track, simulator, stoppingThreshold);
                 default:
                     System.out.println("Invalid entry\n");
             }

@@ -10,13 +10,14 @@ public class QLearner extends PolicyMaker {
 
     private double eta = 0.9;
     private double liklihoodToExplore = 1.5;
-
+    private int numEpisodes;
     private int episodes = 0;
     private int iterations = 0;
 
-    public QLearner(StateIDMapper map, char[][] track, Simulator sim) {
+    public QLearner(StateIDMapper map, char[][] track, Simulator sim, int numIterations) {
         super(map, track, sim);
         this.q = new double[idMap.getMaxState() + 1][9];
+        this.numEpisodes = numIterations;
     }
 
     @Override
@@ -47,7 +48,7 @@ public class QLearner extends PolicyMaker {
 
         int currentStateID;
         ArrayList<State> startingStates = getStartingStates();
-        int totalEpisodes = idMap.getMaxState();
+        int totalEpisodes = numEpisodes;
         double etaKneelingFactor = Math.pow(endEta / eta, 1 / (double) totalEpisodes);
         Softmax.setTemp(1);
         double exploreToGreedyKneelingFactor = Math.pow(endLiklihoodToExplore / liklihoodToExplore, 1 / (double) totalEpisodes);
