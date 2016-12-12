@@ -39,7 +39,7 @@ public class Main {
         policy = FileHandler.importPolicy("policy");
 
         iterations += policyMaker.getIterations();
-        System.out.println("Number of iterations: " + policyMaker.getIterations());
+        
 
         System.out.println("Test Policy(y/n)?");
         choice = scanner.next();
@@ -58,17 +58,17 @@ public class Main {
 
         //collisions += tester.getCollisions();
 
-        System.out.println("");
-
-        System.out.println("---------------------------------------------");
-        System.out.println("Total iterations: " + iterations);
-        System.out.println("Average iterations: " + (iterations / 10));
-        System.out.println("");
-        System.out.println("Total actions: " + actions);
-        System.out.println("Average actions: " + (actions / 10));
-        System.out.println("");
-        System.out.println("Total collisions: " + collisions);
-        System.out.println("Average collisions: " + (collisions / 10));
+//        System.out.println("");
+//
+//        System.out.println("---------------------------------------------");
+//        System.out.println("Total iterations: " + iterations);
+//        System.out.println("Average iterations: " + (iterations / 10));
+//        System.out.println("");
+//        System.out.println("Total actions: " + actions);
+//        System.out.println("Average actions: " + (actions / 10));
+//        System.out.println("");
+//        System.out.println("Total collisions: " + collisions);
+//        System.out.println("Average collisions: " + (collisions / 10));
     }
 
     public static ICollisionHandler getCollisionHandler() {
@@ -91,7 +91,7 @@ public class Main {
         //TrackReader.readFile("./tracks/L-track.txt");
         Scanner in = new Scanner(System.in);
         while (true) {
-            System.out.println("1.L-track\n2.O-track\n3.R-track\nChoose collision type: ");
+            System.out.println("1.L-track\n2.O-track\n3.R-track\nChoose track: ");
             int choice = in.nextInt();
             switch (choice) {
                 case 1:
@@ -109,7 +109,7 @@ public class Main {
     public static PolicyMaker getPolicyMaker(StateIDMapper map, char[][] track, Simulator simulator) {
         Scanner in = new Scanner(System.in);
         while (true) {
-            System.out.println("1.Q-Learning\n 2.Value Iteration\nChoose collision type(1 or 2): ");
+            System.out.println("1.Q-Learning\n2.Value Iteration\nChoose policy learner(1 or 2): ");
             int choice = in.nextInt();
             switch (choice) {
                 case 1:

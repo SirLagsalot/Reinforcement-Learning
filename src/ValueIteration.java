@@ -55,6 +55,7 @@ public class ValueIteration extends PolicyMaker {
                 break;
             }
         }
+        System.out.println("\nNumber of iterations: " + numIterations+"\n");
         return getBestActions(vK);
     }
 

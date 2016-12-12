@@ -60,11 +60,12 @@ public class QLearner extends PolicyMaker {
 
             for (int i = 0; i < episodesPerStartState; i++) {
 
-                System.out.println("BEGINNING EPISODE " + i + " OF START " + startStateIndex);
-
+                System.out.println("EXECUTING EPISODE " + i + " OF START " + startStateIndex);
+                int episodeActions = 0;
                 currentStateID = idMap.getStateIDFromState(startingStates.get(startStateIndex));
-                System.out.println("Initial stateID:" + currentStateID);
+//                System.out.println("Initial stateID:" + currentStateID);
                 while (true) {
+                    episodeActions++;
                     iterations++;
                     int action = Softmax.getNextAction(q[currentStateID]);
                     State currentState = this.idMap.GetStateFromID(currentStateID);
@@ -79,9 +80,9 @@ public class QLearner extends PolicyMaker {
                     int nextBestAction = maxA(newStateID);
                     q[currentStateID][action] = q[currentStateID][action] + (eta * (reward + (discountFactor * q[newStateID][nextBestAction]) - q[currentStateID][action]));
                     currentStateID = newStateID;
-                    System.out.println("\tNext stateID: " + currentStateID);
+//                    System.out.println("\tNext stateID: " + currentStateID);
                     if (resultInfo.isFinal) {
-                        System.out.println("Hit finish line, episode complete");
+                        System.out.println("Hit finish line after "+episodeActions+" actions, episode complete");
                         break;
                     }
                 }
@@ -90,6 +91,7 @@ public class QLearner extends PolicyMaker {
             }
         }
         System.out.println("Finished Q-Learning");
+        System.out.println("Num episodes: "+totalEpisodes +"\nNum actions: "+iterations+"\n");
     }
 
     //Returns the currently-believed best action for the given state
