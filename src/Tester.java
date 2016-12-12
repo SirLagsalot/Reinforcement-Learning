@@ -32,12 +32,12 @@ public class Tester {
         Random random = new Random();
         State currentState = new State(startLine.remove(random.nextInt(startLine.size())), new Velocity(0, 0));
 
-        Softmax.setTemp(0.1);
         while (true) {
             if (currentState.finish) {
                 break;
             }
             Action action = new Action(policy[mapper.getStateIDFromState(currentState)]);
+            System.out.println("Taking action: ("+action.x+","+action.y+")");
             currentState = simulator.takeAction(currentState, action);
             actionCount++;
         }

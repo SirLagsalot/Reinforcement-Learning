@@ -49,7 +49,7 @@ public class QLearner extends PolicyMaker {
         ArrayList<State> startingStates = getStartingStates();
         int totalEpisodes = idMap.getMaxState();
         double etaKneelingFactor = Math.pow(endEta / eta, 1 / (double) totalEpisodes);
-
+        Softmax.setTemp(1);
         double exploreToGreedyKneelingFactor = Math.pow(endLiklihoodToExplore / liklihoodToExplore, 1 / (double) totalEpisodes);
 
         int episodesPerStartState = totalEpisodes / startingStates.size();

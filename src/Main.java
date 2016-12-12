@@ -8,42 +8,58 @@ public class Main {
         boolean buildPolicy = true;        //Set me to true to create a new policy
         boolean algorithm = false;          //False for ValueIteration, true for Q-Learning
         boolean useCollisionStop = true;
-        int[] policy;
+        
         int iterations = 0;
         int actions = 0;
         int collisions = 0;
+        char[][] track = getTrackChoice();
         ICollisionHandler collisionHandler = getCollisionHandler();
 
-        char[][] track = getTrackChoice();
         StateIDMapper mapper = new StateIDMapper(track);
-        Simulator simulator = new Simulator(track, collisionHandler);
+        int[] policy = new int[mapper.getMaxState()+1];
+        boolean validResponse = false;
+        while (!validResponse) {
+            validResponse = true;
+            System.out.println("1.Create Policy\n2.Load policy\n3.Exit");
+            int createOrLoad = scanner.nextInt();
+            switch (createOrLoad) {
+                case 1:
+                    Simulator simulator = new Simulator(track, collisionHandler);
+                    PolicyMaker policyMaker = getPolicyMaker(mapper, track, simulator);
+                    policy = policyMaker.createPolicy();
+                    break;
+                case 2:
+                    System.out.println("Enter file name for policy:");
+                    String fileName = scanner.next();
+                    policy = FileHandler.importPolicy(fileName);
+                    break;
+                case 3:
+                    System.out.println("Exiting:");
+                    System.exit(0);
+                default:
+                    validResponse = false;
+                    System.out.println("Not valid option");
+            }
+        }
 
-        PolicyMaker policyMaker = getPolicyMaker(mapper, track, simulator);
-        policy = policyMaker.createPolicy();
-        
         System.out.println("Save Policy(y/n)?");
         String choice = scanner.next();
-        switch(choice){
+        switch (choice) {
             case "y":
                 System.out.println("Enter filename");
                 String fileName = scanner.next();
                 FileHandler.exportPolicy(policy, fileName);
-                System.out.println("Saved policy as: "+ fileName);
+                System.out.println("Saved policy as: " + fileName);
                 break;
             case "n":
                 break;
             default:
                 System.out.println("Invalid selection: not saving");
         }
-        
-        policy = FileHandler.importPolicy("policy");
-
-        iterations += policyMaker.getIterations();
-        
 
         System.out.println("Test Policy(y/n)?");
         choice = scanner.next();
-        switch(choice){
+        switch (choice) {
             case "y":
                 Tester tester = new Tester(new Simulator(track, collisionHandler), mapper, policy);
                 System.out.println("Number of collisions: " + tester.getCollisions());
@@ -53,11 +69,9 @@ public class Main {
             default:
                 System.out.println("Invalid selection: not testing");
         }
-        
+
         //actions += tester.getActions();
-
         //collisions += tester.getCollisions();
-
 //        System.out.println("");
 //
 //        System.out.println("---------------------------------------------");
