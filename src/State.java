@@ -1,5 +1,5 @@
 
-//All states should be created at the beinging of the simulation, should never be creating 'new' states
+//State holds a pair of x, y coordinates indicating a location and a pair of x,y velocity components
 public final class State {
 
     public Position position;                  //Agent's (x,y) position

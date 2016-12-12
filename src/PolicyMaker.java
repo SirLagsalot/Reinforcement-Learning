@@ -16,7 +16,8 @@ public abstract class PolicyMaker {
     public int[] createPolicy() {
         return new int[0];
     }
-    
-    public int getIterations(){return 0;}
-    
+
+    public int getIterations() {
+        return 0;
+    }
 }

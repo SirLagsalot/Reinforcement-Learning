@@ -4,27 +4,29 @@ public class Main {
     public static void main(String[] args) {
 
         boolean buildPolicy = true;        //Set me to true to create a new policy
-        boolean algorithm = true;          //False for ValueIteration, true for Q-Learning
+        boolean algorithm = false;          //False for ValueIteration, true for Q-Learning
         boolean useCollisionStop = true;
         int[] policy;
         int iterations = 0;
         int actions = 0;
         int collisions = 0;
         ICollisionHandler collisionHandler;
-        if(useCollisionStop)
+        if (useCollisionStop) {
             collisionHandler = new CollisionStop();
-        else
+        } else {
             collisionHandler = new CollisionReset();
+        }
 
-//        PolicyMaker qLearner = new QLearner(mapper, ITrack, simulator);
 //        char[][] LTrack = TrackReader.readFile("./tracks/L-track.txt");
 //        StateIDMapper mapper = new StateIDMapper(LTrack);
 //        Simulator simulator = new Simulator(LTrack, collisionHandler);
 //        PolicyMaker qLearner = new QLearner(mapper, LTrack, simulator);
+
 //        char[][] OTrack = TrackReader.readFile("./tracks/O-track.txt");
 //        StateIDMapper mapper = new StateIDMapper(OTrack);
 //        Simulator simulator = new Simulator(OTrack, collisionHandler);
 //        PolicyMaker qLearner = new QLearner(mapper, OTrack, simulator);
+
         char[][] RTrack = TrackReader.readFile("./tracks/R-track.txt");
         System.out.println("******** VALUE ITERATION TRIALS ON R TRACK, COLLISION RESET ********");
         System.out.println("");

@@ -33,28 +33,25 @@ public class ValueIteration extends PolicyMaker {
         double bellmanResidual = epsilon * (1 - gamma) / gamma;
         double[] vK = new double[this.idMap.getMaxState() + 1];
         DecimalFormat df = new DecimalFormat("0.0000");
-        //System.out.println("Bellman Residual: " + bellmanResidual);
 
         while (true) {
 
             numIterations++;
             boolean allvkPass = true;
             double[] oldVK = vK;
-            //System.out.println("Computing new Vk[] for all states\n");
+            System.out.println("Computing new Vk[] for all states\n");
             double[] newVK = iterate(vK);
             vK = newVK;
 
-            //System.out.println("Comparing new Vk[] to old Vk");
             for (int i = 0; i < vK.length; i++) {
-                if (Math.abs(newVK[i] - oldVK[i]) >= epsilon) {
-                    //System.out.println("Iteration " + numIterations + ": Delta(Vk) for stateID " + i + ": " + df.format(Math.abs(newVK[i] - oldVK[i])) + " is > residual (" + bellmanResidual + ")");
+                if (Math.abs(newVK[i] - oldVK[i]) >= bellmanResidual) {
+                    System.out.println("Iteration " + numIterations + ": Delta(Vk) for stateID " + i + ": " + df.format(Math.abs(newVK[i] - oldVK[i])) + " is > residual (" + bellmanResidual + ")");
                     allvkPass = false;
-                    //System.out.println("Continuing to next iteration.\n");
                     break;
                 }
             }
             if (allvkPass) {
-                //System.out.println("ALL Vk < BELLMAN RESIDUAL");
+                System.out.println("ALL Vk < BELLMAN RESIDUAL");
                 break;
             }
         }
@@ -93,6 +90,7 @@ public class ValueIteration extends PolicyMaker {
             }
             actionValue += 0.2 * (failActionReward + (eta * vK[idMap.getStateIDFromState(failActionState)]));
             actionValue += 0.8 * (succActionReward + (eta * vK[idMap.getStateIDFromState(succActionState)]));
+            
             //if it's better than the current best, update the current best
             if (actionValue > bestResult) {
                 bestResult = actionValue;
@@ -105,7 +103,6 @@ public class ValueIteration extends PolicyMaker {
     private int[] getBestActions(double[] vK) {
 
         int[] policy = new int[vK.length];
-        //System.out.println("Comupting best action for each state.");
         for (int stateID = 0; stateID < vK.length; stateID++) {
 
             double bestResult = -99999;
@@ -133,7 +130,7 @@ public class ValueIteration extends PolicyMaker {
             }
             policy[stateID] = bestAction;
         }
-        //System.out.println("Done building Value Iteration Policy after " + numIterations + " iterations!\n\n");
+        System.out.println("Done building Value Iteration Policy after " + numIterations + " iterations!\n\n");
         return policy;
     }
     

@@ -22,11 +22,13 @@ public class Action {
     public final int x;
     public final int y;
 
+    //Create an action given a single integer representation
     public Action(int action) {
         x = ((int) (action / 3)) - 1;
         y = (action % 3) - 1;
     }
 
+    //Create an action from acceleration components
     public Action(int Ax, int Ay) {
 
         assert (Ax >= -1 && Ax <= 1) : "Invalid X acceleration.";

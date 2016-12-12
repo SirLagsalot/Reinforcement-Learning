@@ -16,7 +16,7 @@ public class StateIDMapper {
                     StateInfo info = new StateInfo();
                     if (curPosIdentifier == 'S') {
                         info.isStart = true;
-                    } else if (curPosIdentifier == 'F') { //final positions only have 0 velocity state
+                    } else if (curPosIdentifier == 'F') {       //final positions only have 0 velocity state
                         info.isFinal = true;
                         info.stateID = startingStateID;
                         info.maxVelocityX = 0;
@@ -71,7 +71,7 @@ public class StateIDMapper {
                 if (!isMax) {
                     a = -a;
                 }
-                for (int prime = - 5; prime < 5 + 1; prime++) {//TODO fix this stuff
+                for (int prime = - 5; prime < 5 + 1; prime++) {
                     if (posX + prime >= track[0].length || posX + prime < 0) {
                         if (prime == 5) {
                             return a;
@@ -109,7 +109,7 @@ public class StateIDMapper {
     //and finding the x/y velocities needed to go from the stateInfo's 
     //starting stateID to the given stateID
     public State GetStateFromID(int stateID) {
-        
+
         State state = new State();
         StateInfo info = getStateInfoFromID(stateID);
         state.position = info.position;

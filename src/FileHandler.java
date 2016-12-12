@@ -7,7 +7,8 @@ import java.util.List;
 
 public class FileHandler {
 
-    public static void exportPolicy(int[] policy, String fileName) {    //of format StateID, action \n
+    //Write provided policy to a text file
+    public static void exportPolicy(int[] policy, String fileName) {
 
         List<String> lines = new ArrayList<>();
         for (int i = 0; i < policy.length; i++) {
@@ -20,6 +21,7 @@ public class FileHandler {
         }
     }
 
+    //Read the provided file name for a policy
     public static int[] importPolicy(String fileName) {
 
         try {

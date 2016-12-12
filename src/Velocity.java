@@ -40,14 +40,13 @@ public final class Velocity {
 
             return true;
         } else {
-//            System.out.println("fuck accelerating");
+            return false;
         }
-        return false;
     }
 
     //Accelerates this velocity, for use when computing an expected new state
     public void changeVelocity(Action acceleration) {
-        
+
         if (this.x + acceleration.x > 5) {
             this.x = 5;
         } else if (this.x + acceleration.x < -5) {
