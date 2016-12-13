@@ -36,6 +36,7 @@ public class Softmax {
         return -2;
     }
 
+    //Sets the tempureture, 1 is normal, < 1 is greedy, > 1 is more exploratory
     public static void setTemp(double temp) {
         temperature = temp;
     }

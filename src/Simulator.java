@@ -9,15 +9,17 @@ public class Simulator {
 
     public Simulator(char[][] track, ICollisionHandler collisionHandler) {
 
-        startState = getStartState(track);//this just gets the first start state possible, whatever.
+        startState = getStartState(track);//this  gets the first start state possible
         this.collisionHandler = collisionHandler;
         this.track = track;
     }
     
+    //Sets the start state, only used by collision reset
     public void setStartState(State state){
         startState = new State(state.position, state.velocity);
     }
     
+    //Returns the first available start state, this is what we train on
     private State getStartState(char[][] track) {
 
         for (int row = 0; row < track.length; row++) {
@@ -30,13 +32,14 @@ public class Simulator {
         return new State();
     }
 
+    //Performs an action with no chance of failure
     public State takeActionDetermisistic(State state, Action action) {
-
         state.velocity.changeVelocity(action);
         currentState = traverse(state);
         return currentState;
     }
 
+    //Performs an action with 20% chance of failure
     public State takeAction(State state, Action action) {
 
         state.velocity.accelerate(action);

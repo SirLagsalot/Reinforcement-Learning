@@ -28,6 +28,7 @@ public class ValueIteration extends PolicyMaker {
         }
     }
 
+    //Creates a policy which has an error of less than epsilon.
     @Override
     public int[] createPolicy() {
 

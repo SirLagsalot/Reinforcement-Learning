@@ -6,10 +6,8 @@ public class QLearner extends PolicyMaker {
 
     private final double discountFactor = 0.98;
     private final double endEta = 0.8;
-    private final double endLiklihoodToExplore = 0.05;
 
     private double eta = 0.9;
-    private double liklihoodToExplore = 1.5;
     private int numEpisodes;
     private int episodes = 0;
     private int iterations = 0;
@@ -20,6 +18,7 @@ public class QLearner extends PolicyMaker {
         this.numEpisodes = numIterations;
     }
 
+    //Returns a trained policy for the racetrack problem
     @Override
     public int[] createPolicy() {
 
@@ -31,8 +30,8 @@ public class QLearner extends PolicyMaker {
         return policy;
     }
 
+    //Returns every state along the starting line.
     private ArrayList<State> getStartingStates() {
-
         ArrayList<State> startLine = new ArrayList<>();
         for (int i = 0; i < simulator.track.length; i++) {
             for (int j = 0; j < simulator.track[i].length; j++) {
@@ -44,14 +43,16 @@ public class QLearner extends PolicyMaker {
         return startLine;
     }
 
+    //Creates q[stateID][action] values which are 
+    //refined over the input number of episodes
+    //An equal number of episodes are trained from 
+    //each valid starting state
     private void learnQ() {
-
         int currentStateID;
         ArrayList<State> startingStates = getStartingStates();
         int totalEpisodes = numEpisodes;
         double etaKneelingFactor = Math.pow(endEta / eta, 1 / (double) totalEpisodes);
         Softmax.setTemp(1);
-        double exploreToGreedyKneelingFactor = Math.pow(endLiklihoodToExplore / liklihoodToExplore, 1 / (double) totalEpisodes);
 
         int episodesPerStartState = totalEpisodes / startingStates.size();
         episodes = episodesPerStartState;
@@ -64,7 +65,6 @@ public class QLearner extends PolicyMaker {
                 System.out.println("EXECUTING EPISODE " + i + " OF START " + startStateIndex);
                 int episodeActions = 0;
                 currentStateID = idMap.getStateIDFromState(startingStates.get(startStateIndex));
-//                System.out.println("Initial stateID:" + currentStateID);
                 while (true) {
                     episodeActions++;
                     iterations++;
@@ -81,14 +81,12 @@ public class QLearner extends PolicyMaker {
                     int nextBestAction = maxA(newStateID);
                     q[currentStateID][action] = q[currentStateID][action] + (eta * (reward + (discountFactor * q[newStateID][nextBestAction]) - q[currentStateID][action]));
                     currentStateID = newStateID;
-//                    System.out.println("\tNext stateID: " + currentStateID);
                     if (resultInfo.isFinal) {
                         System.out.println("Hit finish line after "+episodeActions+" actions, episode complete");
                         break;
                     }
                 }
                 this.eta *= etaKneelingFactor;
-                this.liklihoodToExplore *= exploreToGreedyKneelingFactor;
             }
         }
         System.out.println("Finished Q-Learning");
