@@ -31,7 +31,7 @@ public class Tester {
         //Randomly select a starting position
         Random random = new Random();
         State currentState = new State(startLine.remove(random.nextInt(startLine.size())), new Velocity(0, 0));
-
+        simulator.setStartState(currentState);
         while (true) {
             if (currentState.finish) {
                 break;

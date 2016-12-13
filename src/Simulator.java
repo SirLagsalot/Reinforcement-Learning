@@ -13,7 +13,11 @@ public class Simulator {
         this.collisionHandler = collisionHandler;
         this.track = track;
     }
-
+    
+    public void setStartState(State state){
+        startState = new State(state.position, state.velocity);
+    }
+    
     private State getStartState(char[][] track) {
 
         for (int row = 0; row < track.length; row++) {
