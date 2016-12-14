@@ -9,8 +9,8 @@ public class ValueIteration extends PolicyMaker {
 
     private int numIterations;                              //count of iterations required to build policy
 
-    public ValueIteration(StateIDMapper map, char[][] track, Simulator sim, double epsilon) {
-        super(map, track, sim);
+    public ValueIteration(StateIDMapper map, Simulator sim, double epsilon) {
+        super(map, null, sim);
         this.epsilon = epsilon;
         init();
     }

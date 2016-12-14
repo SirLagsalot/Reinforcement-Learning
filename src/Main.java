@@ -133,7 +133,7 @@ public class Main {
                 case 2:
                     System.out.println("Enter the stopping threshhold(between 0 and 1, closer to 0 for more accuracy):");
                     double stoppingThreshold = in.nextDouble();
-                    return new ValueIteration(map, track, simulator, stoppingThreshold);
+                    return new ValueIteration(map, simulator, stoppingThreshold);
                 default:
                     System.out.println("Invalid entry\n");
             }
