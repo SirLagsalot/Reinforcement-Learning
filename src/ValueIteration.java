@@ -4,9 +4,8 @@ import java.util.Random;
 
 public class ValueIteration extends PolicyMaker {
 
-    private double epsilon;    //stopping threshold
-    private final double gamma = 0.5;                       //discount factor 
-    private final double eta = 0.9;
+    private final double epsilon;       //stopping threshold
+    private final double gamma = 0.75;   //discount factor 
 
     private int numIterations;                              //count of iterations required to build policy
 
@@ -57,7 +56,7 @@ public class ValueIteration extends PolicyMaker {
                 break;
             }
         }
-        System.out.println("\nNumber of iterations: " + numIterations+"\n");
+        System.out.println("\nNumber of iterations: " + numIterations + "\n");
         return getBestActions(vK);
     }
 
@@ -91,9 +90,9 @@ public class ValueIteration extends PolicyMaker {
             if (failActionState.finish == true) {
                 failActionReward = 0;
             }
-            actionValue += 0.2 * (failActionReward + (eta * vK[idMap.getStateIDFromState(failActionState)]));
-            actionValue += 0.8 * (succActionReward + (eta * vK[idMap.getStateIDFromState(succActionState)]));
-            
+            actionValue += 0.2 * (failActionReward + (gamma * vK[idMap.getStateIDFromState(failActionState)]));
+            actionValue += 0.8 * (succActionReward + (gamma * vK[idMap.getStateIDFromState(succActionState)]));
+
             //if it's better than the current best, update the current best
             if (actionValue > bestResult) {
                 bestResult = actionValue;
@@ -124,8 +123,8 @@ public class ValueIteration extends PolicyMaker {
                 if (failActionState.finish == true) {
                     failActionReward = 0;
                 }
-                actionValue += 0.2 * (failActionReward + (eta * vK[idMap.getStateIDFromState(failActionState)]));
-                actionValue += 0.8 * (succActionReward + (eta * vK[idMap.getStateIDFromState(succActionState)]));
+                actionValue += 0.2 * (failActionReward + (gamma * vK[idMap.getStateIDFromState(failActionState)]));
+                actionValue += 0.8 * (succActionReward + (gamma * vK[idMap.getStateIDFromState(succActionState)]));
                 if (actionValue > bestResult) {
                     bestResult = actionValue;
                     bestAction = i;
@@ -136,9 +135,9 @@ public class ValueIteration extends PolicyMaker {
         System.out.println("Done building Value Iteration Policy after " + numIterations + " iterations!\n\n");
         return policy;
     }
-    
+
     @Override
-    public int getIterations(){
+    public int getIterations() {
         return numIterations;
     }
 }
